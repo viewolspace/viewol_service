@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RecommendSchedule">
+<insert id="insert" parameterType="RecommendSchedule" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <selectKey keyProperty="id" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+INSERT INTO recommend_schedule
+	(
+	schedule_id,
+	TYPE,
+	c_time,
+	s_time,
+	e_time
+	)
+	VALUES
+	(
+	#{scheduleId},
+	#{type},
+	#{cTime},
+	#{sTime},
+	#{eTime}
+	)
+
+
+</insert>
+	<delete id="delete" parameterType="int">
+		delete from recommend_schedule where id = #{id}
+	</delete>
+
+	
+</mapper>

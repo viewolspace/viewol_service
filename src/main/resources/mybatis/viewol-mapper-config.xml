@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="logPrefix" value="database.game" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<typeAliases>
+	    <typeAlias alias="Category" type="com.viewol.pojo.Category"/>
+		<typeAlias alias="Schedule" type="com.viewol.pojo.Schedule"/>
+		<typeAlias alias="RecommendSchedule" type="com.viewol.pojo.RecommendSchedule"/>
+		<typeAlias alias="Category" type="com.viewol.pojo.Category"/>
+		<typeAlias alias="CategorySeq" type="com.viewol.pojo.CategorySeq"/>
+
+	</typeAliases>
+	<plugins>
+		<plugin interceptor="com.youguu.core.dao.StatementInterceptor" />
+		<plugin interceptor="com.youguu.core.dao.ResultSetInterceptor" />
+	</plugins>
+
+	<mappers>
+	  <!--<mapper resource="mybatis/category_sqlmap.xml" />-->
+		<mapper resource="mybatis/schedule_sqlmap.xml" />
+		<mapper resource="mybatis/recommendSchedule_sqlmap.xml" />
+		<mapper resource="mybatis/categorySeq_sqlmap.xml" />
+		<mapper resource="mybatis/category_sqlmap.xml" />
+
+	</mappers>
+	
+</configuration>

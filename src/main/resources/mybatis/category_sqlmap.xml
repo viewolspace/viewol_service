@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Category">
+	<sql id="selectCommon">
+		SELECT 	a.id,
+			a.parent_id,
+			a.TYPE,
+			a.num,
+			a.logo,
+			a.NAME,
+			a.c_time
+	</sql>
+
+
+	<insert id="insert" parameterType="Category">
+
+
+			INSERT INTO viewol.category
+				(id,
+				parent_id,
+				TYPE,
+				num,
+				logo,
+				NAME,
+				c_time
+				)
+				VALUES
+				(#{id},
+				#{parentId},
+				#{type},
+				#{num},
+				#{logo},
+				#{name},
+				#{cTime}
+				)
+
+	</insert>
+
+	<select id="select"  parameterType="string" resultType="Category">
+
+			<include refid="selectCommon"/>
+
+			FROM
+			viewol.category a  where id = #{id}
+
+	</select>
+
+	<update id="update" parameterType="string">
+
+
+			UPDATE viewol.category
+				SET
+				parent_id = #{parentId} ,
+				TYPE = #{type} ,
+				num = #{num} ,
+				logo = #{logo} ,
+				NAME = #{name}
+
+				WHERE
+				id = #{id} ;
+
+
+	</update>
+
+	<delete id="delete" parameterType="string">
+		delete from viewol.category WHERE
+				id = #{id} ;
+	</delete>
+
+
+	<select id="queryByParent" parameterType="map" resultType="Category">
+		<include refid="selectCommon"/>
+		from viewol.category a where parent_id=#{parentId} order by num , id
+	</select>
+
+	<select id="queryAll" parameterType="map" resultType="Category">
+
+		<include refid="selectCommon"/>
+
+		from viewol.category a where parent_id LIKE concat(concat(#{parentId}),'%') order by id,num
+
+	</select>
+
+</mapper>

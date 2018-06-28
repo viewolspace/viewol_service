@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Schedule">
+	<sql id="selectCommon">
+		select  a.id,
+				a.company_id,
+				a.TYPE,
+				a.company_name,
+				a.title,
+				a.c_time,
+				a.STATUS,
+				a.s_time,
+				a.e_time,
+				a.content,
+				a.place
+	</sql>
+
+	<select id="select"  parameterType="int">
+		<include refid="selectCommon" />
+		 from schedule a where id = #{id}
+	</select>
+
+<insert id="insert" parameterType="Schedule" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <selectKey keyProperty="id" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+INSERT INTO schedule
+	(
+	company_id,
+	TYPE,
+	company_name,
+	title,
+	c_time,
+	STATUS,
+	s_time,
+	e_time,
+	content,
+	place
+	)
+	VALUES
+	(
+	#{companyId},
+	#{type},
+	#{companyName},
+	#{title},
+	#{cTime},
+	#{status},
+	#{sTime},
+	#{eTime},
+	#{content},
+	#{place}
+	)
+
+
+</insert>
+
+
+	<update id="update" parameterType="Schedule">
+		UPDATE schedule
+			SET
+			company_id = #{companyId} ,
+			TYPE = #{type} ,
+			company_name = #{companyName} ,
+			title = #{title} ,
+			STATUS = #{status} ,
+			s_time = #{sTime} ,
+			e_time = #{eTime} ,
+			content = #{content} ,
+			place = #{place}
+
+			WHERE
+			id = #{id}
+	</update>
+
+
+	<update id="updateStatus" parameterType="map">
+		UPDATE schedule
+		SET
+		STATUS = #{status}
+		WHERE
+		id = #{id}
+	</update>
+
+
+	<!--管理平台查询全部活动的接口-->
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM schedule a
+		<where>
+			<if test="companyId != null and companyId !=0">
+				AND company_id=#{companyId}
+			</if>
+			<if test="time != null">
+				<![CDATA[
+					AND s_time <= #{time} and e_time >=#{time}
+					]]>
+			</if>
+			<if test="type != null">
+				AND type=#{type}
+			</if>
+			<if test="status != null">
+				AND status=#{status}
+			</if>
+			<if test="keyword != null">
+				AND (company_name LIKE concat(concat('%',#{keyword}),'%') or title  LIKE concat(concat('%',#{keyword}),'%') )
+			</if>
+		</where>
+	</sql>
+	<sql id="sql_order">
+		order by s_time
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Schedule">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
+
+	<!--管理平台查询全部推荐和置顶的活动-->
+	<sql id="sql_field">
+		, b.type as vType
+	</sql>
+	<sql id="sql_recommen_where">
+		 FROM schedule a ,recommend_schedule b
+		<where>
+			<if test="type != null">
+				AND b.type=#{type}
+			</if>
+			<if test="time != null">
+				<![CDATA[
+						AND b.s_time <= #{time} and b.e_time >=#{time}
+				]]>
+			</if>
+		</where>
+	</sql>
+
+	<sql id="sql_recommen_order">
+		order by s_time
+	</sql>
+
+
+	<select id="findRecommen_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_recommen_where" />
+	</select>
+
+	<select id="findRecommen" parameterType="java.util.HashMap" resultType="Schedule">
+		<include refid="selectCommon" />
+		<include refid="sql_field"/>
+		<include refid="sql_recommen_where" />
+		<include refid="sql_recommen_order" />
+	</select>
+</mapper>

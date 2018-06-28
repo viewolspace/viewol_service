@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CategorySeq">
+	<insert id="insert" parameterType="CategorySeq">
+
+		INSERT INTO viewol.category_seq
+			(parent_id,
+			seq,
+			c_time,
+			m_time
+			)
+			VALUES
+			(#{parentId},
+			#{seq},
+			#{cTime},
+			#{mTime}
+			)
+	</insert>
+
+	<select id="select"  parameterType="string" resultType="CategorySeq">
+		select parent_id,
+			seq,
+			c_time,
+			m_time from viewol.category_seq where parent_id=#{parentId}
+	</select>
+
+	<update id="updateSeq" parameterType="string">
+		update viewol.category_seq set seq=seq+1,m_time=#{mTime} where parent_id=#{parentId}
+	</update>
+
+</mapper>
