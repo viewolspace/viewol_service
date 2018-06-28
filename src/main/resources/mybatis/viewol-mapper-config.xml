@@ -18,6 +18,7 @@
 		<typeAlias alias="RecommendSchedule" type="com.viewol.pojo.RecommendSchedule"/>
 		<typeAlias alias="Category" type="com.viewol.pojo.Category"/>
 		<typeAlias alias="CategorySeq" type="com.viewol.pojo.CategorySeq"/>
+		<typeAlias alias="CompanyCategory" type="com.viewol.pojo.CompanyCategory"/>
 
 	</typeAliases>
 	<plugins>
@@ -31,6 +32,7 @@
 		<mapper resource="mybatis/recommendSchedule_sqlmap.xml" />
 		<mapper resource="mybatis/categorySeq_sqlmap.xml" />
 		<mapper resource="mybatis/category_sqlmap.xml" />
+		<mapper resource="mybatis/companyCategory_sqlmap.xml" />
 
 	</mappers>
 	

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CompanyCategory">
+	<sql id="selectCommon">
+		SELECT 	a.id,
+				a.company_id,
+				a.category_id,
+				a.c_time
+	</sql>
+
+	<insert id="batchInsert" parameterType="list">
+
+		INSERT INTO viewol.company_category
+			(
+			company_id,
+			category_id,
+			c_time
+			) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.companyId},#{item.categoryId},#{item.cTime}
+			)
+		</foreach>
+	</insert>
+
+
+	<delete id="delete" parameterType="int">
+		delete from viewol.company_category where id = #{id}
+	</delete>
+
+	<delete id="deleteAllCom" parameterType="int">
+		delete from viewol.company_category where company_id = #{companyId}
+	</delete>
+
+
+	<select id="selectByCom" parameterType="int" resultType="CompanyCategory">
+		<include refid="selectCommon"></include>
+		from  viewol.company_category a where company_id = #{companyId} order by category_id
+	</select>
+</mapper>

@@ -21,6 +21,8 @@ public class Company {
     private  String  placeSvg;
     private  Integer  productNum; //数量
     private  Integer  canApply; //1 允许申请活动  0 不允许
+    private Integer isRecommend; //0 非推荐  1 推荐
+    private Integer recommendNum; //推荐的顺序号
     private  Date  cTime;
     private  Date  mTime;
 
@@ -111,5 +113,29 @@ public class Company {
 
     public void setmTime(Date mTime) {
         this.mTime = mTime;
+    }
+
+    public void setProductNum(Integer productNum) {
+        this.productNum = productNum;
+    }
+
+    public void setCanApply(Integer canApply) {
+        this.canApply = canApply;
+    }
+
+    public Integer getIsRecommend() {
+        return isRecommend;
+    }
+
+    public void setIsRecommend(Integer isRecommend) {
+        this.isRecommend = isRecommend;
+    }
+
+    public Integer getRecommendNum() {
+        return recommendNum;
+    }
+
+    public void setRecommendNum(Integer recommendNum) {
+        this.recommendNum = recommendNum;
     }
 }
