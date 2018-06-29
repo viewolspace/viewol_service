@@ -3,29 +3,30 @@ package com.viewol.pojo;
 import java.util.Date;
 
 /**
- * Created by lenovo on 2018/6/27.
- * 展商
+ * Created by lenovo on 2018/6/29.
  */
 public class Company {
 
     public static final int CANAPPLY_YES = 1;
-
     public static final int CANAPPLY_NO = 0;
 
-    private  Integer id;
-    private  String  name;
-    private  String  logo;
-    private  String  banner; //形象图 通栏banner
-    private  String  image; //推荐位的展示图 和查询列表的展示图
-    private  String  place; //展馆的位置
-    private  String  placeSvg;
-    private  Integer  productNum; //数量
-    private  Integer  canApply; //1 允许申请活动  0 不允许
-    private Integer isRecommend; //0 非推荐  1 推荐
-    private Integer recommendNum; //推荐的顺序号
-    private  Date  cTime;
-    private  Date  mTime;
+    public static final int ISRECOMMEND_YES = 1;
+    public static final int ISRECOMMEND_NO = 0;
 
+    private Integer id;
+    private String  name;
+    private String  logo;
+    private String  banner; //形象图
+    private String  image;  //列表图
+    private String  place;  //展馆的位置
+    private String  placeSvg;
+    private Integer  productNum;
+    private Integer  canApply; //1 允许申请活动  0 不允许
+    private Integer  isRecommend; //是否推荐展商 1 推荐 0 非推荐
+    private Integer  recommendNum; //推荐位置
+    private String  content ;
+    private Date  cTime;
+    private Date mTime;
 
     public Integer getId() {
         return id;
@@ -83,40 +84,16 @@ public class Company {
         this.placeSvg = placeSvg;
     }
 
-    public int getProductNum() {
+    public Integer getProductNum() {
         return productNum;
-    }
-
-    public void setProductNum(int productNum) {
-        this.productNum = productNum;
-    }
-
-    public int getCanApply() {
-        return canApply;
-    }
-
-    public void setCanApply(int canApply) {
-        this.canApply = canApply;
-    }
-
-    public Date getcTime() {
-        return cTime;
-    }
-
-    public void setcTime(Date cTime) {
-        this.cTime = cTime;
-    }
-
-    public Date getmTime() {
-        return mTime;
-    }
-
-    public void setmTime(Date mTime) {
-        this.mTime = mTime;
     }
 
     public void setProductNum(Integer productNum) {
         this.productNum = productNum;
+    }
+
+    public Integer getCanApply() {
+        return canApply;
     }
 
     public void setCanApply(Integer canApply) {
@@ -137,5 +114,49 @@ public class Company {
 
     public void setRecommendNum(Integer recommendNum) {
         this.recommendNum = recommendNum;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getcTime() {
+        return cTime;
+    }
+
+    public void setcTime(Date cTime) {
+        this.cTime = cTime;
+    }
+
+    public Date getmTime() {
+        return mTime;
+    }
+
+    public void setmTime(Date mTime) {
+        this.mTime = mTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", logo='" + logo + '\'' +
+                ", banner='" + banner + '\'' +
+                ", image='" + image + '\'' +
+                ", place='" + place + '\'' +
+                ", placeSvg='" + placeSvg + '\'' +
+                ", productNum=" + productNum +
+                ", canApply=" + canApply +
+                ", isRecommend=" + isRecommend +
+                ", recommendNum=" + recommendNum +
+                ", content='" + content + '\'' +
+                ", cTime=" + cTime +
+                ", mTime=" + mTime +
+                '}';
     }
 }

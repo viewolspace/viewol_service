@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Company">
+	<sql id="selectCommon">
+		SELECT 	a.id,
+				a.NAME,
+				a.logo,
+				a.banner,
+				a.image,
+				a.place,
+				a.place_svg,
+				a.product_num,
+				a.can_apply,
+				a.is_recommend,
+				a.recommend_num,
+				a.c_time,
+				a.m_time
+	</sql>
+	<select id="select" parameterType="int" resultType="Company">
+		<include refid="selectCommon"/>
+		,a.content
+		from viewol.company a where id = #{id}
+	</select>
+	<insert id="insert" parameterType="Company"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO viewol.company
+						(
+						NAME,
+						logo,
+						banner,
+						image,
+						place,
+						place_svg,
+						product_num,
+						can_apply,
+						is_recommend,
+						recommend_num,
+						content,
+						c_time,
+						m_time
+						)
+						VALUES
+						(
+						#{name},
+						#{logo},
+						#{banner},
+						#{image},
+						#{place},
+						#{placeSvg},
+						#{productNum},
+						#{canApply},
+						#{isRecommend},
+						#{recommendNum},
+						#{content},
+						#{cTime},
+						#{mTime}
+						)
+
+	</insert>
+
+
+	<update id="update" parameterType="Company">
+		UPDATE viewol.company
+				SET
+				NAME = #{name},
+				logo = #{logo},
+				banner = #{banner},
+				image = #{image},
+				place = #{place},
+				place_svg = #{placeSvg},
+				product_num = #{productNum},
+				can_apply = #{canApply},
+				is_recommend = #{isRecommend},
+				recommend_num = #{recommendNum},
+				content = #{content},
+				c_time = #{cTime},
+				m_time = #{mTime}
+
+				WHERE
+				id = #{id}
+	</update>
+	<update id="updateRecommend" parameterType="map">
+		UPDATE  company set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
+	</update>
+
+	<select id="queryRecommentCompany" resultType="Company">
+		<include refid="selectCommon"></include>
+		from company a where is_recommend=1 order by recommend_num
+	</select>
+
+	<!--管理平台使用查询展商-->
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM company a ,
+		( SELECT  company_id  FROM company_category
+		<where>
+			<if test="categoryId != null">
+				AND category_id LIKE concat(concat(#{categoryId}),'%')
+			</if>
+		</where>
+		GROUP BY company_id) b
+		<where>
+			a.id=b.company_id
+			<if test="name != null">
+				AND name LIKE concat(concat('%',#{name}),'%')
+			</if>
+		</where>
+
+	</sql>
+
+	<sql id="sql_order">
+		order by a.id desc
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Schedule">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
+</mapper>
