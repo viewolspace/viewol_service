@@ -33,6 +33,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     @Override
     public int updateCompany(Company company) {
+        company.setmTime(new Date());
         return super.update(company);
     }
 

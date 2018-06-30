@@ -1,4 +1,4 @@
-package com.viewol.dao;
+package com.viewol.service;
 
 import com.viewol.pojo.Product;
 import com.viewol.pojo.query.ProductQuery;
@@ -7,9 +7,9 @@ import com.youguu.core.util.PageHolder;
 import java.util.List;
 
 /**
- * Created by lenovo on 2018/6/29.
+ * Created by lenovo on 2018/6/30.
  */
-public interface IProductDAO {
+public interface IProductService {
 
     int addProduct(Product product);
 
@@ -31,6 +31,4 @@ public interface IProductDAO {
 
     //查询推荐产品
     List<Product> queryRecommentProduct();
-
-
 }

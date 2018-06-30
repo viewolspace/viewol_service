@@ -75,7 +75,6 @@
 				is_recommend = #{isRecommend},
 				recommend_num = #{recommendNum},
 				content = #{content},
-				c_time = #{cTime},
 				m_time = #{mTime}
 
 				WHERE
@@ -121,7 +120,7 @@
 		<include refid="sql_count" />
 		<include refid="sql_where" />
 	</select>
-	<select id="findByParams" parameterType="java.util.HashMap" resultType="Schedule">
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Product">
 		<include refid="selectCommon" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Product">
+	<sql id="selectCommon">
+		SELECT 	a.id,
+				a.company_id,
+				a.category_id,
+				a.STATUS,
+				a.NAME,
+				a.image,
+				a.pdf_url,
+				a.pdf_name,
+				a.is_recommend,
+				a.recommend_num,
+				a.c_time,
+				a.m_time
+	</sql>
+	<select id="select" parameterType="int" resultType="Company">
+		<include refid="selectCommon"/>
+		,a.content
+		from viewol.product a where id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="Company"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+			INSERT INTO viewol.product
+									(
+									company_id,
+									category_id,
+									STATUS,
+									NAME,
+									image,
+									content,
+									pdf_url,
+									pdf_name,
+									is_recommend,
+									recommend_num,
+									c_time,
+									m_time
+									)
+									VALUES
+									(
+									#{companyId},
+									#{categoryId},
+									#{status},
+									#{name},
+									#{image},
+									#{content},
+									#{pdfUrl},
+									#{pdfName},
+									#{isRecommend},
+									#{recommendNum},
+									#{cTime},
+									#{mTime}
+									)
+
+	</insert>
+
+
+	<update id="update" parameterType="Company">
+
+			UPDATE viewol.product
+						SET
+
+						company_id = #{companyId} ,
+						category_id = #{categoryId} ,
+						STATUS = #{status} ,
+						NAME = #{name} ,
+						image = #{image} ,
+						content = #{content} ,
+						pdf_url = #{pdfUrl} ,
+						pdf_name = #{pdfName} ,
+						is_recommend = #{isRecommend} ,
+						recommend_num = #{recommendNum} ,
+						m_time = #{mTime}
+
+						WHERE
+						id = #{id}
+	</update>
+	<update id="updateRecommend" parameterType="map">
+		UPDATE  product set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
+	</update>
+
+	<update id="updateStatus" parameterType="map">
+		UPDATE  product set  status = #{status}   where id = #{id}
+	</update>
+
+	<select id="queryRecommentCompany" resultType="Company">
+		<include refid="selectCommon"></include>
+		from product a where is_recommend=1 order by recommend_num
+	</select>
+
+	<delete id="delete" parameterType="int">
+		delete from product where id = #{id}
+	</delete>
+
+	<!--管理平台使用查询展商-->
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM product a
+		<where>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+
+			<if test="companyId != null">
+				and company_id = #{companyId}
+			</if>
+
+			<if test="categoryId != null">
+				and category_id = #{categoryId}
+			</if>
+
+			<if test="name != null">
+				AND name LIKE concat(concat('%',#{name}),'%')
+			</if>
+		</where>
+
+	</sql>
+
+	<sql id="sql_order">
+		order by a.id desc
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Product">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
+</mapper>

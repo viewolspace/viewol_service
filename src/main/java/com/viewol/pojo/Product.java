@@ -11,18 +11,18 @@ public class Product {
     public static final int STATUS_OFF = 1 ; //下架
 
     private Integer id;
-    private Integer company_id;
-    private String category_id;
+    private Integer companyId;
+    private String categoryId;
     private Integer status; //0 上架  1 下架
     private String name;
     private String image;
     private String content;
-    private String pdf_url;
-    private String pdf_name;
-    private Integer is_recommend;
-    private Integer recommend_num;
-    private Date c_time;
-    private Date m_time;
+    private String pdfUrl;
+    private String pdfName;
+    private Integer isRecommend;
+    private Integer recommendNum;
+    private Date cTime;
+    private Date mTime;
 
     public Integer getId() {
         return id;
@@ -32,20 +32,20 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getCompany_id() {
-        return company_id;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany_id(Integer company_id) {
-        this.company_id = company_id;
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
-    public String getCategory_id() {
-        return category_id;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(String category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Integer getStatus() {
@@ -80,51 +80,70 @@ public class Product {
         this.content = content;
     }
 
-    public String getPdf_url() {
-        return pdf_url;
+    public String getPdfUrl() {
+        return pdfUrl;
     }
 
-    public void setPdf_url(String pdf_url) {
-        this.pdf_url = pdf_url;
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
     }
 
-    public String getPdf_name() {
-        return pdf_name;
+    public String getPdfName() {
+        return pdfName;
     }
 
-    public void setPdf_name(String pdf_name) {
-        this.pdf_name = pdf_name;
+    public void setPdfName(String pdfName) {
+        this.pdfName = pdfName;
     }
 
-    public Integer getIs_recommend() {
-        return is_recommend;
+    public Integer getIsRecommend() {
+        return isRecommend;
     }
 
-    public void setIs_recommend(Integer is_recommend) {
-        this.is_recommend = is_recommend;
+    public void setIsRecommend(Integer isRecommend) {
+        this.isRecommend = isRecommend;
     }
 
-    public Integer getRecommend_num() {
-        return recommend_num;
+    public Integer getRecommendNum() {
+        return recommendNum;
     }
 
-    public void setRecommend_num(Integer recommend_num) {
-        this.recommend_num = recommend_num;
+    public void setRecommendNum(Integer recommendNum) {
+        this.recommendNum = recommendNum;
     }
 
-    public Date getC_time() {
-        return c_time;
+    public Date getcTime() {
+        return cTime;
     }
 
-    public void setC_time(Date c_time) {
-        this.c_time = c_time;
+    public void setcTime(Date cTime) {
+        this.cTime = cTime;
     }
 
-    public Date getM_time() {
-        return m_time;
+    public Date getmTime() {
+        return mTime;
     }
 
-    public void setM_time(Date m_time) {
-        this.m_time = m_time;
+    public void setmTime(Date mTime) {
+        this.mTime = mTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", companyId=" + companyId +
+                ", categoryId='" + categoryId + '\'' +
+                ", status=" + status +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", content='" + content + '\'' +
+                ", pdfUrl='" + pdfUrl + '\'' +
+                ", pdfName='" + pdfName + '\'' +
+                ", isRecommend=" + isRecommend +
+                ", recommendNum=" + recommendNum +
+                ", cTime=" + cTime +
+                ", mTime=" + mTime +
+                '}';
     }
 }
