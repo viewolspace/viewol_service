@@ -4,6 +4,7 @@
 	<sql id="selectCommon">
 		SELECT 	a.id,
 				a.NAME,
+				a.short_name,
 				a.logo,
 				a.banner,
 				a.image,
@@ -28,6 +29,7 @@
 		INSERT INTO viewol.company
 						(
 						NAME,
+						short_name,
 						logo,
 						banner,
 						image,
@@ -44,6 +46,7 @@
 						VALUES
 						(
 						#{name},
+						#{shortName},
 						#{logo},
 						#{banner},
 						#{image},
@@ -65,6 +68,8 @@
 		UPDATE viewol.company
 				SET
 				NAME = #{name},
+				short_name = #{shortName},
+
 				logo = #{logo},
 				banner = #{banner},
 				image = #{image},

@@ -6,6 +6,7 @@ package com.viewol.pojo.query;
 public class RecommendScheduleQuery {
 
     private String time;
+
     private Integer type;
 
     private int pageIndex = 1;

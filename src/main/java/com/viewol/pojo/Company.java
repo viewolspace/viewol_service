@@ -15,6 +15,7 @@ public class Company {
 
     private Integer id;
     private String  name;
+    private String  shortName; //简称
     private String  logo;
     private String  banner; //形象图
     private String  image;  //列表图
@@ -42,6 +43,14 @@ public class Company {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public String getLogo() {
@@ -145,6 +154,7 @@ public class Company {
         return "Company{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", shortName='" + shortName + '\'' +
                 ", logo='" + logo + '\'' +
                 ", banner='" + banner + '\'' +
                 ", image='" + image + '\'' +
