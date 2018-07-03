@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +44,18 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
         return super.updateBy("updateStatus",map);
     }
 
+
+    @Override
+    public List<Schedule> listSchedule(ScheduleQuery query) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("time",query.getType());
+        map.put("companyId",query.getCompanyId());
+        map.put("type",query.getType());
+        map.put("status",query.getStatus());
+        map.put("keyword",query.getKeyword());
+        return super.findBy("listSchedule",map);
+    }
+
     @Override
     public PageHolder<Schedule> querySchedule(ScheduleQuery query) {
 
@@ -59,8 +72,8 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
     @Override
     public PageHolder<Schedule> queryRecommendSchedule(RecommendScheduleQuery query) {
         Map<String,Object> map = new HashMap<>();
-        map.put("time",query.getType());
-        map.put("type",query.getTime());
+        map.put("type",query.getType());
+        map.put("time",query.getTime());
         return super.pagedQuery("findRecommen",map,query.getPageIndex(),query.getPageSize());
 
     }

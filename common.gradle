@@ -4,7 +4,7 @@ jar {
     from ('./src/main/java') {
         include 'META-INF/services/javax.ws.rs.ext.Providers'
     }
-    excludes = ["properties", "mybatis"]
+    excludes = ["properties"]
     manifest {
         attributes(
                 "Class-Path": '. ' + configurations.compile.collect { 'libs/' + it.getName() }.join(' '),

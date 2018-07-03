@@ -63,4 +63,13 @@ public class ScheduleDAOImplTest extends BaseTestClass{
         query.setType(1);
         System.out.println(dao.queryRecommendSchedule(query));
     }
+
+
+    @Test
+    public void listSchedule(){
+        ScheduleQuery query = new ScheduleQuery();
+        query.setCompanyId(1);
+        query.setStatus(Schedule.STATUS_TRIAL);
+        System.out.println(dao.listSchedule(query));
+    }
 }

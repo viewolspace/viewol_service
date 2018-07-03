@@ -14,6 +14,8 @@ public class Schedule {
     public static final int STATUS_BACK = -1; //打回
     public static final int STATUS_TRIAL = 0; //审核通过
 
+    public static final String HOSTNAME = "主办方";
+
     private Integer  id ;
     private Integer companyId;
     private Integer type;//0 主办方 1 展商

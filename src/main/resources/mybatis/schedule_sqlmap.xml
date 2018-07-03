@@ -15,7 +15,7 @@
 				a.place
 	</sql>
 
-	<select id="select"  parameterType="int">
+	<select id="select"  parameterType="int" resultType="Schedule">
 		<include refid="selectCommon" />
 		 from schedule a where id = #{id}
 	</select>
@@ -82,6 +82,7 @@ INSERT INTO schedule
 	</update>
 
 
+
 	<!--管理平台查询全部活动的接口-->
 	<sql id="sql_count">
 		select count(*)
@@ -124,6 +125,13 @@ INSERT INTO schedule
 	</select>
 
 
+	<select id="listSchedule" parameterType="map" resultType="Schedule">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
 
 	<!--管理平台查询全部推荐和置顶的活动-->
 	<sql id="sql_field">
@@ -132,6 +140,7 @@ INSERT INTO schedule
 	<sql id="sql_recommen_where">
 		 FROM schedule a ,recommend_schedule b
 		<where>
+			a.id = b.schedule_id
 			<if test="type != null">
 				AND b.type=#{type}
 			</if>

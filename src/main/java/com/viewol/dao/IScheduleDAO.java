@@ -5,6 +5,8 @@ import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.youguu.core.util.PageHolder;
 
+import java.util.List;
+
 /**
  * Created by lenovo on 2018/6/28.
  */
@@ -38,6 +40,13 @@ public interface IScheduleDAO {
      * @return
      */
     int updateStatus(int id,int status);
+
+    /**
+     * 查询
+     * @param query
+     * @return
+     */
+    List<Schedule> listSchedule(ScheduleQuery query);
 
     /**
      * 管理平台查询
