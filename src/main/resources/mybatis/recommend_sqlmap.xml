@@ -21,9 +21,9 @@
 
 	INSERT INTO viewol.recommend
 					(
-					TYPE,
+					type,
 					third_id,
-					NAME,
+					name,
 					image,
 					category_id,
 					c_time,
@@ -50,9 +50,9 @@
 		UPDATE viewol.recommend
 			SET
 			id = #{id} ,
-			TYPE = #{type} ,
+			type = #{type} ,
 			third_id = #{thirdId} ,
-			NAME = #{name} ,
+			name = #{name} ,
 			image = #{image} ,
 			category_id = #{categoryId} ,
 			c_time = #{cTime} ,

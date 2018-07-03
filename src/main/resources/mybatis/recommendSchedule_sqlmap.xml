@@ -8,7 +8,7 @@
 INSERT INTO recommend_schedule
 	(
 	schedule_id,
-	TYPE,
+	type,
 	c_time,
 	s_time,
 	e_time
