@@ -34,6 +34,11 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     }
 
     @Override
+    public Product getProduct(int id) {
+        return super.get(id);
+    }
+
+    @Override
     public int delProduct(int id) {
         return super.delete(id);
     }

@@ -60,7 +60,7 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
     public PageHolder<Schedule> queryRecommendSchedule(RecommendScheduleQuery query) {
         Map<String,Object> map = new HashMap<>();
         map.put("time",query.getType());
-        map.put("type",query.getType());
+        map.put("type",query.getTime());
         return super.pagedQuery("findRecommen",map,query.getPageIndex(),query.getPageSize());
 
     }

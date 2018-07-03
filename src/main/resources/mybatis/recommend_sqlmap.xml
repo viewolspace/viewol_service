@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Recommend">
+	<sql id="selectCommon">
+		select  a.id,
+				a.type,
+				a.third_id,
+				a.name,
+				a.image,
+				a.category_id,
+				a.c_time,
+				a.m_time
+	</sql>
+
+
+
+<insert id="insert" parameterType="Recommend" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    <selectKey keyProperty="id" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
+
+	INSERT INTO viewol.recommend
+					(
+					TYPE,
+					third_id,
+					NAME,
+					image,
+					category_id,
+					c_time,
+					m_time
+					)
+					VALUES
+					(
+					#{type},
+					#{thirdId},
+					#{name},
+					#{image},
+					#{categoryId},
+					#{cTime},
+					#{mTime}
+					)
+
+
+
+</insert>
+
+
+	<update id="update" parameterType="Recommend">
+
+		UPDATE viewol.recommend
+			SET
+			id = #{id} ,
+			TYPE = #{type} ,
+			third_id = #{thirdId} ,
+			NAME = #{name} ,
+			image = #{image} ,
+			category_id = #{categoryId} ,
+			c_time = #{cTime} ,
+			m_time = #{mTime}
+
+			WHERE
+			id = #{id}
+
+	</update>
+
+
+	<delete id="delete" parameterType="int">
+		delete from viewol.recommend where id = #{id}
+	</delete>
+
+	<select id="listByCategory" parameterType="map" resultType="Recommend">
+		<include refid="selectCommon"></include>
+		FROM viewol.recommend a where a.category_id=#{categoryId} and a.type = #{type}
+	</select>
+	<!--管理平台查询全部活动的接口-->
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM viewol.recommend a
+		<where>
+			<if test="type != null and type !=0">
+				AND type=#{type}
+			</if>
+
+			<if test="categoryId != categoryId">
+				AND categoryId=#{categoryId}
+			</if>
+
+		</where>
+	</sql>
+	<sql id="sql_order">
+		order by id
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Schedule">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
+
+</mapper>

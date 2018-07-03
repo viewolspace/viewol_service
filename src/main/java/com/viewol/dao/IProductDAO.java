@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface IProductDAO {
 
+    Product getProduct(int id);
+
     int addProduct(Product product);
 
     int delProduct(int  id);
