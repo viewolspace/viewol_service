@@ -89,6 +89,10 @@
 		UPDATE  company set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
 	</update>
 
+	<delete id="delete" parameterType="int">
+		delete from company where id = #{id}
+	</delete>
+
 	<select id="queryRecommentCompany" resultType="Company">
 		<include refid="selectCommon"></include>
 		from company a where is_recommend=1 order by recommend_num
@@ -125,7 +129,7 @@
 		<include refid="sql_count" />
 		<include refid="sql_where" />
 	</select>
-	<select id="findByParams" parameterType="java.util.HashMap" resultType="Product">
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Company">
 		<include refid="selectCommon" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />

@@ -13,11 +13,10 @@ public interface IRecommendService {
     /**
      * 添加同类推荐
      * @param type
-     * @param categoryId
      * @param thridId
      * @return
      */
-    int addRecommend(int type,String categoryId,int thridId);
+    int addRecommend(int type,int thridId);
 
     int delRecommend(int id);
 

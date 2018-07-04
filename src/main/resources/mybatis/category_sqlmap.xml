@@ -80,5 +80,15 @@
 		from viewol.category a where parent_id LIKE concat(concat(#{parentId}),'%') order by id,num
 
 	</select>
+	
+	<select id="listCategorys" parameterType="map" resultType="Category">
+		<include refid="selectCommon"/>
+
+		from viewol.category a where id in
+
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
 
 </mapper>

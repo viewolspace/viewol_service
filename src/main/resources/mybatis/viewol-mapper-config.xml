@@ -22,6 +22,7 @@
 		<typeAlias alias="Company" type="com.viewol.pojo.Company"/>
 		<typeAlias alias="Product" type="com.viewol.pojo.Product"/>
 		<typeAlias alias="Recommend" type="com.viewol.pojo.Recommend"/>
+		<typeAlias alias="ScheduleUser" type="com.viewol.pojo.ScheduleUser"/>
 
 	</typeAliases>
 	<plugins>
@@ -39,6 +40,8 @@
 		<mapper resource="mybatis/company_sqlmap.xml" />
 		<mapper resource="mybatis/product_sqlmap.xml" />
 		<mapper resource="mybatis/recommend_sqlmap.xml" />
+		<mapper resource="mybatis/schedule_user_sqlmap.xml" />
+
 
 	</mappers>
 	

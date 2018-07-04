@@ -18,6 +18,13 @@ public interface ICategoryDAO {
     int updateCategory(Category category);
 
     /**
+     * 查询多个分类
+     * @param ids
+     * @return
+     */
+    List<Category> listCategorys(List<String> ids);
+
+    /**
      * 查询子节点
      * @param parentId
      * @return

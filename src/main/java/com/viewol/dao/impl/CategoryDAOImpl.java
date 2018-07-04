@@ -49,4 +49,11 @@ public class CategoryDAOImpl extends BaseDAO<Category> implements ICategoryDAO {
         map.put("parentId",parentId);
         return super.findBy("queryAll",map);
     }
+
+    @Override
+    public List<Category> listCategorys(List<String> ids) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("list",ids);
+        return super.findBy("listCategorys",map);
+    }
 }

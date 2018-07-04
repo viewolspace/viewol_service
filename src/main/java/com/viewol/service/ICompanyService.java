@@ -25,7 +25,7 @@ public interface ICompanyService {
     List<Category> getCompanyCategory(int id);
 
     //查询推荐的展商
-    List<Category> queryRecommentCompany();
+    List<Company> queryRecommentCompany();
 
     //管理平台 查询展商
     PageHolder<Company> queryCompany(CompanyQuery query);

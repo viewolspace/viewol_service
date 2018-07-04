@@ -1,11 +1,10 @@
 package com.viewol.service.impl;
 
+import com.viewol.dao.ICompanyCategoryDAO;
 import com.viewol.dao.ICompanyDAO;
 import com.viewol.dao.IProductDAO;
 import com.viewol.dao.IRecommendDAO;
-import com.viewol.pojo.Company;
-import com.viewol.pojo.Product;
-import com.viewol.pojo.Recommend;
+import com.viewol.pojo.*;
 import com.viewol.pojo.query.RecommendQuery;
 import com.viewol.service.IRecommendService;
 import com.youguu.core.util.PageHolder;
@@ -29,34 +28,58 @@ public class RecommendServiceImpl implements IRecommendService {
     @Resource
     private IProductDAO productDAO;
 
-    @Override
-    public int addRecommend(int type, String categoryId, int thridId) {
+    @Resource
+    private ICompanyCategoryDAO companyCategoryDAO;
+
+
+    private int addComRecommend(int type,  int thridId){
         Recommend recommend = new Recommend();
-        recommend.setCategoryId(categoryId);
+        recommend.setType(type);
+        recommend.setThirdId(thridId);
+        Company company = companyDAO.getCompany(thridId);
+        if(company==null){
+            return -2;
+        }else{
+            recommend.setName(company.getName());
+            recommend.setImage(company.getImage());
+            List<CompanyCategory> list =  companyCategoryDAO.queryCategory(thridId);
+            for(CompanyCategory companyCategory:list){
+                recommend.setCategoryId(companyCategory.getCategoryId());
+                recommendDAO.addRecommend(recommend);
+            }
+        }
+        return 1;
+    }
+
+
+    private int addProductRecommend(int type,  int thridId){
+        Recommend recommend = new Recommend();
+        recommend.setType(type);
+        recommend.setThirdId(thridId);
+        Product product = productDAO.getProduct(thridId);
+        if(product==null){
+            return -3;
+        }else{
+            recommend.setCategoryId(product.getCategoryId());
+            recommend.setName(product.getName());
+            recommend.setImage(product.getImage());
+        }
+        return recommendDAO.addRecommend(recommend);
+    }
+
+    @Override
+    public int addRecommend(int type,  int thridId) {
+        Recommend recommend = new Recommend();
+        recommend.setType(type);
+        recommend.setThirdId(thridId);
         switch (type){
             case Recommend.TYPE_COM:
-                Company company = companyDAO.getCompany(thridId);
-                if(company==null){
-                    return -2;
-                }else{
-
-                    recommend.setName(company.getName());
-                    recommend.setImage(company.getImage());
-                }
-                break;
+                return this.addComRecommend(type, thridId);
             case Recommend.TYPE_PRODUCT:
-                Product product = productDAO.getProduct(thridId);
-                if(product==null){
-                    return -3;
-                }else{
-                    recommend.setName(product.getName());
-                    recommend.setImage(product.getImage());
-                }
-                break;
+                return this.addProductRecommend(type, thridId);
             default:
                 return  -1;
         }
-        return recommendDAO.addRecommend(recommend);
     }
 
     @Override

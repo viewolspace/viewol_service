@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ScheduleUser">
+
+	<insert id="insert" parameterType="ScheduleUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO viewol.schedule_user
+					(
+					schedule_id,
+					user_id,
+					reminder_time,
+					c_time
+					)
+					VALUES
+					(
+					#{scheduleId},
+					#{userId},
+					#{reminderTime},
+					#{cTime}
+					)
+	</insert>
+
+	<select id="isJoinSchedule" parameterType="map" resultType="ScheduleUser">
+		select user_id from schedule_user
+		where user_id=#{userId} and schedule_id=#{scheduleId}
+	</select>
+
+	<!--管理平台查询参赛活动用户-->
+	<sql id="selectUser">
+		select  b.user_id
+				,b.user_name
+				,b.phone
+				,b.company
+				,b.position
+				,b.email
+				,b.age
+				,b.m_time
+				,a.schedule_id
+				,a.reminder_time
+				,a.c_time
+				,a.id
+	</sql>
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM schedule_user a , f_user b
+		<where>
+			a.user_id = b.user_id
+			and a.schedule_id = #{scheduleId}
+		</where>
+	</sql>
+	<sql id="sql_order">
+		order by a.id desc
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="ScheduleUser">
+		<include refid="selectUser" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
+
+
+
+
+
+</mapper>

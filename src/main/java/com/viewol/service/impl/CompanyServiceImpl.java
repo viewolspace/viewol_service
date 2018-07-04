@@ -1,5 +1,6 @@
 package com.viewol.service.impl;
 
+import com.viewol.dao.ICategoryDAO;
 import com.viewol.dao.ICompanyCategoryDAO;
 import com.viewol.dao.ICompanyDAO;
 import com.viewol.pojo.Category;
@@ -26,6 +27,9 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Resource
     private ICompanyDAO companyDAO;
+
+    @Resource
+    private ICategoryDAO categoryDAO;
 
     @Transactional("viewolTX")
     @Override
@@ -69,6 +73,14 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public List<Category> getCompanyCategory(int id) {
+        List<CompanyCategory> list = companyCategoryDAO.queryCategory(id);
+        List<String> ids = new ArrayList<>();
+        if(list!=null && list.size()>0){
+            for(CompanyCategory companyCategory:list){
+                ids.add(companyCategory.getCategoryId());
+            }
+            return categoryDAO.listCategorys(ids);
+        }
         return null;
     }
 
@@ -78,7 +90,7 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public List<Category> queryRecommentCompany() {
+    public List<Company> queryRecommentCompany() {
         return companyDAO.queryRecommentCompany();
     }
 

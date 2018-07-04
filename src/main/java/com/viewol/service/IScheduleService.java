@@ -1,6 +1,7 @@
 package com.viewol.service;
 
 import com.viewol.pojo.Schedule;
+import com.viewol.pojo.ScheduleUser;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.youguu.core.util.PageHolder;
@@ -93,4 +94,33 @@ public interface IScheduleService {
      * @return
      */
     PageHolder<Schedule> queryRecommendSchedule(RecommendScheduleQuery query);
+
+    /**
+     * 查询报名活动的用户
+     * @param scheduleId
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    PageHolder<ScheduleUser> queryScheduleUser(int scheduleId,int pageIndex,int pageSize);
+
+    /**
+     * 报名参加活动
+     * -99 表示已经参加了活动
+     * -98 没有这个活动
+     * -97 活动已经结束
+     * @param userId
+     * @param scheduleId
+     * @param needReminder 是否需要提醒
+     * @return
+     */
+    int applyJoin(int userId,int scheduleId,boolean needReminder);
+
+    /**
+     * 是否参加活动了
+     * @param userId
+     * @param scheduleId
+     * @return
+     */
+    boolean isJoinSchedule(int userId,int scheduleId);
 }

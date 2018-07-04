@@ -100,4 +100,9 @@ public class ScheduleServiceImplTest extends BaseTestClass{
         System.out.println(service.queryRecommendSchedule(query));
     }
 
+    @Test
+    public void applyJoin(){
+        System.out.println(service.applyJoin(2,2,true));
+    }
+
 }

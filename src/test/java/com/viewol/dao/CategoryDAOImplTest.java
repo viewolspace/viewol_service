@@ -4,6 +4,9 @@ import com.viewol.base.BaseTestClass;
 import com.viewol.pojo.Category;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by lenovo on 2018/6/28.
  */
@@ -13,11 +16,11 @@ public class CategoryDAOImplTest extends BaseTestClass{
 
     private Category beanCategory(){
         Category category = new Category();
-        category.setId("000100010001");
+        category.setId("000100010002");
         category.setParentId("00010001");
         category.setType(1);
         category.setLogo("111");
-        category.setName("摄像设备");
+        category.setName("摄像设备1");
         category.setNum(1);
         return category;
     }
@@ -53,5 +56,13 @@ public class CategoryDAOImplTest extends BaseTestClass{
     @Test
     public void listAll(){
         System.out.println(dao.listAll("0001"));
+    }
+
+    @Test
+    public void listCategorys(){
+        List<String> list = new ArrayList<>();
+        list.add("000100010001");
+        list.add("000100010002");
+        System.out.println(dao.listCategorys(list));
     }
 }

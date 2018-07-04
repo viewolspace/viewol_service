@@ -3,9 +3,11 @@ package com.viewol.service.impl;
 import com.viewol.dao.ICompanyDAO;
 import com.viewol.dao.IRecommendScheduleDAO;
 import com.viewol.dao.IScheduleDAO;
+import com.viewol.dao.IScheduleUserDAO;
 import com.viewol.pojo.Company;
 import com.viewol.pojo.RecommendSchedule;
 import com.viewol.pojo.Schedule;
+import com.viewol.pojo.ScheduleUser;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.viewol.service.IScheduleService;
@@ -14,6 +16,8 @@ import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +34,9 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Resource
     private ICompanyDAO companyDAO;
+
+    @Resource
+    private IScheduleUserDAO scheduleUserDAO;
 
 
     @Override
@@ -133,5 +140,54 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public PageHolder<Schedule> queryRecommendSchedule(RecommendScheduleQuery query) {
         return scheduleDAO.queryRecommendSchedule(query);
+    }
+
+
+    @Override
+    public PageHolder<ScheduleUser> queryScheduleUser(int scheduleId, int pageIndex, int pageSize) {
+        return scheduleUserDAO.queryScheduleUser(scheduleId, pageIndex, pageSize);
+    }
+
+    @Override
+    public int applyJoin(int userId, int scheduleId, boolean needReminder) {
+
+        Schedule schedule = scheduleDAO.getSchedule(scheduleId);
+
+        if(schedule==null){
+            return -98;
+        }
+
+        if(schedule.geteTime().before(new Date())){
+            return -97;
+        }
+
+        boolean isjoin = this.isJoinSchedule(userId,scheduleId);
+
+        if(isjoin){
+            return -99;
+        }
+
+        ScheduleUser scheduleUser = new ScheduleUser();
+        scheduleUser.setUserId(userId);
+        scheduleUser.setScheduleId(scheduleId);
+        if(needReminder){
+            Date d = schedule.getsTime();
+            Calendar c = Calendar.getInstance();
+            c.setTime(d);
+            c.add(Calendar.MINUTE,-10);
+            scheduleUser.setReminderTime(c.getTime());
+        }
+
+        return scheduleUserDAO.applyJoin(scheduleUser);
+    }
+
+    @Override
+    public boolean isJoinSchedule(int userId, int scheduleId) {
+        int result = scheduleUserDAO.isJoinSchedule(userId, scheduleId);
+        if(result>0){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

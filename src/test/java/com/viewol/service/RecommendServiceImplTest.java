@@ -17,7 +17,7 @@ public class RecommendServiceImplTest extends BaseTestClass{
     @Test
     public void addRecommend(){
 
-        System.out.println(service.addRecommend(1, "0002", 1));
+        System.out.println(service.addRecommend(1, 1));
     }
 
 

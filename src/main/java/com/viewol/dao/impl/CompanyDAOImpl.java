@@ -2,7 +2,6 @@ package com.viewol.dao.impl;
 
 import com.viewol.dao.BaseDAO;
 import com.viewol.dao.ICompanyDAO;
-import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
 import com.viewol.pojo.query.CompanyQuery;
 import com.youguu.core.util.PageHolder;
@@ -38,6 +37,11 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
     }
 
     @Override
+    public int delCompany(int id) {
+        return super.delete(id);
+    }
+
+    @Override
     public Company getCompany(int id) {
         return super.get(id);
     }
@@ -51,7 +55,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
     }
 
     @Override
-    public List<Category> queryRecommentCompany() {
+    public List<Company> queryRecommentCompany() {
         return super.findBy("queryRecommentCompany",null);
     }
 
