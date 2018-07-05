@@ -84,8 +84,8 @@
 				AND type=#{type}
 			</if>
 
-			<if test="categoryId != categoryId">
-				AND categoryId=#{categoryId}
+			<if test="categoryId != null">
+				AND category_id=#{categoryId}
 			</if>
 
 		</where>
@@ -98,7 +98,7 @@
 		<include refid="sql_count" />
 		<include refid="sql_where" />
 	</select>
-	<select id="findByParams" parameterType="java.util.HashMap" resultType="Schedule">
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Recommend">
 		<include refid="selectCommon" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />

@@ -87,7 +87,7 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
     @Override
     public List<Product> queryRecommentProduct() {
-        return super.findBy("queryRecommentCompany",null);
+        return super.findBy("queryRecommentProduct",null);
     }
 
 
