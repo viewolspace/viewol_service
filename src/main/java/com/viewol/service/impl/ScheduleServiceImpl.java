@@ -42,7 +42,7 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public boolean hasApplySchedule(int companyId) {
         ScheduleQuery query = new ScheduleQuery();
-        query.setCompanyId(1);
+        query.setCompanyId(companyId);
         query.setStatus(Schedule.STATUS_TRIAL);
         List<Schedule> list =  scheduleDAO.listSchedule(query);
         if(list!=null &&list.size()>0){
@@ -54,16 +54,22 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public int applySchedule(int companyId, String title, String place, String content, String startTime, String endTime) {
+        //判断公司是否有权限申请活动
+        Company company = companyDAO.getCompany(companyId);
+        if(company==null){
+            return -1;
+        }
+        if(company.getCanApply()==Company.CANAPPLY_NO){
+            return -98;
+        }
+
         //判断公司是否已经有未审核的活动
 
         if(hasApplySchedule(companyId)){
             return -99;
         }
 
-        Company company = companyDAO.getCompany(companyId);
-        if(company==null){
-            return -1;
-        }
+
         Schedule schedule = new Schedule();
         schedule.setType(Schedule.TYPE_COM);
         schedule.setStatus(Schedule.STATUS_TRIAL);

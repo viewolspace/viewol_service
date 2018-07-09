@@ -22,6 +22,7 @@ public interface IScheduleService {
      * 展商申请活动
      * 时间格式：yyyy-MM-dd HH:mi:ss
      * -99 表示已经有申请的活动没有推过审核
+     * -98 表示公司没有申请活动的权限
      * @return
      */
     int applySchedule(int companyId,String title,String place,String content,String startTime,String endTime);
