@@ -18,7 +18,7 @@
 	</sql>
 
 	<insert id="insert" parameterType="BUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		<selectKey keyProperty="id" resultType="int" order="AFTER">
+		<selectKey keyProperty="userId" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 

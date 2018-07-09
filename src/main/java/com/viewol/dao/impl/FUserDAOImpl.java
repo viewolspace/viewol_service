@@ -21,7 +21,7 @@ public class FUserDAOImpl extends BaseDAO<FUser> implements IFUserDAO {
         user.setcTime(new Date());
         int result = super.insert(user);
         if(result>0){
-            return result;
+            return user.getUserId();
         }else{
             return 0;
         }

@@ -41,7 +41,7 @@ public class BUserDAOImpl extends BaseDAO<BUser> implements IBUserDAO {
         user.setmTime(d);
         int result = super.insert(user);
         if(result > 0){
-            return result;
+            return user.getUserId();
         }else{
             return 0;
         }
