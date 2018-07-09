@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BUser">
+
+	<sql id="selectCommon">
+
+			SELECT 	a.user_id,
+					a.user_name,
+					a.phone,
+					a.company_id,
+					a.STATUS,
+					a.POSITION,
+					a.c_time,
+					a.m_time,
+					a.open_id,
+					a.UUID
+
+	</sql>
+
+	<insert id="insert" parameterType="BUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		INSERT INTO viewol.b_user
+					(
+					user_name,
+					phone,
+					company_id,
+					status,
+					position,
+					c_time,
+					m_time,
+					open_id,
+					UUID
+					)
+					VALUES
+					(
+					#{userName},
+					#{phone},
+					#{companyId},
+					#{status},
+					#{position},
+					#{cTime},
+					#{mTime},
+					#{openId},
+					#{uuid}
+					)
+
+	</insert>
+
+	<select id="select" parameterType="int" resultType="BUser">
+		<include refid="selectCommon"/>
+		from viewol.b_user a where user_id = #{userId}
+	</select>
+
+	<select id="getUserByOpenId" parameterType="map" resultType="BUser">
+		<include refid="selectCommon"/>
+		from viewol.b_user a where open_id = #{openId}
+	</select>
+
+
+	<select id="listByCom" parameterType="map" resultType="BUser">
+		<include refid="selectCommon"/>
+		from viewol.b_user a where company_id = #{companyId} order by user_id
+	</select>
+
+	<update id="update" parameterType="BUser">
+
+			UPDATE viewol.b_user
+						SET
+						user_id = #{userId} ,
+						user_name = #{userName} ,
+						phone = #{phone} ,
+						company_id = #{companyId} ,
+						status = #{status} ,
+						position = #{position} ,
+						m_time = #{mTime} ,
+						open_id = #{openId} ,
+						uuid = #{uuid}
+
+						WHERE
+						user_id = #{userId}
+
+	</update>
+
+	<update id="setStatus" parameterType="BUser">
+		UPDATE viewol.b_user
+		SET
+		status = #{status} ,
+		m_time = #{mTime}
+		WHERE
+		user_id = #{userId}
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

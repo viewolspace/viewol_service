@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FUserBind">
+
+	<sql id="selectCommon">
+
+			SELECT 	a.id,
+					a.user_id,
+					a.type,
+					a.open_id,
+					a.uuid,
+					a.c_time
+
+	</sql>
+
+	<insert id="insert" parameterType="FUserBind" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		INSERT INTO viewol.f_user_bind
+				(
+				user_id,
+				type,
+				open_id,
+				uuid,
+				c_time
+				)
+				VALUES
+				(
+				#{userId},
+				#{type},
+				#{openId},
+				#{uuid},
+				#{cTime}
+				)
+
+
+	</insert>
+
+	<select id="selectByopenId" parameterType="map" resultType="FUserBind">
+		<include refid="selectCommon"/>
+		from viewol.f_user_bind a  where type = #{type} and open_id=#{openId}
+	</select>
+
+
+	<select id="getOpenId" parameterType="map" resultType="FUserBind">
+		<include refid="selectCommon"/>
+		from viewol.f_user_bind a where type = #{type} and user_id=#{userId}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

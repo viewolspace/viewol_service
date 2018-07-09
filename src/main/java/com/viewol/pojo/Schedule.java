@@ -12,7 +12,7 @@ public class Schedule {
 
     public static final int STATUS_OK = 1; //审核通过
     public static final int STATUS_BACK = -1; //打回
-    public static final int STATUS_TRIAL = 0; //审核通过
+    public static final int STATUS_TRIAL = 0; //审核
 
     public static final String HOSTNAME = "主办方";
 

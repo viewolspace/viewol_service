@@ -3,20 +3,24 @@ package com.viewol.pojo;
 import java.util.Date;
 
 /**
- * Created by lenovo on 2018/7/3.
+ * Created by lenovo on 2018/7/9.
  */
-public class FUser {
-    private int    userId;
+public class BUser {
+
+    public final static int STATUS_TRIAL = 0 ; //审核中
+    public final static int STATUS_OK = 1 ; //通过
+    public final static int STATUS_BACK = -1 ; //打回
+
+    private  int userId;
     private String userName;
     private String phone;
-    private String company;
-    private String position;
-    private String email;
-    private int    age;
-    private Date   cTime;
-    private Date   mTime;
-    private String uuid;
     private int companyId;
+    private int status;
+    private String position;
+    private Date cTime;
+    private Date mTime;
+    private String openId;
+    private String uuid;
 
     public int getUserId() {
         return userId;
@@ -42,12 +46,20 @@ public class FUser {
         this.phone = phone;
     }
 
-    public String getCompany() {
-        return company;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getPosition() {
@@ -56,22 +68,6 @@ public class FUser {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public Date getcTime() {
@@ -90,6 +86,14 @@ public class FUser {
         this.mTime = mTime;
     }
 
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -98,28 +102,19 @@ public class FUser {
         this.uuid = uuid;
     }
 
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
-    }
-
     @Override
     public String toString() {
-        return "FUser{" +
+        return "BUser{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", phone='" + phone + '\'' +
-                ", company='" + company + '\'' +
+                ", companyId=" + companyId +
+                ", status=" + status +
                 ", position='" + position + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
                 ", cTime=" + cTime +
                 ", mTime=" + mTime +
+                ", openId='" + openId + '\'' +
                 ", uuid='" + uuid + '\'' +
-                ", companyId=" + companyId +
                 '}';
     }
 }
