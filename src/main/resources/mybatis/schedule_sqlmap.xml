@@ -53,7 +53,9 @@ INSERT INTO schedule
 
 
 </insert>
-
+	<delete id="delete" parameterType="int">
+		delete from schedule where id = #{id}
+	</delete>
 
 	<update id="update" parameterType="Schedule">
 		UPDATE schedule

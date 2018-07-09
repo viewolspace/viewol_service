@@ -26,6 +26,11 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
     }
 
     @Override
+    public int delSchedule(int id) {
+        return super.delete(id);
+    }
+
+    @Override
     public Schedule getSchedule(int id) {
         return super.get(id);
     }

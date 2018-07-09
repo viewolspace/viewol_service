@@ -19,6 +19,8 @@ public interface IScheduleDAO {
      */
     int addSchedule(Schedule schedule);
 
+    int delSchedule(int id);
+
     /**
      * 查询结果
      * @param id

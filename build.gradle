@@ -37,6 +37,8 @@ dependencies {
 
     compile 'org.apache.curator:curator-recipes:2.8.0'
 
+    compile 'net.coobird:thumbnailator:0.4.8'
+
     
 
     compile fileTree(dir: 'libs', include: '*.jar')

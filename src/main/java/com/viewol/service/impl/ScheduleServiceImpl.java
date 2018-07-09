@@ -99,6 +99,11 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
+    public int delSchedule(int id) {
+        return scheduleDAO.delSchedule(id);
+    }
+
+    @Override
     public int updateSchedule(Schedule schedule) {
         return scheduleDAO.updateSchedule(schedule);
     }

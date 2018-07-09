@@ -45,6 +45,7 @@ public interface IScheduleService {
      */
     Schedule getSchedule(int id);
 
+    int delSchedule(int id);
 
     /**
      * 修改活动
