@@ -27,7 +27,10 @@ public class ProductServiceImplTest extends BaseTestClass{
         p.setPdfUrl("");
         return p;
     }
-
+    @Test
+    public void getProduct(){
+        System.out.println(service.getProduct(3));
+    }
 
     @Test
     public void addProduct(){

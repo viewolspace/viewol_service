@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserCard">
+
+
+
+	<insert id="insert" parameterType="UserCard" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO viewol.user_card
+					(
+					b_user_id,
+					company_id,
+					f_user_id,
+					c_time
+					)
+					VALUES
+					(
+					#{bUserId},
+					#{companyId},
+					#{fUserId},
+					#{cTime}
+					)
+
+	</insert>
+
+
+	<sql id="selectUser">
+		SELECT a.id,
+			   a.b_user_id,
+			   a.company_id,
+			   a.f_user_id,
+			   a.c_time,
+			   b.user_name AS f_user_name,
+			   b.phone AS f_phone,
+			   b.company AS f_company,
+			   b.position AS f_position,
+			   b.email AS f_email,
+			   b.age AS f_age,
+			   b.company_id AS f_company_id,
+			   c.user_name AS b_user_name,
+			   c.phone AS b_phone,
+			   c.position AS b_position,
+			   d.logo,
+			   d.name,
+			   d.short_name
+	</sql>
+
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM (SELECT id,b_user_id,company_id,f_user_id,c_time FROM user_card
+		<where>
+			<if test="companyId != null">
+				and company_id = #{companyId}
+			</if>
+			<if test="bUserId != null">
+				and b_user_id = #{bUserId}
+			</if>
+			<if test="fUserId != null">
+				and f_user_id = #{fUserId}
+			</if>
+			<if test="lastId != null">
+				and id &lt; #{lastId}
+			</if>
+
+		</where>
+		) a
+		LEFT JOIN f_user b ON   a.b_user_id = b.user_id
+		LEFT JOIN b_user c ON a.f_user_id=c.user_id
+		LEFT JOIN company d ON a.company_id=d.id
+	</sql>
+
+	<sql id="sql_order">
+		order by a.id desc
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="UserCardVO">
+		<include refid="selectUser" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
+	<select id="listUserCard" parameterType="java.util.HashMap" resultType="UserCardVO">
+		<include refid="selectUser" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+		limit 0 , #{num}
+	</select>
+
+</mapper>
