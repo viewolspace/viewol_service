@@ -47,6 +47,11 @@ public interface IScheduleDAO {
     /**
      * 查询
      * @param query
+     * 入参
+     * time
+     * date
+     * keyword
+     * type
      * @return
      */
     List<Schedule> listSchedule(ScheduleQuery query);
@@ -64,4 +69,18 @@ public interface IScheduleDAO {
      * @return
      */
     PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query);
+
+    /**
+     * 客户端使用查询当前推荐的展商活动
+     * @param type 1 置顶  2推荐
+     * @return
+     */
+    List<ScheduleVO> queryNowRecommendSchedule(int type);
+
+
+    /**
+     * 首页使用的接口 ， 查询主办方当前的活动 和 将要进行的活动
+     * @return
+     */
+    List<Schedule> queryNowHostSchedule();
 }

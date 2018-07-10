@@ -198,4 +198,27 @@ public class ScheduleServiceImpl implements IScheduleService {
             return false;
         }
     }
+
+    @Override
+    public List<Schedule> queryNowHostSchedule() {
+        return scheduleDAO.queryNowHostSchedule();
+    }
+
+    @Override
+    public List<ScheduleVO> queryNowRecommendSchedule(int type) {
+        return scheduleDAO.queryNowRecommendSchedule(type);
+    }
+
+
+    @Override
+    public List<Schedule> listSchedule(String time, String date, int type, String keyword, int num) {
+        ScheduleQuery query = new ScheduleQuery();
+        query.setType(type);
+        query.setTime(time);
+        query.setDate(date);
+        query.setKeyword(keyword);
+        query.setPageSize(num);
+
+        return scheduleDAO.listSchedule(query);
+    }
 }

@@ -6,6 +6,7 @@ import com.viewol.pojo.Schedule;
 import com.viewol.pojo.ScheduleVO;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
+import com.viewol.util.DateUtil;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
 
@@ -20,9 +21,26 @@ import java.util.Map;
 @Repository("scheduleDAO")
 public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
 
+
+    private long getSeq(Schedule schedule){
+        //seq 需要单独生成
+        Date stime = schedule.getsTime();
+
+        int comId = schedule.getCompanyId();
+
+        if(comId==-1){
+            comId = 99999;
+        }
+
+        long seq = DateUtil.parseDate(stime,DateUtil.FORMAT_NUM)*100000 + comId;
+
+        return seq;
+    }
     @Override
     public int addSchedule(Schedule schedule) {
         schedule.setcTime(new Date());
+        schedule.setSeq(this.getSeq(schedule));
+
         return super.insert(schedule);
     }
 
@@ -38,7 +56,7 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
 
     @Override
     public int updateSchedule(Schedule schedule) {
-
+        schedule.setSeq(this.getSeq(schedule));
         return super.update(schedule);
     }
 
@@ -54,11 +72,16 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
     @Override
     public List<Schedule> listSchedule(ScheduleQuery query) {
         Map<String,Object> map = new HashMap<>();
-        map.put("time",query.getType());
-        map.put("companyId",query.getCompanyId());
+        map.put("time",query.getTime());
+        if(query.getDate()!=null){
+            map.put("date",query.getDate());
+            map.put("date_end",query.getDate() + " 23:59:59");
+        }
+        map.put("seq",query.getSeq());
         map.put("type",query.getType());
-        map.put("status",query.getStatus());
+        map.put("status",Schedule.STATUS_OK);
         map.put("keyword",query.getKeyword());
+        map.put("num",query.getPageSize());
         return super.findBy("listSchedule",map);
     }
 
@@ -82,5 +105,17 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
         map.put("time",query.getTime());
         return super.pagedQuery("findRecommen",map,query.getPageIndex(),query.getPageSize());
 
+    }
+
+    @Override
+    public List<Schedule> queryNowHostSchedule() {
+        return super.findBy("queryNowHostSchedule",null);
+    }
+
+    @Override
+    public List<ScheduleVO> queryNowRecommendSchedule(int type) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("type",type);
+        return super.findBy("queryNowRecommendSchedule",map);
     }
 }

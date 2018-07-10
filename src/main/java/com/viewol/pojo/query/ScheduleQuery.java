@@ -5,12 +5,21 @@ package com.viewol.pojo.query;
  */
 public class ScheduleQuery {
 
-    //时间
+    //时间 -- 处于此区间
     private String time;
+
+    //日期 查询这一天的所有的活动
+    private String date;
+
     private Integer companyId ;
+
     private Integer type;
+
     private Integer status;
+
     private String keyword;
+
+    private long seq;
 
     private int pageIndex = 1;
 
@@ -71,5 +80,21 @@ public class ScheduleQuery {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public long getSeq() {
+        return seq;
+    }
+
+    public void setSeq(long seq) {
+        this.seq = seq;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

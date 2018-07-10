@@ -12,7 +12,8 @@
 				a.s_time,
 				a.e_time,
 				a.content,
-				a.place
+				a.place,
+				a.seq
 	</sql>
 
 	<select id="select"  parameterType="int" resultType="Schedule">
@@ -35,7 +36,8 @@ INSERT INTO schedule
 	s_time,
 	e_time,
 	content,
-	place
+	place,
+	seq
 	)
 	VALUES
 	(
@@ -48,7 +50,8 @@ INSERT INTO schedule
 	#{sTime},
 	#{eTime},
 	#{content},
-	#{place}
+	#{place},
+	#{seq}
 	)
 
 
@@ -68,7 +71,8 @@ INSERT INTO schedule
 			s_time = #{sTime} ,
 			e_time = #{eTime} ,
 			content = #{content} ,
-			place = #{place}
+			place = #{place},
+			seq=#{seq}
 
 			WHERE
 			id = #{id}
@@ -96,9 +100,14 @@ INSERT INTO schedule
 			<if test="companyId != null and companyId !=0">
 				AND company_id=#{companyId}
 			</if>
-			<if test="time != null">
+			<if test="time != null and time != ''"> <!--查询当前正在进行的-->
 				<![CDATA[
 					AND s_time <= #{time} and e_time >=#{time}
+					]]>
+			</if>
+			<if test="date != null and date != ''"><!--查询某一天的-->
+				<![CDATA[
+					AND s_time >= #{date} and s_time <= #{date_end}
 					]]>
 			</if>
 			<if test="type != null">
@@ -107,8 +116,14 @@ INSERT INTO schedule
 			<if test="status != null">
 				AND status=#{status}
 			</if>
-			<if test="keyword != null">
+			<if test="keyword != null and keyword != ''">
 				AND (company_name LIKE concat(concat('%',#{keyword}),'%') or title  LIKE concat(concat('%',#{keyword}),'%') )
+			</if>
+
+			<if test="seq != null">
+				<![CDATA[
+						AND seq > #{seq}
+				]]>
 			</if>
 		</where>
 	</sql>
@@ -127,17 +142,10 @@ INSERT INTO schedule
 	</select>
 
 
-	<select id="listSchedule" parameterType="map" resultType="Schedule">
-		<include refid="selectCommon" />
-		<include refid="sql_where" />
-		<include refid="sql_order" />
-	</select>
-
-
 
 	<!--管理平台查询全部推荐和置顶的活动-->
 	<sql id="sql_field">
-		, b.type as vType , b.id as recommend_schedule_id
+		, b.type as vType , b.id as recommend_schedule_id , b.s_time as recommend_s_time , b.e_time as recommend_e_time
 	</sql>
 	<sql id="sql_recommen_where">
 		 FROM schedule a ,recommend_schedule b
@@ -155,7 +163,7 @@ INSERT INTO schedule
 	</sql>
 
 	<sql id="sql_recommen_order">
-		order by s_time
+		order by b.s_time
 	</sql>
 
 
@@ -170,4 +178,43 @@ INSERT INTO schedule
 		<include refid="sql_recommen_where" />
 		<include refid="sql_recommen_order" />
 	</select>
+
+	<!--客户端首页查询主办方的活动-->
+	<select id="queryNowHostSchedule" resultType="Schedule">
+		<include refid="selectCommon" />
+		FROM schedule a
+		where
+			company_id=-1
+			<![CDATA[
+					AND ((s_time <= now() and e_time >=now()) or s_time > now())
+			]]>
+		order by s_time limit 0 , 10
+	</select>
+
+	<!--客户端首页查询展商的活动-->
+	<select id="queryNowRecommendSchedule" parameterType="java.util.HashMap" resultType="ScheduleVO">
+		<include refid="selectCommon" />
+		<include refid="sql_field"/>
+
+		FROM schedule a ,recommend_schedule b
+		<where>
+			a.id = b.schedule_id
+			<if test="type != null">
+				AND b.type=#{type}
+			</if>
+			<![CDATA[
+						AND b.s_time <= now() and b.e_time >=now()
+			]]>
+		</where>
+		order by b.s_time
+	</select>
+
+
+	<select id="listSchedule" parameterType="java.util.HashMap" resultType="Schedule">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		order by seq limit 0 , #{num}
+
+	</select>
+
 </mapper>

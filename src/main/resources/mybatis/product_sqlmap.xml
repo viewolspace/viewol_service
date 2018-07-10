@@ -87,7 +87,7 @@
 		UPDATE  product set  status = #{status}   where id = #{id}
 	</update>
 
-	<select id="queryRecommentCompany" resultType="Company">
+	<select id="queryRecommentProduct" resultType="Product">
 		<include refid="selectCommon"></include>
 		from product a where is_recommend=1 order by recommend_num
 	</select>
@@ -136,6 +136,8 @@
 		<include refid="sql_where" />
 		<include refid="sql_order" />
 	</select>
+
+
 
 
 </mapper>

@@ -7,6 +7,8 @@ import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.youguu.core.util.PageHolder;
 
+import java.util.List;
+
 /**
  * Created by lenovo on 2018/7/3.
  */
@@ -126,4 +128,28 @@ public interface IScheduleService {
      * @return
      */
     boolean isJoinSchedule(int userId,int scheduleId);
+
+    /**
+     * 首页使用的接口 ， 查询主办方当前的活动 和 将要进行的活动
+     * @return
+     */
+    List<Schedule> queryNowHostSchedule();
+
+    /**
+     * 客户端使用查询当前推荐的展商活动
+     * @param type 1 置顶  2推荐
+     * @return
+     */
+    List<ScheduleVO> queryNowRecommendSchedule(int type);
+
+    /**
+     *
+     * @param time 格式 yyyy-MM-dd HH:mi:ss
+     * @param date 格式 yyyy-MM-dd
+     * @param type  0 主办方 1展商
+     * @param keyword
+     * @param num
+     * @return
+     */
+    List<Schedule> listSchedule(String time,String date,int type,String keyword ,int num);
 }

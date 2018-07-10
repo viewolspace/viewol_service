@@ -28,6 +28,7 @@ public class Schedule {
     private String content;
     private String place; //位置信息
     private Integer vType; //不是数据库字段 等同于RecommendSchedule的type字段
+    private Long seq;
 
     public Integer getId() {
         return id;
@@ -117,6 +118,22 @@ public class Schedule {
         this.place = place;
     }
 
+    public Integer getvType() {
+        return vType;
+    }
+
+    public void setvType(Integer vType) {
+        this.vType = vType;
+    }
+
+    public Long getSeq() {
+        return seq;
+    }
+
+    public void setSeq(Long seq) {
+        this.seq = seq;
+    }
+
     @Override
     public String toString() {
         return "Schedule{" +
@@ -132,6 +149,7 @@ public class Schedule {
                 ", content='" + content + '\'' +
                 ", place='" + place + '\'' +
                 ", vType=" + vType +
+                ", seq=" + seq +
                 '}';
     }
 }
