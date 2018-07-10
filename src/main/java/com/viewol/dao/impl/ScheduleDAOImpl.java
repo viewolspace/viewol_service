@@ -3,6 +3,7 @@ package com.viewol.dao.impl;
 import com.viewol.dao.BaseDAO;
 import com.viewol.dao.IScheduleDAO;
 import com.viewol.pojo.Schedule;
+import com.viewol.pojo.ScheduleVO;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.youguu.core.util.PageHolder;
@@ -75,7 +76,7 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
     }
 
     @Override
-    public PageHolder<Schedule> queryRecommendSchedule(RecommendScheduleQuery query) {
+    public PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query) {
         Map<String,Object> map = new HashMap<>();
         map.put("type",query.getType());
         map.put("time",query.getTime());

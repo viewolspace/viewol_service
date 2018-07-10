@@ -116,4 +116,22 @@ public class Schedule {
     public void setPlace(String place) {
         this.place = place;
     }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "id=" + id +
+                ", companyId=" + companyId +
+                ", type=" + type +
+                ", companyName='" + companyName + '\'' +
+                ", title='" + title + '\'' +
+                ", cTime=" + cTime +
+                ", status=" + status +
+                ", sTime=" + sTime +
+                ", eTime=" + eTime +
+                ", content='" + content + '\'' +
+                ", place='" + place + '\'' +
+                ", vType=" + vType +
+                '}';
+    }
 }

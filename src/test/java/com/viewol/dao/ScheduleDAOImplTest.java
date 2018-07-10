@@ -2,8 +2,10 @@ package com.viewol.dao;
 
 import com.viewol.base.BaseTestClass;
 import com.viewol.pojo.Schedule;
+import com.viewol.pojo.ScheduleVO;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
+import com.youguu.core.util.PageHolder;
 import org.junit.Test;
 
 import java.util.Date;
@@ -61,7 +63,11 @@ public class ScheduleDAOImplTest extends BaseTestClass{
     public void queryRecommendSchedule(){
         RecommendScheduleQuery query = new RecommendScheduleQuery();
         query.setType(1);
-        System.out.println(dao.queryRecommendSchedule(query));
+        PageHolder<ScheduleVO> pageHolder = dao.queryRecommendSchedule(query);
+        for(ScheduleVO vo:pageHolder.getList()){
+            System.out.println(vo);
+        }
+//        System.out.println(dao.queryRecommendSchedule(query));
     }
 
 

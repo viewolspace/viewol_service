@@ -4,10 +4,7 @@ import com.viewol.dao.ICompanyDAO;
 import com.viewol.dao.IRecommendScheduleDAO;
 import com.viewol.dao.IScheduleDAO;
 import com.viewol.dao.IScheduleUserDAO;
-import com.viewol.pojo.Company;
-import com.viewol.pojo.RecommendSchedule;
-import com.viewol.pojo.Schedule;
-import com.viewol.pojo.ScheduleUser;
+import com.viewol.pojo.*;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.viewol.service.IScheduleService;
@@ -149,7 +146,7 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public PageHolder<Schedule> queryRecommendSchedule(RecommendScheduleQuery query) {
+    public PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query) {
         return scheduleDAO.queryRecommendSchedule(query);
     }
 

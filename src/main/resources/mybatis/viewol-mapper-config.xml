@@ -28,6 +28,7 @@
 		<typeAlias alias="BUser" type="com.viewol.pojo.BUser"/>
 		<typeAlias alias="UserCard" type="com.viewol.pojo.UserCard"/>
 		<typeAlias alias="UserCardVO" type="com.viewol.pojo.UserCardVO"/>
+		<typeAlias alias="ScheduleVO" type="com.viewol.pojo.ScheduleVO"/>
 
 	</typeAliases>
 	<plugins>

@@ -137,7 +137,7 @@ INSERT INTO schedule
 
 	<!--管理平台查询全部推荐和置顶的活动-->
 	<sql id="sql_field">
-		, b.type as vType
+		, b.type as vType , b.id as recommend_schedule_id
 	</sql>
 	<sql id="sql_recommen_where">
 		 FROM schedule a ,recommend_schedule b
@@ -164,7 +164,7 @@ INSERT INTO schedule
 		<include refid="sql_recommen_where" />
 	</select>
 
-	<select id="findRecommen" parameterType="java.util.HashMap" resultType="Schedule">
+	<select id="findRecommen" parameterType="java.util.HashMap" resultType="ScheduleVO">
 		<include refid="selectCommon" />
 		<include refid="sql_field"/>
 		<include refid="sql_recommen_where" />

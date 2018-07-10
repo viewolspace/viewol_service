@@ -1,6 +1,7 @@
 package com.viewol.dao;
 
 import com.viewol.pojo.Schedule;
+import com.viewol.pojo.ScheduleVO;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.youguu.core.util.PageHolder;
@@ -62,5 +63,5 @@ public interface IScheduleDAO {
      * @param query
      * @return
      */
-    PageHolder<Schedule> queryRecommendSchedule(RecommendScheduleQuery query);
+    PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query);
 }
