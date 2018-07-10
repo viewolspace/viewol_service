@@ -23,6 +23,7 @@ public class Product {
     private Integer recommendNum;
     private Date cTime;
     private Date mTime;
+    private long seq;
 
     public Integer getId() {
         return id;
@@ -128,6 +129,14 @@ public class Product {
         this.mTime = mTime;
     }
 
+    public long getSeq() {
+        return seq;
+    }
+
+    public void setSeq(long seq) {
+        this.seq = seq;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -144,6 +153,7 @@ public class Product {
                 ", recommendNum=" + recommendNum +
                 ", cTime=" + cTime +
                 ", mTime=" + mTime +
+                ", seq=" + seq +
                 '}';
     }
 }

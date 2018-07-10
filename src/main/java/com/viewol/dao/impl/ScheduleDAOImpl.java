@@ -89,7 +89,7 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
     public PageHolder<Schedule> querySchedule(ScheduleQuery query) {
 
         Map<String,Object> map = new HashMap<>();
-        map.put("time",query.getType());
+        map.put("time",query.getTime());
         map.put("companyId",query.getCompanyId());
         map.put("type",query.getType());
         map.put("status",query.getStatus());

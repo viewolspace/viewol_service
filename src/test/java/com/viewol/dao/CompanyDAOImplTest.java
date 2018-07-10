@@ -64,6 +64,16 @@ public class CompanyDAOImplTest extends BaseTestClass{
         System.out.println(dao.addRecomment(1,12));
     }
 
+    @Test
+    public void listCompany(){
+        CompanyQuery query = new CompanyQuery();
+        query.setPageSize(10);
+        query.setName("");
+        query.setCategoryId("");
+        query.setLastSeq(0);
+        System.out.println(dao.listCompany(query));
+    }
+
 
 
 

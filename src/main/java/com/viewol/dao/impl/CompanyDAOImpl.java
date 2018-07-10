@@ -17,6 +17,28 @@ import java.util.Map;
  */
 @Repository("companyDAO")
 public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
+
+    private long getSeq(Company company){
+        int id = company.getId();
+        int recomment = company.getIsRecommend();
+        int num = 0;
+        if(recomment==Company.ISRECOMMEND_YES){
+            num = 100-company.getRecommendNum();
+        }
+
+        long seq = num * 1000000 + id;
+        return seq;
+    }
+    private int  updateSeq(Company company ){
+
+        long seq = this.getSeq(company);
+        Map<String,Object> map = new HashMap<>();
+        map.put("seq",seq);
+        map.put("id",company.getId());
+        return super.updateBy("updateSeq",map);
+
+    }
+
     @Override
     public int addCompany(Company company) {
         Date d = new Date();
@@ -24,6 +46,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         company.setmTime(d);
         int result = super.insert(company);
         if(result>0){
+            this.updateSeq(company);
             return company.getId();
         }else{
             return 0;
@@ -33,6 +56,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
     @Override
     public int updateCompany(Company company) {
         company.setmTime(new Date());
+        company.setSeq(this.getSeq(company));
         return super.update(company);
     }
 
@@ -65,7 +89,10 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("id",id);
         map.put("isRecommend",Company.ISRECOMMEND_NO);
         map.put("recommendNum",0);
-        return super.updateBy("updateRecommend",map);
+        int result = super.updateBy("updateRecommend",map);
+        Company company = this.getCompany(id);
+        this.updateSeq(company);
+        return result;
     }
 
     @Override
@@ -74,12 +101,19 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("id",id);
         map.put("isRecommend",Company.ISRECOMMEND_YES);
         map.put("recommendNum",num);
-        return super.updateBy("updateRecommend",map);
+        int result = super.updateBy("updateRecommend",map);
+        Company company = this.getCompany(id);
+        this.updateSeq(company);
+        return result;
     }
 
-    //TODO
     @Override
     public List<Company> listCompany(CompanyQuery query) {
-        return null;
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",query.getName());
+        map.put("categoryId",query.getCategoryId());
+        map.put("lastSeq",query.getLastSeq());
+        map.put("num",query.getPageSize());
+        return super.findBy("listCompany",map);
     }
 }

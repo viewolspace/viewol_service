@@ -26,6 +26,7 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
         int result = super.insert(product);
         if (result>0) {
+            this.updateSeq(product);
             return product.getId();
         }else{
             return 0;
@@ -46,6 +47,7 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     @Override
     public int updateProduct(Product product) {
         product.setmTime(new Date());
+        product.setSeq(this.getSeq(product));
         return super.update(product);
     }
 
@@ -73,7 +75,10 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         map.put("id",id);
         map.put("isRecommend",Company.ISRECOMMEND_NO);
         map.put("recommendNum",0);
-        return super.updateBy("updateRecommend",map);
+        int result = super.updateBy("updateRecommend",map);
+        Product product = this.getProduct(id);
+        this.updateSeq(product);
+        return result;
     }
 
     @Override
@@ -82,12 +87,39 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         map.put("id",id);
         map.put("isRecommend", Company.ISRECOMMEND_YES);
         map.put("recommendNum",num);
-        return super.updateBy("updateRecommend",map);
+        int result = super.updateBy("updateRecommend",map);
+        Product product = this.getProduct(id);
+        this.updateSeq(product);
+        return result;
     }
 
     @Override
     public List<Product> queryRecommentProduct() {
         return super.findBy("queryRecommentProduct",null);
+    }
+
+
+    private long getSeq(Product product){
+        int id = product.getId();
+        int recomment = product.getIsRecommend();
+        int num = 0;
+        if(recomment==Company.ISRECOMMEND_YES){
+            num = 100-product.getRecommendNum();
+        }
+
+        long seq = num * 1000000 + id;
+        return seq;
+    }
+
+
+    private int  updateSeq(Product product){
+
+        long seq = this.getSeq(product);
+        Map<String,Object> map = new HashMap<>();
+        map.put("seq",seq);
+        map.put("id",product.getId());
+        return super.updateBy("updateSeq",map);
+
     }
 
 

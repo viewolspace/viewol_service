@@ -15,7 +15,7 @@ public class ProductDAOImplTest extends BaseTestClass{
 
     private Product beanProduct(){
         Product p = new Product();
-        p.setId(2);
+        p.setId(1);
         p.setContent("内容");
         p.setCompanyId(1);
         p.setCategoryId("00010001");
@@ -52,12 +52,12 @@ public class ProductDAOImplTest extends BaseTestClass{
 
     @Test
     public void delRecomment(){
-        System.out.println(dao.delRecomment(4));
+        System.out.println(dao.delRecomment(2));
     }
 
     @Test
     public void addRecomment(){
-        System.out.println(dao.addRecomment(3, 2));
+        System.out.println(dao.addRecomment(2, 2));
     }
 
     @Test

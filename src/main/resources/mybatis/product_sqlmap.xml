@@ -13,7 +13,8 @@
 				a.is_recommend,
 				a.recommend_num,
 				a.c_time,
-				a.m_time
+				a.m_time,
+				a.seq
 	</sql>
 	<select id="select" parameterType="int" resultType="Product">
 		<include refid="selectCommon"/>
@@ -74,13 +75,18 @@
 						pdf_name = #{pdfName} ,
 						is_recommend = #{isRecommend} ,
 						recommend_num = #{recommendNum} ,
-						m_time = #{mTime}
+						m_time = #{mTime},
+						seq = #{seq}
 
 						WHERE
 						id = #{id}
 	</update>
 	<update id="updateRecommend" parameterType="map">
 		UPDATE  product set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
+	</update>
+
+	<update id="updateSeq" parameterType="map">
+		UPDATE  product set  seq = #{seq} where id = #{id}
 	</update>
 
 	<update id="updateStatus" parameterType="map">

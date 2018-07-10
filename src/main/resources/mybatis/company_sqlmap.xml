@@ -15,7 +15,8 @@
 				a.is_recommend,
 				a.recommend_num,
 				a.c_time,
-				a.m_time
+				a.m_time,
+				a.seq
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
@@ -41,7 +42,8 @@
 						recommend_num,
 						content,
 						c_time,
-						m_time
+						m_time,
+						seq
 						)
 						VALUES
 						(
@@ -58,7 +60,8 @@
 						#{recommendNum},
 						#{content},
 						#{cTime},
-						#{mTime}
+						#{mTime},
+						#{seq}
 						)
 
 	</insert>
@@ -67,9 +70,8 @@
 	<update id="update" parameterType="Company">
 		UPDATE viewol.company
 				SET
-				NAME = #{name},
+				name = #{name},
 				short_name = #{shortName},
-
 				logo = #{logo},
 				banner = #{banner},
 				image = #{image},
@@ -80,13 +82,18 @@
 				is_recommend = #{isRecommend},
 				recommend_num = #{recommendNum},
 				content = #{content},
-				m_time = #{mTime}
+				m_time = #{mTime},
+				seq = #{seq}
 
 				WHERE
 				id = #{id}
 	</update>
 	<update id="updateRecommend" parameterType="map">
 		UPDATE  company set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
+	</update>
+
+	<update id="updateSeq" parameterType="map">
+		UPDATE  company set  seq = #{seq} where id = #{id}
 	</update>
 
 	<delete id="delete" parameterType="int">
@@ -107,15 +114,20 @@
 		FROM company a ,
 		( SELECT  company_id  FROM company_category
 		<where>
-			<if test="categoryId != null">
-				AND category_id LIKE concat(concat(#{categoryId}),'%')
+			<if test="categoryId != null and categoryId != '' ">
+				AND category_id = categoryId
 			</if>
 		</where>
-		GROUP BY company_id) b
+		) b
 		<where>
 			a.id=b.company_id
-			<if test="name != null">
-				AND name LIKE concat(concat('%',#{name}),'%')
+			<if test="name != null and name != '' ">
+				AND a.name LIKE concat(concat('%',#{name}),'%')
+			</if>
+			<if test="lastSeq != null and lastSeq != 0 ">
+				<![CDATA[
+					AND a.seq < #{lastSeq}
+				]]>
 			</if>
 		</where>
 
@@ -133,6 +145,12 @@
 		<include refid="selectCommon" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />
+	</select>
+
+	<select id="listCompany" parameterType="java.util.HashMap" resultType="Company">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		order by a.seq desc limit 0 , #{num}
 	</select>
 
 

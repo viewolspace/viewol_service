@@ -28,6 +28,7 @@ public class Company {
     private String  content ;
     private Date  cTime;
     private Date mTime;
+    private long seq;
 
     public Integer getId() {
         return id;
@@ -149,6 +150,14 @@ public class Company {
         this.mTime = mTime;
     }
 
+    public long getSeq() {
+        return seq;
+    }
+
+    public void setSeq(long seq) {
+        this.seq = seq;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -167,6 +176,7 @@ public class Company {
                 ", content='" + content + '\'' +
                 ", cTime=" + cTime +
                 ", mTime=" + mTime +
+                ", seq=" + seq +
                 '}';
     }
 }

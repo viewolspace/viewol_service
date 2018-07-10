@@ -8,18 +8,18 @@ public class CompanyQuery {
 
     private String categoryId;
 
-    private int lastCompanyId; //客户端查询使用
+    private long lastSeq; //客户端查询使用
 
     private int pageIndex = 1;
 
     private int pageSize = 20;
 
-    public int getLastCompanyId() {
-        return lastCompanyId;
+    public long getLastSeq() {
+        return lastSeq;
     }
 
-    public void setLastCompanyId(int lastCompanyId) {
-        this.lastCompanyId = lastCompanyId;
+    public void setLastSeq(long lastSeq) {
+        this.lastSeq = lastSeq;
     }
 
     public String getName() {
