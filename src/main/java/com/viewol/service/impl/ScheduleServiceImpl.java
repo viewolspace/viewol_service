@@ -74,7 +74,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         schedule.setCompanyName(company.getName());
         schedule.setPlace(place);
         schedule.setTitle(title);
-        schedule.setContent(content);
+        schedule.setContentView(content);
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
 
@@ -90,7 +90,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         schedule.setCompanyName(Schedule.HOSTNAME);
         schedule.setPlace(place);
         schedule.setTitle(title);
-        schedule.setContent(content);
+        schedule.setContentView(content);
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
         return scheduleDAO.addSchedule(schedule);
