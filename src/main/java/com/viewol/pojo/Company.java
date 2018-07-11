@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import com.viewol.util.ImageUtils;
+
 import java.util.Date;
 
 /**
@@ -55,27 +57,27 @@ public class Company {
     }
 
     public String getLogo() {
-        return logo;
+        return ImageUtils.addUrlImage(logo);
     }
 
     public void setLogo(String logo) {
-        this.logo = logo;
+        this.logo = ImageUtils.diffUrlImage(logo);
     }
 
     public String getBanner() {
-        return banner;
+        return ImageUtils.addUrlImage(banner);
     }
 
     public void setBanner(String banner) {
-        this.banner = banner;
+        this.banner = ImageUtils.diffUrlImage(banner);
     }
 
     public String getImage() {
-        return image;
+        return ImageUtils.addUrlImage(image);
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = ImageUtils.diffUrlImage(image);
     }
 
     public String getPlace() {
@@ -127,11 +129,11 @@ public class Company {
     }
 
     public String getContent() {
-        return content;
+        return ImageUtils.addUrlContent(content);
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = ImageUtils.diffUrlContent(content);
     }
 
     public Date getcTime() {
