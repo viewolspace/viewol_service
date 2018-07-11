@@ -72,7 +72,7 @@ public class Product {
     }
 
     public void setImage(String image) {
-        this.image = ImageUtils.diffUrlImage(image);
+        this.image = image;
     }
 
     public String getContent() {
@@ -80,7 +80,7 @@ public class Product {
     }
 
     public void setContent(String content) {
-        this.content = ImageUtils.diffUrlContent(content);
+        this.content = content;
     }
 
     public String getPdfUrl() {
@@ -88,7 +88,7 @@ public class Product {
     }
 
     public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = ImageUtils.diffUrlPdf(pdfUrl);
+        this.pdfUrl = pdfUrl;
     }
 
     public String getPdfName() {

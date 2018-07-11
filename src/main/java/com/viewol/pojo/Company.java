@@ -61,7 +61,7 @@ public class Company {
     }
 
     public void setLogo(String logo) {
-        this.logo = ImageUtils.diffUrlImage(logo);
+        this.logo = logo;
     }
 
     public String getBanner() {
@@ -69,7 +69,7 @@ public class Company {
     }
 
     public void setBanner(String banner) {
-        this.banner = ImageUtils.diffUrlImage(banner);
+        this.banner = banner;
     }
 
     public String getImage() {
@@ -77,7 +77,7 @@ public class Company {
     }
 
     public void setImage(String image) {
-        this.image = ImageUtils.diffUrlImage(image);
+        this.image = image;
     }
 
     public String getPlace() {
@@ -133,7 +133,7 @@ public class Company {
     }
 
     public void setContent(String content) {
-        this.content = ImageUtils.diffUrlContent(content);
+        this.content = content;
     }
 
     public Date getcTime() {

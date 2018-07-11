@@ -109,7 +109,7 @@ public class Schedule {
     }
 
     public void setContent(String content) {
-        this.content = ImageUtils.diffUrlContent(content);
+        this.content = content;
     }
 
     public String getPlace() {
