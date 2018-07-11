@@ -27,6 +27,10 @@ public class Product {
     private Date mTime;
     private long seq;
 
+    private String imageView;
+    private String contentView;
+    private String pdfUrlView;
+
     public Integer getId() {
         return id;
     }
@@ -68,27 +72,30 @@ public class Product {
     }
 
     public String getImage() {
-        return ImageUtils.addUrlImage(image);
+        return image;
     }
 
     public void setImage(String image) {
         this.image = image;
+        this.imageView = ImageUtils.addUrlImage(image);
     }
 
     public String getContent() {
-        return ImageUtils.addUrlContent(content);
+        return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+        this.contentView = ImageUtils.addUrlContent(content);
     }
 
     public String getPdfUrl() {
-        return ImageUtils.addUrlPdf(pdfUrl);
+        return pdfUrl;
     }
 
     public void setPdfUrl(String pdfUrl) {
         this.pdfUrl = pdfUrl;
+        this.pdfUrlView = ImageUtils.addUrlPdf(pdfUrl);
     }
 
     public String getPdfName() {
@@ -137,6 +144,33 @@ public class Product {
 
     public void setSeq(long seq) {
         this.seq = seq;
+    }
+
+    public String getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(String imageView) {
+        this.imageView = imageView;
+        this.image = ImageUtils.diffUrlImage(this.imageView);
+    }
+
+    public String getContentView() {
+        return contentView;
+    }
+
+    public void setContentView(String contentView) {
+        this.contentView = contentView;
+        this.content = ImageUtils.diffUrlContent(contentView);
+    }
+
+    public String getPdfUrlView() {
+        return pdfUrlView;
+    }
+
+    public void setPdfUrlView(String pdfUrlView) {
+        this.pdfUrlView = pdfUrlView;
+        this.pdfUrl = ImageUtils.diffUrlPdf(pdfUrlView);
     }
 
     @Override

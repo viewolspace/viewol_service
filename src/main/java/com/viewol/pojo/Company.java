@@ -16,21 +16,26 @@ public class Company {
     public static final int ISRECOMMEND_NO = 0;
 
     private Integer id;
-    private String  name;
-    private String  shortName; //简称
-    private String  logo;
-    private String  banner; //形象图
-    private String  image;  //列表图
-    private String  place;  //展馆的位置
-    private String  placeSvg;
-    private Integer  productNum;
-    private Integer  canApply; //1 允许申请活动  0 不允许
-    private Integer  isRecommend; //是否推荐展商 1 推荐 0 非推荐
-    private Integer  recommendNum; //推荐位置
-    private String  content ;
-    private Date  cTime;
+    private String name;
+    private String shortName; //简称
+    private String logo;
+    private String banner; //形象图
+    private String image;  //列表图
+    private String place;  //展馆的位置
+    private String placeSvg;
+    private Integer productNum;
+    private Integer canApply; //1 允许申请活动  0 不允许
+    private Integer isRecommend; //是否推荐展商 1 推荐 0 非推荐
+    private Integer recommendNum; //推荐位置
+    private String content;
+    private Date cTime;
     private Date mTime;
     private long seq;
+
+    private String logoView;
+    private String bannerView;
+    private String imageView;
+    private String contentView;
 
     public Integer getId() {
         return id;
@@ -57,27 +62,30 @@ public class Company {
     }
 
     public String getLogo() {
-        return ImageUtils.addUrlImage(logo);
+        return logo;
     }
 
     public void setLogo(String logo) {
         this.logo = logo;
+        this.logoView = ImageUtils.addUrlImage(logo);
     }
 
     public String getBanner() {
-        return ImageUtils.addUrlImage(banner);
+        return banner;
     }
 
     public void setBanner(String banner) {
         this.banner = banner;
+        this.bannerView = ImageUtils.addUrlImage(banner);
     }
 
     public String getImage() {
-        return ImageUtils.addUrlImage(image);
+        return image;
     }
 
     public void setImage(String image) {
         this.image = image;
+        this.imageView = ImageUtils.addUrlImage(image);
     }
 
     public String getPlace() {
@@ -129,11 +137,12 @@ public class Company {
     }
 
     public String getContent() {
-        return ImageUtils.addUrlContent(content);
+        return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+        this.contentView = ImageUtils.addUrlContent(content);
     }
 
     public Date getcTime() {
@@ -158,6 +167,42 @@ public class Company {
 
     public void setSeq(long seq) {
         this.seq = seq;
+    }
+
+    public String getLogoView() {
+        return logoView;
+    }
+
+    public void setLogoView(String logoView) {
+        this.logoView = logoView;
+        this.logo = ImageUtils.diffUrlImage(this.logoView);
+    }
+
+    public String getBannerView() {
+        return bannerView;
+    }
+
+    public void setBannerView(String bannerView) {
+        this.bannerView = bannerView;
+        this.banner = ImageUtils.diffUrlImage(this.bannerView);
+    }
+
+    public String getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(String imageView) {
+        this.imageView = imageView;
+        this.image = ImageUtils.diffUrlImage(this.imageView);
+    }
+
+    public String getContentView() {
+        return contentView;
+    }
+
+    public void setContentView(String contentView) {
+        this.contentView = contentView;
+        this.content = ImageUtils.diffUrlContent(contentView);
     }
 
     @Override

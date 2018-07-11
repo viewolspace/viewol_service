@@ -32,6 +32,8 @@ public class Schedule {
     private Integer vType; //不是数据库字段 等同于RecommendSchedule的type字段
     private Long seq;
 
+    private String contentView;
+
     public Integer getId() {
         return id;
     }
@@ -110,6 +112,7 @@ public class Schedule {
 
     public void setContent(String content) {
         this.content = content;
+        this.contentView = ImageUtils.addUrlContent(content);
     }
 
     public String getPlace() {
@@ -134,6 +137,15 @@ public class Schedule {
 
     public void setSeq(Long seq) {
         this.seq = seq;
+    }
+
+    public String getContentView() {
+        return contentView;
+    }
+
+    public void setContentView(String contentView) {
+        this.contentView = contentView;
+        this.content = ImageUtils.diffUrlContent(contentView);
     }
 
     @Override
