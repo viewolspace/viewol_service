@@ -84,7 +84,7 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public int addSchedule(String title, String place, String content, String startTime, String endTime) {
         Schedule schedule = new Schedule();
-        schedule.setType(Schedule.TYPE_COM);
+        schedule.setType(Schedule.TYPE_HOST);
         schedule.setStatus(Schedule.STATUS_OK);
         schedule.setCompanyId(-1);
         schedule.setCompanyName(Schedule.HOSTNAME);
