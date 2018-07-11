@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import com.viewol.util.ImageUtils;
+
 import java.util.Date;
 
 /**
@@ -66,27 +68,27 @@ public class Product {
     }
 
     public String getImage() {
-        return image;
+        return ImageUtils.addUrlImage(image);
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = ImageUtils.diffUrlImage(image);
     }
 
     public String getContent() {
-        return content;
+        return ImageUtils.addUrlContent(content);
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = ImageUtils.diffUrlContent(content);
     }
 
     public String getPdfUrl() {
-        return pdfUrl;
+        return ImageUtils.addUrlPdf(pdfUrl);
     }
 
     public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
+        this.pdfUrl = ImageUtils.diffUrlPdf(pdfUrl);
     }
 
     public String getPdfName() {

@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import com.viewol.util.ImageUtils;
+
 import java.util.Date;
 
 /**
@@ -103,11 +105,11 @@ public class Schedule {
     }
 
     public String getContent() {
-        return content;
+        return ImageUtils.addUrlContent(content);
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = ImageUtils.diffUrlContent(content);
     }
 
     public String getPlace() {
