@@ -114,15 +114,21 @@
 				and status = #{status}
 			</if>
 
-			<if test="companyId != null">
+			<if test="companyId != null  and companyId != 0">
 				and company_id = #{companyId}
 			</if>
 
-			<if test="categoryId != null">
+			<if test="lastSeq != null  and lastSeq != 0">
+				<![CDATA[
+					AND a.seq < #{lastSeq}
+				]]>
+			</if>
+
+			<if test="categoryId != null and categoryId != ''">
 				and category_id = #{categoryId}
 			</if>
 
-			<if test="name != null">
+			<if test="name != null and name != ''">
 				AND name LIKE concat(concat('%',#{name}),'%')
 			</if>
 		</where>
@@ -141,6 +147,12 @@
 		<include refid="selectCommon" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />
+	</select>
+
+	<select id="listProduct" parameterType="java.util.HashMap" resultType="Product">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		order by a.seq desc limit 0 , #{num}
 	</select>
 
 

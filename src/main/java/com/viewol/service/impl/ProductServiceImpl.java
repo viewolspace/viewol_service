@@ -63,4 +63,14 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> queryRecommentProduct() {
         return productDAO.queryRecommentProduct();
     }
+
+    @Override
+    public List<Product> listProduct(int companyId, String name, String categoryId, long lastSeq, int num) {
+        ProductQuery query = new ProductQuery();
+        query.setName(name);
+        query.setCategoryId(categoryId);
+        query.setPageSize(num);
+        query.setLastSeq(lastSeq);
+        return productDAO.listProduct(query);
+    }
 }

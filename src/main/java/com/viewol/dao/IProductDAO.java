@@ -34,5 +34,8 @@ public interface IProductDAO {
     //查询推荐产品
     List<Product> queryRecommentProduct();
 
+    //客户端查询
+    List<Product> listProduct(ProductQuery query);
+
 
 }

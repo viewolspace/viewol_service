@@ -13,6 +13,8 @@ public class ProductQuery {
 
     private Integer status;
 
+    private Long lastSeq;
+
     private int pageIndex = 1;
 
     private int pageSize = 20;
@@ -63,5 +65,13 @@ public class ProductQuery {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Long getLastSeq() {
+        return lastSeq;
+    }
+
+    public void setLastSeq(Long lastSeq) {
+        this.lastSeq = lastSeq;
     }
 }

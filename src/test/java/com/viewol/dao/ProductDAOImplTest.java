@@ -64,7 +64,7 @@ public class ProductDAOImplTest extends BaseTestClass{
     public void queryProduct(){
 
         ProductQuery query = new ProductQuery();
-        query.setName("摄像");
+        query.setName("摄像11");
         query.setStatus(1);
         query.setCompanyId(1);
         query.setCategoryId("00010001");
@@ -79,7 +79,13 @@ public class ProductDAOImplTest extends BaseTestClass{
     }
 
 
-
+    @Test
+    public void listProduct(){
+        ProductQuery query = new ProductQuery();
+        query.setName("摄像");
+        query.setCategoryId("00010001");
+        System.out.println(dao.listProduct(query));
+    }
 
 
 

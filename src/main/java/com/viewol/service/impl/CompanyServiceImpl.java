@@ -103,4 +103,17 @@ public class CompanyServiceImpl implements ICompanyService {
     public int addRecomment(int id,int num) {
         return companyDAO.addRecomment(id,num);
     }
+
+    @Override
+    public List<Company> listCompany(String keyWord, String categoryId, long lastSeq, int num) {
+        if(lastSeq==0){
+            lastSeq = Long.MAX_VALUE;
+        }
+        CompanyQuery query = new CompanyQuery();
+        query.setLastSeq(lastSeq);
+        query.setName(keyWord);
+        query.setCategoryId(categoryId);
+        query.setPageSize(num);
+        return companyDAO.listCompany(query);
+    }
 }

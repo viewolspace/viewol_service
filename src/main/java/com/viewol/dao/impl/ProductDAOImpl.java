@@ -93,6 +93,19 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         return result;
     }
 
+
+    @Override
+    public List<Product> listProduct(ProductQuery query) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("categoryId",query.getCategoryId());
+        map.put("companyId",query.getCompanyId());
+        map.put("name",query.getName());
+        map.put("status",Product.STATUS_ON);
+        map.put("num",query.getPageSize());
+        map.put("lastSeq",query.getLastSeq());
+        return this.findBy("listProduct",map);
+    }
+
     @Override
     public List<Product> queryRecommentProduct() {
         return super.findBy("queryRecommentProduct",null);

@@ -30,6 +30,9 @@ public interface ICompanyService {
     //管理平台 查询展商
     PageHolder<Company> queryCompany(CompanyQuery query);
 
+    //前端使用的展商搜索
+    List<Company> listCompany(String keyWord,String categoryId,long lastSeq,int num);
+
     //删除推荐
     int delRecomment(int id);
     //添加推荐
