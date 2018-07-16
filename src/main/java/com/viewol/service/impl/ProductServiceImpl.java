@@ -1,6 +1,8 @@
 package com.viewol.service.impl;
 
+import com.viewol.dao.ICompanyDAO;
 import com.viewol.dao.IProductDAO;
+import com.viewol.pojo.Company;
 import com.viewol.pojo.Product;
 import com.viewol.pojo.query.ProductQuery;
 import com.viewol.service.IProductService;
@@ -19,6 +21,10 @@ public class ProductServiceImpl implements IProductService {
     @Resource
     private IProductDAO productDAO;
 
+
+    @Resource
+    private ICompanyDAO companyDAO;
+
     @Override
     public Product getProduct(int id) {
         return productDAO.getProduct(id);
@@ -26,6 +32,22 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public int addProduct(Product product) {
+        int comId = product.getCompanyId();
+
+        Company company = companyDAO.getCompany(comId);
+
+        if(company==null){
+            return -98;
+        }
+
+        int num = company.getProductNum();
+
+        int countNum = productDAO.comProductCount(comId);
+
+        if(countNum >= num){
+            return -99;
+        }
+
         return productDAO.addProduct(product);
     }
 

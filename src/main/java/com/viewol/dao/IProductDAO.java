@@ -22,6 +22,9 @@ public interface IProductDAO {
     //修改上架 下架状态
     int updateStatus(int id,int status);
 
+    //查询公司产品数量
+    int comProductCount(int companyId);
+
     //管理平台查询产品
     PageHolder<Product> queryProduct(ProductQuery query);
 

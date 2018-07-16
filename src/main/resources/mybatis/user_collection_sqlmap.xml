@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserCollection">
+
+	<sql id="selectCommon">
+		SELECT 	id,
+				user_id,
+				type,
+				third_id,
+				name,
+				image,
+				c_time
+	</sql>
+
+	<insert id="insert" parameterType="UserCollection" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		INSERT INTO viewol.user_collection
+					(
+					user_id,
+					type,
+					third_id,
+					name,
+					image,
+					c_time
+					)
+					VALUES
+					(
+					#{userId},
+					#{type},
+					#{thirdId},
+					#{name},
+					#{image},
+					#{cTime}
+					)
+
+
+	</insert>
+
+
+	<delete id="delete" parameterType="int">
+		delete from viewol.user_collection where id = #{id}
+	</delete>
+
+	<delete id="deleteByMap" parameterType="map">
+		delete from viewol.user_collection where user_id=#{userId} and type=#{type} and third_id=#{thirdId}
+	</delete>
+
+
+	<select id="isCollection" parameterType="map"  resultType="UserCollection">
+		<include refid="selectCommon"/>
+		from viewol.user_collection where user_id=#{userId} and type=#{type} and third_id=#{thirdId}
+
+	</select>
+
+
+	<select id="listUserCollection" parameterType="map" resultType="UserCollection">
+		<include refid="selectCommon"/>
+		from viewol.user_collection
+		<where>
+			user_id=#{userId} and type=#{type}
+
+			<if test="lastId != null and lastId > 0">
+				<![CDATA[
+					AND id < #{lastId}
+				]]>
+			</if>
+
+		</where>
+
+		order by id desc limit 0,#{num}
+	</select>
+
+
+
+</mapper>

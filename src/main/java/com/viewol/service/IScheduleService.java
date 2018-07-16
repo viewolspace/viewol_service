@@ -49,6 +49,15 @@ public interface IScheduleService {
      */
     Schedule getSchedule(int id);
 
+    /**
+     * 获取用活动 并返回是否可以报名之类的数据
+     * @param id
+     * @param userId
+     * @return
+     */
+    ScheduleVO getScheduleByUid(int id,int userId);
+
+
     int delSchedule(int id);
 
     /**

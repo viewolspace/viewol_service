@@ -112,6 +112,13 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     }
 
 
+    @Override
+    public int comProductCount(int companyId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("companyId",companyId);
+        return super.count("comProductCount",map);
+    }
+
     private long getSeq(Product product){
         int id = product.getId();
         int recomment = product.getIsRecommend();

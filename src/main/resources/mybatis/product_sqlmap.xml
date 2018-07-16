@@ -155,7 +155,9 @@
 		order by a.seq desc limit 0 , #{num}
 	</select>
 
-
+	<select id="comProductCount" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from product where company_id = #{companyId}
+	</select>
 
 
 </mapper>

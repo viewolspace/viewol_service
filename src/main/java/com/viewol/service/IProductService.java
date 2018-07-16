@@ -13,6 +13,12 @@ public interface IProductService {
 
     Product getProduct(int id);
 
+    /**
+     * -98 展商不存在
+     * -99 超过允许添加产品的上限
+     * @param product
+     * @return
+     */
     int addProduct(Product product);
 
     int delProduct(int  id);

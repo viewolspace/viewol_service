@@ -1,5 +1,6 @@
 package com.viewol.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.viewol.dao.ICompanyDAO;
 import com.viewol.dao.IRecommendScheduleDAO;
 import com.viewol.dao.IScheduleDAO;
@@ -101,6 +102,40 @@ public class ScheduleServiceImpl implements IScheduleService {
         return scheduleDAO.getSchedule(id);
     }
 
+
+    @Override
+    public ScheduleVO getScheduleByUid(int scheduleId, int userId) {
+
+        Schedule s = scheduleDAO.getSchedule(scheduleId);
+
+        if(s!=null){
+            ScheduleVO svo = JSON.parseObject(JSON.toJSONString(s),ScheduleVO.class);
+            if(userId<=0){
+                return svo;
+            }
+
+            if(svo.getType().equals(Schedule.TYPE_COM)){
+                return svo;
+            }
+
+            svo.setApplyStatus(ScheduleVO.APPLY_STATUS_CAN);
+
+            boolean isjoin = this.isJoinSchedule(userId,scheduleId);
+
+            if(isjoin){
+                svo.setApplyStatus(ScheduleVO.APPLY_STATUS_YES);
+            }
+
+            return svo;
+
+        }
+
+
+
+
+        return null;
+    }
+
     @Override
     public int delSchedule(int id) {
         return scheduleDAO.delSchedule(id);
@@ -155,7 +190,7 @@ public class ScheduleServiceImpl implements IScheduleService {
     public PageHolder<ScheduleUser> queryScheduleUser(int scheduleId, int pageIndex, int pageSize) {
         return scheduleUserDAO.queryScheduleUser(scheduleId, pageIndex, pageSize);
     }
-
+    //TODO 是否关注
     @Override
     public int applyJoin(int userId, int scheduleId, boolean needReminder) {
 

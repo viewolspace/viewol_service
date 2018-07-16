@@ -87,6 +87,11 @@ public class ProductDAOImplTest extends BaseTestClass{
         System.out.println(dao.listProduct(query));
     }
 
+    @Test
+    public void comProductCount(){
+        System.out.println(dao.comProductCount(1));
+    }
+
 
 
 }

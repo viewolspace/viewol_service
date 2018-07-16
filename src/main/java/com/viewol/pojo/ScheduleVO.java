@@ -7,11 +7,20 @@ import java.util.Date;
  */
 public class ScheduleVO extends Schedule {
 
+
+    public static final int APPLY_STATUS_NO = 0 ; //不能报名
+
+    public static final int APPLY_STATUS_CAN = 1 ; //可以报名
+
+    public static final int APPLY_STATUS_YES = 2 ; //已经报名
+
     private Integer  RecommendScheduleId ;
 
     private Date recommendSTime;
 
     private Date recommendETime;
+
+    private int applyStatus; //0 不允许报名  1 可以报名  2 已经报名
 
     public Integer getRecommendScheduleId() {
         return RecommendScheduleId;
@@ -35,6 +44,15 @@ public class ScheduleVO extends Schedule {
 
     public void setRecommendETime(Date recommendETime) {
         this.recommendETime = recommendETime;
+    }
+
+
+    public int getApplyStatus() {
+        return applyStatus;
+    }
+
+    public void setApplyStatus(int applyStatus) {
+        this.applyStatus = applyStatus;
     }
 
     @Override
