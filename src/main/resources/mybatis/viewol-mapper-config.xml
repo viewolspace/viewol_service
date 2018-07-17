@@ -30,6 +30,7 @@
 		<typeAlias alias="UserCardVO" type="com.viewol.pojo.UserCardVO"/>
 		<typeAlias alias="ScheduleVO" type="com.viewol.pojo.ScheduleVO"/>
 		<typeAlias alias="UserCollection" type="com.viewol.pojo.UserCollection"/>
+		<typeAlias alias="UserDownload" type="com.viewol.pojo.UserDownload"/>
 
 	</typeAliases>
 	<plugins>
@@ -53,6 +54,7 @@
 		<mapper resource="mybatis/b_user_sqlmap.xml" />
 		<mapper resource="mybatis/user_card_sqlmap.xml" />
 		<mapper resource="mybatis/user_collection_sqlmap.xml" />
+		<mapper resource="mybatis/user_download_sqlmap.xml" />
 
 
 	</mappers>
