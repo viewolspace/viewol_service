@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import com.viewol.util.ImageUtils;
+
 import java.util.Date;
 
 /**
@@ -20,6 +22,8 @@ public class UserBrowse {
     private String image;
     private Date cTime;
     private Date mTime;
+
+    private String imageView;
 
 
     public int getId() {
@@ -60,6 +64,7 @@ public class UserBrowse {
 
     public void setName(String name) {
         this.name = name;
+
     }
 
     public String getImage() {
@@ -68,6 +73,7 @@ public class UserBrowse {
 
     public void setImage(String image) {
         this.image = image;
+        this.imageView = ImageUtils.addUrlImage(image);
     }
 
     public Date getcTime() {
@@ -92,6 +98,14 @@ public class UserBrowse {
 
     public void setmTime(Date mTime) {
         this.mTime = mTime;
+    }
+
+    public String getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(String imageView) {
+        this.imageView = imageView;
     }
 
     @Override

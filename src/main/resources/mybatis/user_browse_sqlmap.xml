@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserBrowse">
+
+	<sql id="selectCommon">
+		SELECT 	id,
+				user_id,
+				type,
+				third_id,
+				num,
+				name,
+				image,
+				c_time,
+				m_time
+	</sql>
+
+	<insert id="insert" parameterType="UserBrowse" useGeneratedKeys="true">
+
+
+		INSERT INTO viewol.user_browse
+					(
+					user_id,
+					type,
+					third_id,
+					num,
+					name,
+					image,
+					c_time,
+					m_time
+					)
+					VALUES
+					(
+					#{userId},
+					#{type},
+					#{thirdId},
+					1,
+					#{name},
+					#{image},
+					#{cTime},
+					#{mTime}
+					) ON DUPLICATE KEY UPDATE num = num + 1 , m_time=now();
+
+	</insert>
+
+
+	<select id="listUserBrowse" parameterType="map" resultType="UserBrowse">
+		<include refid="selectCommon"/>
+		from viewol.user_collection
+		<where>
+			user_id=#{userId} and type=#{type}
+
+			<if test="lastId != null and lastId > 0">
+				<![CDATA[
+					AND id < #{lastId}
+				]]>
+			</if>
+
+		</where>
+
+		order by id desc limit 0,#{num}
+	</select>
+
+
+
+</mapper>
