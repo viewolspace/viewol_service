@@ -101,6 +101,17 @@ public class FUserServiceImpl implements IFUserService {
         return ifUserDAO.updateFUser(fuser);
     }
 
+    @Transactional("viewolTX")
+    @Override
+    public int updateUser(FUser fuser, String answer) {
+        int result = ifUserDAO.updateFUser(fuser);
+        UserAnswer userAnswer = new UserAnswer();
+        userAnswer.setUserId(fuser.getUserId());
+        userAnswer.setAnswer(answer);
+        userAnswerDAO.addUserAnswer(userAnswer);
+        return result;
+    }
+
     @Override
     public String getOpenId(int uid,int type) {
         FUserBind userBind = ifUserBindDAO.getOpenId(uid, type);

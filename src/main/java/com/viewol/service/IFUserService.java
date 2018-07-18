@@ -24,6 +24,10 @@ public interface IFUserService {
     //修改用户数据
     int updateUser(FUser fuser);
 
+
+    //修改用户数据
+    int updateUser(FUser fuser, String answer);
+
     //获取用户的openid
     String getOpenId(int uid,int type);
 
