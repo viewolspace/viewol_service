@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import com.viewol.util.ImageUtils;
+
 import java.util.Date;
 
 /**
@@ -12,6 +14,8 @@ public class CompanyDetail {
     private String  content;
     private Date cTime;
     private  Date  mTime;
+
+    private String contentView;
 
     public Integer getId() {
         return id;
@@ -27,6 +31,7 @@ public class CompanyDetail {
 
     public void setContent(String content) {
         this.content = content;
+        this.contentView = ImageUtils.addUrlContent(content);
     }
 
     public Date getcTime() {
@@ -43,5 +48,13 @@ public class CompanyDetail {
 
     public void setmTime(Date mTime) {
         this.mTime = mTime;
+    }
+
+    public String getContentView() {
+        return contentView;
+    }
+
+    public void setContentView(String contentView) {
+        this.contentView = contentView;
     }
 }

@@ -2,6 +2,7 @@ package com.viewol.service;
 
 import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
+import com.viewol.pojo.CompanyCategory;
 import com.viewol.pojo.query.CompanyQuery;
 import com.youguu.core.util.PageHolder;
 
@@ -26,6 +27,9 @@ public interface ICompanyService {
 
     //查询推荐的展商
     List<Company> queryRecommentCompany();
+
+
+    List<CompanyCategory> queryCompanyCategory(int companyId);
 
     //管理平台 查询展商
     PageHolder<Company> queryCompany(CompanyQuery query);

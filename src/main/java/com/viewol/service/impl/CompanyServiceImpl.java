@@ -116,4 +116,9 @@ public class CompanyServiceImpl implements ICompanyService {
         query.setPageSize(num);
         return companyDAO.listCompany(query);
     }
+
+    @Override
+    public List<CompanyCategory> queryCompanyCategory(int companyId) {
+        return companyCategoryDAO.queryCategory(companyId);
+    }
 }
