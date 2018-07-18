@@ -38,6 +38,25 @@ public class FUserServiceImpl implements IFUserService {
 
     @Transactional("viewolTX")
     @Override
+    public int addFUser(String openId, String uuid, int type) {
+        FUser fuser = new FUser();
+        fuser.setcTime(new Date());
+        fuser.setUuid(uuid);
+
+        int uid = ifUserDAO.addFUser(fuser);
+
+        FUserBind fUserBind = new FUserBind();
+        fUserBind.setUserId(uid);
+        fUserBind.setOpenId(openId);
+        fUserBind.setUuid(uuid);
+        fUserBind.setcTime(new Date());
+        fUserBind.setType(type);
+        int result = ifUserBindDAO.addFUserBind(fUserBind);
+        return uid;
+    }
+
+    @Transactional("viewolTX")
+    @Override
     public int addFUser(FUser fuser, String openId, String uuid , int type) {
         fuser.setcTime(new Date());
         fuser.setUuid(uuid);
@@ -51,7 +70,7 @@ public class FUserServiceImpl implements IFUserService {
         fUserBind.setcTime(new Date());
         fUserBind.setType(type);
         int result = ifUserBindDAO.addFUserBind(fUserBind);
-        return result;
+        return uid;
     }
 
     @Transactional("viewolTX")
@@ -74,7 +93,7 @@ public class FUserServiceImpl implements IFUserService {
         userAnswer.setUserId(uid);
         userAnswer.setAnswer(answer);
         userAnswerDAO.addUserAnswer(userAnswer);
-        return result;
+        return uid;
     }
 
     @Override
