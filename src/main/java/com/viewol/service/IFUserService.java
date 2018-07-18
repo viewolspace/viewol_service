@@ -14,6 +14,10 @@ public interface IFUserService {
     //添加用户 , openId,uuid,
     int addFUser(FUser fuser , String openId, String uuid, int type);
 
+
+    //添加用户 , openId,uuid,
+    int addFUser(FUser fuser , String answer, String openId, String uuid, int type);
+
     //修改用户数据
     int updateUser(FUser fuser);
 

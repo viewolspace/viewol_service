@@ -2,8 +2,10 @@ package com.viewol.service.impl;
 
 import com.viewol.dao.IFUserBindDAO;
 import com.viewol.dao.IFUserDAO;
+import com.viewol.dao.IUserAnswerDAO;
 import com.viewol.pojo.FUser;
 import com.viewol.pojo.FUserBind;
+import com.viewol.pojo.UserAnswer;
 import com.viewol.pojo.query.FUserQuery;
 import com.viewol.service.IFUserService;
 import com.youguu.core.util.PageHolder;
@@ -24,6 +26,9 @@ public class FUserServiceImpl implements IFUserService {
 
     @Resource
     private IFUserBindDAO ifUserBindDAO;
+
+    @Resource
+    private IUserAnswerDAO userAnswerDAO;
 
 
     @Override
@@ -46,6 +51,29 @@ public class FUserServiceImpl implements IFUserService {
         fUserBind.setcTime(new Date());
         fUserBind.setType(type);
         int result = ifUserBindDAO.addFUserBind(fUserBind);
+        return result;
+    }
+
+    @Transactional("viewolTX")
+    @Override
+    public int addFUser(FUser fuser, String answer, String openId, String uuid, int type) {
+        fuser.setcTime(new Date());
+        fuser.setUuid(uuid);
+
+        int uid = ifUserDAO.addFUser(fuser);
+
+        FUserBind fUserBind = new FUserBind();
+        fUserBind.setUserId(uid);
+        fUserBind.setOpenId(openId);
+        fUserBind.setUuid(uuid);
+        fUserBind.setcTime(new Date());
+        fUserBind.setType(type);
+        int result = ifUserBindDAO.addFUserBind(fUserBind);
+
+        UserAnswer userAnswer = new UserAnswer();
+        userAnswer.setUserId(uid);
+        userAnswer.setAnswer(answer);
+        userAnswerDAO.addUserAnswer(userAnswer);
         return result;
     }
 

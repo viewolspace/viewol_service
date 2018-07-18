@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserAnswer">
+
+	<sql id="selectCommon">
+		SELECT
+				user_id,
+				answer,
+				c_time
+	</sql>
+
+	<insert id="insert" parameterType="UserAnswer">
+
+
+		INSERT INTO viewol.user_answer
+					(
+					user_id,
+					answer,
+					c_time
+					)
+					VALUES
+					(
+					#{userId},
+					#{answer},
+					#{cTime}
+					)
+
+
+	</insert>
+
+
+
+
+
+
+</mapper>

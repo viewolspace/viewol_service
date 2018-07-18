@@ -32,6 +32,7 @@
 		<typeAlias alias="UserCollection" type="com.viewol.pojo.UserCollection"/>
 		<typeAlias alias="UserDownload" type="com.viewol.pojo.UserDownload"/>
 		<typeAlias alias="UserBrowse" type="com.viewol.pojo.UserBrowse"/>
+		<typeAlias alias="UserAnswer" type="com.viewol.pojo.UserAnswer"/>
 
 	</typeAliases>
 	<plugins>
@@ -57,6 +58,7 @@
 		<mapper resource="mybatis/user_collection_sqlmap.xml" />
 		<mapper resource="mybatis/user_download_sqlmap.xml" />
 		<mapper resource="mybatis/user_browse_sqlmap.xml" />
+		<mapper resource="mybatis/user_answer_sqlmap.xml" />
 
 
 	</mappers>
