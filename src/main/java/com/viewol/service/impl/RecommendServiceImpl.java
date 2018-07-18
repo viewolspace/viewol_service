@@ -60,7 +60,12 @@ public class RecommendServiceImpl implements IRecommendService {
         if(product==null){
             return -3;
         }else{
-            recommend.setCategoryId(product.getCategoryId());
+
+            String categoryId = product.getCategoryId();
+            if(categoryId.length()>8){
+                categoryId = categoryId.substring(0,8);
+            }
+            recommend.setCategoryId(categoryId);
             recommend.setName(product.getName());
             recommend.setImage(product.getImage());
         }

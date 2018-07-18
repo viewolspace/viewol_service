@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import com.viewol.util.ImageUtils;
+
 import java.util.Date;
 
 /**
@@ -19,6 +21,8 @@ public class Recommend {
     private String categoryId;
     private Date cTime;
     private Date mTime;
+
+    private String imageView;
 
     public int getId() {
         return id;
@@ -58,6 +62,7 @@ public class Recommend {
 
     public void setImage(String image) {
         this.image = image;
+        this.imageView = ImageUtils.addUrlImage(image);
     }
 
     public String getCategoryId() {
@@ -82,6 +87,14 @@ public class Recommend {
 
     public void setmTime(Date mTime) {
         this.mTime = mTime;
+    }
+
+    public String getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(String imageView) {
+        this.imageView = imageView;
     }
 
     @Override
