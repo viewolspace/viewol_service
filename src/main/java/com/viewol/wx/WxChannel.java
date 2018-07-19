@@ -2,12 +2,13 @@ package com.viewol.wx;
 
 
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.youguu.core.logging.Log;
 import com.youguu.core.logging.LogFactory;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 
@@ -98,6 +99,14 @@ public class WxChannel {
         return this.access_token;
     }
 
+    /**
+     * 推送模板信息
+     * @param openid
+     * @param template_id
+     * @param url
+     * @param msg
+     * @return
+     */
     private JSONObject sendMsg(String openid,String template_id,String url,JSONObject msg){
         String wx_url = this.send_msg_url + this.access_token ;
         JSONObject json = new JSONObject();
@@ -118,6 +127,14 @@ public class WxChannel {
         return wx_result;
     }
 
+    /**
+     * 推送模板信息
+     * @param openid
+     * @param template_id
+     * @param url
+     * @param msg
+     * @return
+     */
     public JSONObject wxSendMsg(String openid,String template_id,String url,JSONObject msg){
 
         this.getToken(0);
@@ -201,6 +218,11 @@ public class WxChannel {
         return sb.toString();
     }
 
+
+    /**
+     * jsapi
+     * @return
+     */
     public String getJsapi(){
 
         if(System.currentTimeMillis() - lasttime < 1*60*60*1000 && jsapi_ticket!=null){
@@ -281,38 +303,9 @@ public class WxChannel {
 
 
 
-    public  String getView(){
-        JSONObject json = new JSONObject();
-        JSONArray buttons = new JSONArray();
-        JSONObject b1 = new JSONObject();
-        b1.put("name","印刷报价");
-        b1.put("type","view");
-        b1.put("url","http://123.56.121.21:8080/price/control/appLogin.do?customerNO=101003");
-        buttons.add(b1);
 
-        JSONObject b2 = new JSONObject();
-        b2.put("name","DIY相册");
-        b2.put("type","view");
-        b2.put("url","http://bjftfh.shop.1651ky.cn/index.aspx");
-        buttons.add(b2);
-
-        json.put("button",buttons);
-
-        return json.toJSONString();
-    }
-
-    public static  String getnoncestr(){
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString();
-    }
     public static void main(String[] args){
-        WxChannel channel = WxChannelCache.getWxChannel(1);
 
-
-        String token = channel.getToken(0);
-        String value = channel.getView();
-        String s = HttpsClient.getClient().doPost("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + token,value);
-        System.out.println(s);
 
     }
 }
