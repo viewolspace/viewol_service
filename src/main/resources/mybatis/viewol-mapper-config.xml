@@ -33,6 +33,7 @@
 		<typeAlias alias="UserDownload" type="com.viewol.pojo.UserDownload"/>
 		<typeAlias alias="UserBrowse" type="com.viewol.pojo.UserBrowse"/>
 		<typeAlias alias="UserAnswer" type="com.viewol.pojo.UserAnswer"/>
+		<typeAlias alias="WxToken" type="com.viewol.pojo.WxToken"/>
 
 	</typeAliases>
 	<plugins>
@@ -59,6 +60,7 @@
 		<mapper resource="mybatis/user_download_sqlmap.xml" />
 		<mapper resource="mybatis/user_browse_sqlmap.xml" />
 		<mapper resource="mybatis/user_answer_sqlmap.xml" />
+		<mapper resource="mybatis/wx_token_sqlmap.xml" />
 
 
 	</mappers>

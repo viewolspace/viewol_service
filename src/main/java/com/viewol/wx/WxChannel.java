@@ -48,20 +48,15 @@ public class WxChannel {
     private String getUserUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s&lang=zh_CN";
 
 
+    private String getUserFollowUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN";
+
+
     private String imgTicket_url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=";
 
     //公众号发送模板消息
     private String send_msg_url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=";
 
-    /**
-     * token
-     */
-    public  String access_token;
 
-    /**
-     * jsapi
-     */
-    private  String jsapi_ticket;
 
     private  long lasttime  = 0 ;
 
@@ -79,9 +74,8 @@ public class WxChannel {
      */
 
     public String getToken(int flag){
-        if(this.access_token!=null && flag ==0 ) return this.access_token;
+
         synchronized (this){
-            if(this.access_token==null){
                 StringBuffer sb = new StringBuffer(this.tokenUrl);
                 sb.append("?")
                         .append("grant_type").append("=").append(grant_type).append("&")
@@ -91,12 +85,10 @@ public class WxChannel {
                 String access_token_new = null;
                 if(response!=null){
                     access_token_new = JSONObject.parseObject(response).getString("access_token");
-                    this.access_token = access_token_new;
+                    return access_token_new;
                 }
-            }
         }
-
-        return this.access_token;
+        return null;
     }
 
     /**
@@ -107,8 +99,8 @@ public class WxChannel {
      * @param msg
      * @return
      */
-    private JSONObject sendMsg(String openid,String template_id,String url,JSONObject msg){
-        String wx_url = this.send_msg_url + this.access_token ;
+    private JSONObject sendMsg(String openid,String access_token,String template_id,String url,JSONObject msg){
+        String wx_url = this.send_msg_url + access_token ;
         JSONObject json = new JSONObject();
         json.put("touser",openid);
         json.put("template_id",template_id);
@@ -127,138 +119,55 @@ public class WxChannel {
         return wx_result;
     }
 
-    /**
-     * 推送模板信息
-     * @param openid
-     * @param template_id
-     * @param url
-     * @param msg
-     * @return
-     */
-    public JSONObject wxSendMsg(String openid,String template_id,String url,JSONObject msg){
 
-        this.getToken(0);
-        JSONObject wx_result;
-
-        try{
-            wx_result = sendMsg(openid,template_id,url,msg);
-            int errcode = wx_result.getIntValue("errcode");
-            if(errcode==42001){
-                this.getToken(1);
-                wx_result = sendMsg(openid,template_id,url,msg);
-            }
-        }catch (Exception e){
-            wx_result = new JSONObject();
-            wx_result.put("errcode",-1);
-        }
-
-        return wx_result;
-    }
-    /**
-     * 获取二维码
-     * @param param
-     * @return
-     */
-    private JSONObject wx_imgTicket(String param){
-        int expire_seconds = 2592000;
-        String action_name = "QR_LIMIT_STR_SCENE";
-        JSONObject json = new JSONObject();
-        json.put("expire_seconds",expire_seconds);
-        json.put("action_name",action_name);
-        JSONObject action_info = new JSONObject();
-        JSONObject scene = new JSONObject();
-        scene.put("scene_str",param);
-        action_info.put("scene",scene);
-        json.put("action_info",action_info);
-
-        String url = this.imgTicket_url + this.access_token ;
-
-        String result = HttpsClient.getClient().doPost(url, json.toJSONString());
-
-        JSONObject wx_result;
-
-        try{
-            wx_result = JSONObject.parseObject(result);
-
-        }catch (Exception e){
-            wx_result = new JSONObject();
-            wx_result.put("errcode",-1);
-        }
-
-        return wx_result;
-    }
-
-    //获取带参数的临时二维码
-    public JSONObject imgTicket(String param){
-
-        this.getToken(0);
-        JSONObject wx_result;
-
-        try{
-            wx_result = wx_imgTicket(param);
-            int errcode = wx_result.getIntValue("errcode");
-            if(errcode==42001){
-                this.getToken(1);
-                wx_result = wx_imgTicket(param);
-            }
-        }catch (Exception e){
-            wx_result = new JSONObject();
-            wx_result.put("errcode",-1);
-        }
-
-        return wx_result;
-    }
 
 
     public String getJsapiPath(String access_token){
         StringBuilder sb = new StringBuilder(this.jsapiUrl);
         sb.append("?")
-                .append("access_token").append("=").append(this.access_token).append("&")
+                .append("access_token").append("=").append(access_token).append("&")
                 .append("type").append("=").append("jsapi");
         return sb.toString();
     }
 
 
     /**
-     * jsapi
-     * @return
+     *
+     * @return JSONObject
+     * errcode
+     * ticket
      */
-    public String getJsapi(){
-
-        if(System.currentTimeMillis() - lasttime < 1*60*60*1000 && jsapi_ticket!=null){
-            return jsapi_ticket;
-        }
+    public JSONObject getJsapi(String access_token){
 
         try{
-            this.getToken(0);
-            String response =  HttpsClient.getClient().doGet(getJsapiPath(this.access_token));
+            String response =  HttpsClient.getClient().doGet(getJsapiPath(access_token));
             logger.info(response);
             if(response!=null){
                 JSONObject json= JSONObject.parseObject(response);
-                int errcode = json.getIntValue("errcode");
-                if(0 == errcode){
-                    jsapi_ticket = json.getString("ticket");
-                }else if(40001 == errcode || 42001 == errcode){ // access_token 过期，重新获取
-                    this.getToken(1);
-                    response =  HttpsClient.getClient().doGet(getJsapiPath(this.access_token));
-                    logger.info(response);
-                    json= JSONObject.parseObject(response);
-                    errcode = json.getIntValue("errcode");
-                    if(0 == errcode){
-                        jsapi_ticket = json.getString("ticket");
-                    }else{
-                        jsapi_ticket = null;
-                    }
-                }else{
-                    jsapi_ticket = null;
-                }
+
+                return json;
+//
+//                int errcode = json.getIntValue("errcode");
+//                if(0 == errcode){
+//                    jsapi_ticket = json.getString("ticket");
+//                }else if(40001 == errcode || 42001 == errcode){ // access_token 过期，重新获取
+//                    response =  HttpsClient.getClient().doGet(getJsapiPath(access_token));
+//                    logger.info(response);
+//                    json= JSONObject.parseObject(response);
+//                    errcode = json.getIntValue("errcode");
+//                    if(0 == errcode){
+//                        jsapi_ticket = json.getString("ticket");
+//                    }else{
+//                        jsapi_ticket = null;
+//                    }
+//                }else{
+//                    jsapi_ticket = null;
+//                }
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-
-        lasttime = System.currentTimeMillis();
-        return jsapi_ticket;
+        return null;
     }
 
     /**
@@ -283,22 +192,21 @@ public class WxChannel {
         return appsign;
     }
 
-    public String getUser(String code, String scope) {
-        String response =  HttpsClient.getClient().doGet(String.format(getUserTokenUrl, appId, appSecret, code));
-        if(response!=null && !"snsapi_base".equals(scope)) {
-            JSONObject json = JSONObject.parseObject(response);
-            if(json.containsKey("errcode")) {
-                int errcode = json.getIntValue("errcode");
-                if (errcode == 40029) {
-                    //CODE无效
-                    throw new WeiXinException("CODE无效");
-                }
-            }
-            String openid = json.getString("openid");
-            String token = json.getString("access_token");
-            response = HttpsClient.getClient().doGet(String.format(getUserUrl, token, openid));
-        }
+    public String getUser(String token,String openid) {
+
+        String  response = HttpsClient.getClient().doGet(String.format(getUserUrl, token, openid));
+
         return response;
+
+    }
+
+
+    public String getUserFollowInfo(String token,String openid) {
+
+        String  response = HttpsClient.getClient().doGet(String.format(getUserFollowUrl, token, openid));
+
+        return response;
+
     }
 
 

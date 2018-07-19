@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="WxToken">
+
+	<sql id="selectCommon">
+		SELECT
+				type,
+				token,
+				c_time,
+				m_time
+	</sql>
+
+	<insert id="insert" parameterType="WxToken">
+
+
+		INSERT INTO viewol.wx_token
+					(
+					type,
+					token,
+					c_time,
+					m_time
+					)
+					VALUES
+					(
+					#{type},
+					#{token},
+					#{cTime},
+					#{mTime}
+					)
+
+
+	</insert>
+
+	<select id="select" parameterType="int" resultType="WxToken">
+		from viewol.wx_token where type = #{type}
+	</select>
+
+	<update id="uodateToken" parameterType="map">
+		update viewol.wx_token set token = #{token} , m_time=#{mTime} where type = #{type}
+	</update>
+
+
+
+
+
+</mapper>
