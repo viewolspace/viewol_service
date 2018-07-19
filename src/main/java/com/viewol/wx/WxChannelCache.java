@@ -30,7 +30,7 @@ public class WxChannelCache {
             channel = map.get(TYPE_1);
             if(channel==null){
                 if("1".equals(TYPE_1)){
-                    channel = new WxChannel("wx33ced9524f7aa796","128d96c0f11fd8e1b5353def82027e0a");
+                    channel = new WxChannel();
                     map.put(TYPE_1,channel);
                 }else{
                     return null;
