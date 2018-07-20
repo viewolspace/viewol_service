@@ -2,45 +2,52 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="WxToken">
 
-	<sql id="selectCommon">
+    <sql id="selectCommon">
 		SELECT
-				type,
+				app_id,
 				token,
+				jsapi_ticket,
+				ticket_time,
 				c_time,
-				m_time
+				token_time
 	</sql>
 
-	<insert id="insert" parameterType="WxToken">
+    <insert id="insert" parameterType="WxToken">
 
 
 		INSERT INTO viewol.wx_token
 					(
-					type,
+					app_id,
 					token,
+					jsapi_ticket,
+					ticket_time,
 					c_time,
-					m_time
+					token_time
 					)
 					VALUES
 					(
-					#{type},
+					#{appId},
 					#{token},
+					#{jsapiTicket},
+					#{ticketTime},
 					#{cTime},
-					#{mTime}
+					#{tokenTime}
 					)
 
 
 	</insert>
 
-	<select id="select" parameterType="int" resultType="WxToken">
-		from viewol.wx_token where type = #{type}
+    <select id="getWxToken" parameterType="String" resultType="WxToken">
+		from viewol.wx_token where app_id = #{appId}
 	</select>
 
-	<update id="uodateToken" parameterType="map">
-		update viewol.wx_token set token = #{token} , m_time=#{mTime} where type = #{type}
+    <update id="uodateToken" parameterType="map">
+		update viewol.wx_token set token = #{token} , token_time=#{tokenTime} where app_id = #{appId}
 	</update>
 
-
-
+	<update id="uodateJsapiTicket" parameterType="map">
+		update viewol.wx_token set jsapi_ticket = #{jsapiTicket} , ticket_time=#{ticketTime} where app_id = #{appId}
+	</update>
 
 
 </mapper>

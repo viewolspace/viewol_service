@@ -31,7 +31,24 @@ public class WxChannel {
     @Autowired
     protected WxMpService wxMpService;
 
+    private static WxChannel wxChannel = null;
+
     public WxChannel() {
+    }
+
+    public static WxChannel getInstance() {
+        if (wxChannel != null) {
+            return wxChannel;
+        } else {
+            synchronized (WxChannel.class) {
+                if (wxChannel != null) {
+                    return wxChannel;
+                } else {
+                    wxChannel = new WxChannel();
+                }
+            }
+        }
+        return wxChannel;
     }
 
     /***初始化变量值***/
@@ -131,14 +148,14 @@ public class WxChannel {
      * @param openid
      * @return
      */
-    public String getUser(String token, String openid) {
+    public WxMpUser getUser(String token, String openid) {
         WxMpOAuth2AccessToken wxMpOAuth2AccessToken = new WxMpOAuth2AccessToken();
         wxMpOAuth2AccessToken.setAccessToken(token);
         wxMpOAuth2AccessToken.setOpenId(openid);
 
         try {
             WxMpUser wxMpUser = wxMpService.oauth2getUserInfo(wxMpOAuth2AccessToken, null);
-            return JSON.toJSONString(wxMpUser);
+            return wxMpUser;
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -173,10 +190,10 @@ public class WxChannel {
      * @param openid
      * @return
      */
-    public String getUserFollowInfo(String openid) {
+    public WxMpUser getUserFollowInfo(String openid) {
         try {
             WxMpUser wxMpUser = wxMpService.getUserService().userInfo(openid);
-            return JSON.toJSONString(wxMpUser);
+            return wxMpUser;
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -210,7 +227,8 @@ public class WxChannel {
     }
 
     public static void main(String[] args) {
-
+        WxChannel wxChannel = new WxChannel();
+        wxChannel.getAccessToken("00000000000");
 
     }
 }

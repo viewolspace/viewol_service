@@ -7,7 +7,9 @@ import com.viewol.pojo.WxToken;
  */
 public interface IWxTokenDAO {
 
-    int updateToken(int type,String token);
+    int updateToken(String appId, String token);
 
-    WxToken getWxToken(int type);
+    int uodateJsapiTicket(String appId, String jsapiTicket);
+
+    WxToken getWxToken(String appId);
 }

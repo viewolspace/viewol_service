@@ -1,14 +1,14 @@
 package com.viewol.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.viewol.dao.IFUserBindDAO;
 import com.viewol.dao.IWxTokenDAO;
 import com.viewol.pojo.FUserBind;
 import com.viewol.pojo.WxToken;
+import com.viewol.pojo.WxUserInfo;
 import com.viewol.service.IWxService;
 import com.viewol.wx.WxChannel;
-import com.viewol.wx.WxChannelCache;
+import com.youguu.core.util.ClassCast;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,29 +26,14 @@ public class WxServiceImpl implements IWxService {
     private IFUserBindDAO ifUserBindDAO;
 
     @Override
-    public String generateToken(int type) {
-
-        WxChannel wxChannel = WxChannelCache.getWxChannel(type);
-
-        String token = wxChannel.getToken(type);
-
-        if(token==null){
-            return null;
-        }
-
-        int result = wxTokenDAO.updateToken(type,token);
-
-        if(result>0){
-            return token;
-        }else{
-            return null;
-        }
-
+    public String getSessionInfo(String jscode) {
+        WxChannel wxChannel = WxChannel.getInstance();
+        return wxChannel.getSessionInfo(jscode);
     }
 
     @Override
-    public String getTokenFromDb(int type) {
-        WxToken wxToken = wxTokenDAO.getWxToken(type);
+    public String getTokenFromDb(String appId) {
+        WxToken wxToken = wxTokenDAO.getWxToken(appId);
         if(wxToken!=null){
             return wxToken.getToken();
         }
@@ -56,43 +41,16 @@ public class WxServiceImpl implements IWxService {
     }
 
     @Override
-    public String generateJsapiTicket() {
+    public String getJsapiTicket() {
+        WxChannel wxChannel = WxChannel.getInstance();
+        String jsapi_ticket =  wxChannel.getJsapiTicket();
 
-        String access_token = this.getTokenFromDb(WxToken.TYPE_WX);
-
-        WxChannel wxChannel = WxChannelCache.getWxChannel(WxToken.TYPE_WX);
-
-        JSONObject json = wxChannel.getJsapi(access_token);
-        if(json==null){
-            return null;
-        }
-        int errcode = json.getIntValue("errcode");
-        if(0 == errcode){
-            String jsapi_ticket = json.getString("ticket");
-            int result = wxTokenDAO.updateToken(WxToken.TYPE_JSPAPI,jsapi_ticket);
-            if(result > 0){
-                return jsapi_ticket;
-            }
-        }else if(40001 == errcode || 42001 == errcode){
-            //token 可能无效或者过期 -- 强制重新生成一下
-            this.generateToken(WxToken.TYPE_WX);
-        }
-        return null;
-    }
-
-    @Override
-    public String jsapiTicket() {
-        WxToken wxToken = wxTokenDAO.getWxToken(WxToken.TYPE_JSPAPI);
-        if(wxToken!=null){
-            return wxToken.getToken();
-        }
-        return null;
+        return jsapi_ticket;
     }
 
 
     @Override
     public boolean isFollow(int userId) {
-
         FUserBind userBind = ifUserBindDAO.getOpenId(userId, FUserBind.TYPE_WEIXIN);
 
         if(userBind==null){
@@ -100,22 +58,11 @@ public class WxServiceImpl implements IWxService {
         }
 
         String openId = userBind.getOpenId();
+        WxChannel wxChannel = WxChannel.getInstance();
+        WxMpUser wxMpUser = wxChannel.getUserFollowInfo(openId);
 
-        WxToken wxToken = wxTokenDAO.getWxToken(WxToken.TYPE_WX);
-
-        WxChannel wxChannel = WxChannelCache.getWxChannel(WxToken.TYPE_WX);
-
-        String response = wxChannel.getUserFollowInfo(wxToken.getToken(), openId);
-
-        if(response!=null){
-            JSONObject json = JSON.parseObject(response);
-            int errcode = json.getIntValue("errcode");
-            if(0 == errcode){
-                int subscribe = json.getIntValue("subscribe");
-                if(subscribe!=0){
-                    return true;
-                }
-            }
+        if(wxMpUser != null){
+           return wxMpUser.getSubscribe();
         }
 
         return false;
@@ -123,26 +70,25 @@ public class WxServiceImpl implements IWxService {
 
 
     @Override
-    public JSONObject getUserInfo(int userId) {
+    public WxUserInfo getUserInfo(int userId) {
         FUserBind userBind = ifUserBindDAO.getOpenId(userId, FUserBind.TYPE_WEIXIN);
 
         if(userBind==null){
             return null;
         }
         String openId = userBind.getOpenId();
-
-        WxToken wxToken = wxTokenDAO.getWxToken(WxToken.TYPE_WX);
-
-        return this.getUserInfo(wxToken.getToken(),openId);
+        WxChannel wxChannel = WxChannel.getInstance();
+        String token = wxChannel.getMpToken(0);
+        return this.getUserInfo(token,openId);
     }
 
     @Override
-    public JSONObject getUserInfo(String token, String openId) {
-        WxChannel wxChannel = WxChannelCache.getWxChannel(WxToken.TYPE_WX);
-        String response = wxChannel.getUser(token, openId);
-        if(response!=null){
-            JSONObject jsonObject = JSONObject.parseObject(response);
-            return jsonObject;
+    public WxUserInfo getUserInfo(String token, String openId) {
+        WxChannel wxChannel = WxChannel.getInstance();
+        WxMpUser wxMpUser = wxChannel.getUser(token, openId);
+        if(wxMpUser != null){
+            WxUserInfo wxUserInfo = ClassCast.cast(wxMpUser, WxUserInfo.class);
+            return wxUserInfo;
         }
         return null;
     }

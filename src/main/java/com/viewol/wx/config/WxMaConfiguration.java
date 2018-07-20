@@ -1,41 +1,42 @@
-package com.viewol.wx;
+package com.viewol.wx.config;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
+import com.viewol.dao.IWxTokenDAO;
+import com.viewol.pojo.WxToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  * 微信小程序配置
  */
 @Configuration
-public class WxMiniConfiguration {
-	@Value("#{wxMiniProperties.appId}")
+public class WxMaConfiguration {
+	@Resource
+	private IWxTokenDAO wxTokenDAO;
+
+	@Value("#{wxMaProperties.appId}")
 	private String appId;
 
-	@Value("#{wxMiniProperties.appSecret}")
+	@Value("#{wxMaProperties.appSecret}")
 	private String appSecret;
-
-	@Value("#{wxMiniProperties.token}")
-	private String token;
-
-	@Value("#{wxMiniProperties.aesKey}")
-	private String aesKey;
-
-	@Value("#{wxMiniProperties.msgDataFormat}")
-	private String msgDataFormat;
 
 	@Bean
 	public WxMaInMemoryConfig wxMpConfigStorage() {
-		WxMaInMemoryConfig wxMaInMemoryConfig = new WxMaInMemoryConfig();
-		wxMaInMemoryConfig.setAppid(this.appId);
-		wxMaInMemoryConfig.setSecret(this.appSecret);
-		wxMaInMemoryConfig.setToken(this.token);
-		wxMaInMemoryConfig.setAesKey(this.aesKey);
-		wxMaInMemoryConfig.setMsgDataFormat(msgDataFormat);
-		return wxMaInMemoryConfig;
+		WxMaInMysqlConfig wxMaInMysqlConfig = new WxMaInMysqlConfig();
+		wxMaInMysqlConfig.setAppid(this.appId);
+		wxMaInMysqlConfig.setSecret(this.appSecret);
+
+		WxToken wxToken = wxTokenDAO.getWxToken(this.appId);
+		if (wxToken != null) {
+			wxMaInMysqlConfig.setToken(wxToken.getToken());
+		}
+
+		return wxMaInMysqlConfig;
 	}
 
 	@Bean

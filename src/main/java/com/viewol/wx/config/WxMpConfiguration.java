@@ -1,37 +1,42 @@
-package com.viewol.wx;
+package com.viewol.wx.config;
 
+import com.viewol.dao.IWxTokenDAO;
+import com.viewol.pojo.WxToken;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.Resource;
+
 /**
  * 微信公众号配置
  */
 @Configuration
 public class WxMpConfiguration {
+	@Resource
+	private IWxTokenDAO wxTokenDAO;
+
 	@Value("#{wxMpProperties.appId}")
 	private String appId;
 
 	@Value("#{wxMpProperties.appSecret}")
 	private String appSecret;
 
-	@Value("#{wxMpProperties.token}")
-	private String token;
-
-	@Value("#{wxMpProperties.aesKey}")
-	private String aesKey;
-
 	@Bean
 	public WxMpConfigStorage wxMpConfigStorage() {
-		WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
+		WxMpInMysqlConfigStorage configStorage = new WxMpInMysqlConfigStorage();
 		configStorage.setAppId(this.appId);
 		configStorage.setSecret(this.appSecret);
-		configStorage.setToken(this.token);
-		configStorage.setAesKey(this.aesKey);
+
+		WxToken wxToken = wxTokenDAO.getWxToken(this.appId);
+		if(wxToken != null){
+			configStorage.setToken(wxToken.getToken());
+			configStorage.setJsapiTicket(wxToken.getJsapiTicket());
+		}
+
 		return configStorage;
 	}
 

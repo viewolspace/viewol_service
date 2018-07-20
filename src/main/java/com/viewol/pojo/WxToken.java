@@ -6,25 +6,23 @@ import java.util.Date;
  * Created by lenovo on 2018/7/19.
  */
 public class WxToken {
-
-
-    public final static int TYPE_WX = 1;
-
-    public final static int TYPE_PROGRAM = 2;
-
-    public final static int TYPE_JSPAPI = 3;
-
-    private int type;
+    private String appId;
+    /**
+     * 基础token
+     */
     private String token;
-    private Date cTime;
-    private Date mTime;
+    private Date tokenTime;
 
-    public int getType() {
-        return type;
+    private String jsapiTicket;
+    private Date ticketTime;
+    private Date cTime;
+
+    public String getAppId() {
+        return appId;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getToken() {
@@ -35,6 +33,30 @@ public class WxToken {
         this.token = token;
     }
 
+    public Date getTokenTime() {
+        return tokenTime;
+    }
+
+    public void setTokenTime(Date tokenTime) {
+        this.tokenTime = tokenTime;
+    }
+
+    public String getJsapiTicket() {
+        return jsapiTicket;
+    }
+
+    public void setJsapiTicket(String jsapiTicket) {
+        this.jsapiTicket = jsapiTicket;
+    }
+
+    public Date getTicketTime() {
+        return ticketTime;
+    }
+
+    public void setTicketTime(Date ticketTime) {
+        this.ticketTime = ticketTime;
+    }
+
     public Date getcTime() {
         return cTime;
     }
@@ -43,21 +65,8 @@ public class WxToken {
         this.cTime = cTime;
     }
 
-    public Date getmTime() {
-        return mTime;
-    }
-
-    public void setmTime(Date mTime) {
-        this.mTime = mTime;
-    }
-
     @Override
     public String toString() {
-        return "WxToken{" +
-                "type=" + type +
-                ", token='" + token + '\'' +
-                ", cTime=" + cTime +
-                ", mTime=" + mTime +
-                '}';
+        return "WxToken{" + "appId='" + appId + '\'' + ", token='" + token + '\'' + ", tokenTime=" + tokenTime + ", jsapiTicket='" + jsapiTicket + '\'' + ", ticketTime=" + ticketTime + ", cTime=" + cTime + '}';
     }
 }

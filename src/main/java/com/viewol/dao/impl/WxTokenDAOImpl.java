@@ -13,19 +13,27 @@ import java.util.Map;
  * Created by lenovo on 2018/7/19.
  */
 @Repository("wxTokenDAO")
-public class WxTokenDAOImpl  extends BaseDAO<WxToken> implements IWxTokenDAO {
+public class WxTokenDAOImpl extends BaseDAO<WxToken> implements IWxTokenDAO {
     @Override
-    public int updateToken(int type, String token) {
-
-        Map<String,Object> map = new HashMap<>();
-        map.put("token",token);
-        map.put("mTime",new Date());
-        map.put("type",type);
-        return super.updateBy("uodateToken",map);
+    public int updateToken(String appId, String token) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("tokenTime", new Date());
+        map.put("appId", appId);
+        return super.updateBy("uodateToken", map);
     }
 
     @Override
-    public WxToken getWxToken(int type) {
-        return super.get(type);
+    public int uodateJsapiTicket(String appId, String jsapiTicket) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("jsapiTicket", jsapiTicket);
+        map.put("ticketTime", new Date());
+        map.put("appId", appId);
+        return super.updateBy("uodateJsapiTicket", map);
+    }
+
+    @Override
+    public WxToken getWxToken(String appId) {
+        return findUniqueBy("getWxToken", appId);
     }
 }

@@ -1,6 +1,6 @@
 package com.viewol.service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.viewol.pojo.WxUserInfo;
 
 /**
  * Created by lenovo on 2018/7/19.
@@ -9,48 +9,48 @@ import com.alibaba.fastjson.JSONObject;
 public interface IWxService {
 
     /**
-     * 生成token 并存储 -- 定时任务使用
-     * @param type
+     * 小程序获取登录后的session信息
+     * @param jscode
      * @return
      */
-    String generateToken(int type);
+    String getSessionInfo(String jscode);
 
 
     /**
-     * type 1 公众号  2 小程序
-     * @param type
+     * 查询基础token
+     * @param appId
      * @return
      */
-    String getTokenFromDb(int type);
+    String getTokenFromDb(String appId);
 
     /**
-     * 生成ticket 并存储
+     *
      * @return
      */
-    String generateJsapiTicket();
-
-
-    String jsapiTicket();
+    String getJsapiTicket();
 
     /**
-     * 用户是否关注了公众号
+     * 判断用户是否关注了公众号
+     *
      * @param userId
      * @return
      */
     boolean isFollow(int userId);
 
     /**
-     * 拉取用户数据
+     * 已关注微信公众号用户，拉取用户数据
+     *
      * @param userId
      * @return
      */
-    JSONObject getUserInfo(int userId);
+    WxUserInfo getUserInfo(int userId);
 
     /**
-     * 拉取用户数据
+     * 未关注微信公众号用户，拉取用户数据
+     *
      * @param token
      * @param openId
      * @return
      */
-    JSONObject getUserInfo(String token,String openId);
+    WxUserInfo getUserInfo(String token, String openId);
 }
