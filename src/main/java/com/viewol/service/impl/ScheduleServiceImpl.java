@@ -118,7 +118,13 @@ public class ScheduleServiceImpl implements IScheduleService {
                 return svo;
             }
 
-            svo.setApplyStatus(ScheduleVO.APPLY_STATUS_CAN);
+            svo.setApplyStatus(ScheduleVO.APPLY_STATUS_CAN); //主办方的可以参与
+
+
+            if(svo.geteTime().before(new Date())){//活动已经结束
+                svo.setApplyStatus(ScheduleVO.APPLY_STATUS_END);
+                return svo;
+            }
 
             boolean isjoin = this.isJoinSchedule(userId,scheduleId);
 

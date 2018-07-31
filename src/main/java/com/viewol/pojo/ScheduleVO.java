@@ -14,6 +14,8 @@ public class ScheduleVO extends Schedule {
 
     public static final int APPLY_STATUS_YES = 2 ; //已经报名
 
+    public static final int APPLY_STATUS_END = 3 ; //已经结束
+
     private Integer  RecommendScheduleId ;
 
     private Date recommendSTime;

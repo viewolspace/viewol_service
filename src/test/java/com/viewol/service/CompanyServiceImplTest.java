@@ -5,6 +5,8 @@ import com.viewol.pojo.Company;
 import com.viewol.pojo.query.CompanyQuery;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +86,47 @@ public class CompanyServiceImplTest extends BaseTestClass{
     @Test
     public void listCompany(){
         System.out.println(service.listCompany("展商",null,0,10));
+    }
+
+
+    @Test
+    public void impCompany(){
+
+        try {
+            String s = org.aspectj.util.FileUtil.readAsString(new File("D:\\工作数据\\其他\\liebiao.txt"));
+
+            String[] ss = s.split("\r\n");
+
+            for(String com:ss){
+                String[] temp = com.split("\\|");
+//                System.out.println(temp[0]);
+                Company company = new Company();
+                company.setName(temp[0]);
+                company.setLogo("");
+                company.setCanApply(1);
+                company.setIsRecommend(0);
+                company.setProductNum(5);
+                company.setPlace(temp[1]);
+                company.setContent("");
+
+                List<String> categoryIds  =  new ArrayList<>();
+                categoryIds.add("00010001");
+
+
+                service.addCompany(company,categoryIds);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        List<String> categoryIds  =  new ArrayList<>();
+//        categoryIds.add("00010001");
+//        categoryIds.add("00010002");
+//        categoryIds.add("00010003");
+//
+//
+//        System.out.println(service.addCompany(beanCompany(),categoryIds));
+
     }
 
 }
