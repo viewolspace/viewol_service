@@ -5,24 +5,22 @@ import com.viewol.pojo.WxToken;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 
 /**
  * 微信公众号配置
  */
-@Configuration
+//@Configuration
 public class WxMpConfiguration {
 	@Resource
 	private IWxTokenDAO wxTokenDAO;
 
-	@Value("#{wxMpProperties.appId}")
+//	@Value("#{wxMpProperties.appId}")
 	private String appId;
 
-	@Value("#{wxMpProperties.appSecret}")
+//	@Value("#{wxMpProperties.appSecret}")
 	private String appSecret;
 
 	@Bean

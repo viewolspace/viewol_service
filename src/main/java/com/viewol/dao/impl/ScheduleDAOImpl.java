@@ -79,8 +79,10 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
         }
         map.put("seq",query.getSeq());
         map.put("type",query.getType());
-        map.put("status",Schedule.STATUS_OK);
+        map.put("status",query.getStatus());
         map.put("keyword",query.getKeyword());
+        map.put("companyId",query.getCompanyId());
+
         map.put("num",query.getPageSize());
         return super.findBy("listSchedule",map);
     }

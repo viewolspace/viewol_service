@@ -32,7 +32,7 @@ INSERT INTO schedule
 	company_name,
 	title,
 	c_time,
-	STATUS,
+	status,
 	s_time,
 	e_time,
 	content,

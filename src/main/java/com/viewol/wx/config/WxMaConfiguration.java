@@ -5,24 +5,22 @@ import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
 import com.viewol.dao.IWxTokenDAO;
 import com.viewol.pojo.WxToken;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 
 /**
  * 微信小程序配置
  */
-@Configuration
+//@Configuration
 public class WxMaConfiguration {
 	@Resource
 	private IWxTokenDAO wxTokenDAO;
 
-	@Value("#{wxMaProperties.appId}")
+//	@Value("#{wxMaProperties.appId}")
 	private String appId;
 
-	@Value("#{wxMaProperties.appSecret}")
+//	@Value("#{wxMaProperties.appSecret}")
 	private String appSecret;
 
 	@Bean
