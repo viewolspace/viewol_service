@@ -29,7 +29,8 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
         int comId = schedule.getCompanyId();
 
         if(comId==-1){
-            comId = 99999;
+            long seq = DateUtil.parseDate(stime,DateUtil.FORMAT_NUM);
+            return seq;
         }
 
         long seq = DateUtil.parseDate(stime,DateUtil.FORMAT_NUM)*100000 + comId;

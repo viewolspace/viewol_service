@@ -252,12 +252,14 @@ public class ScheduleServiceImpl implements IScheduleService {
 
 
     @Override
-    public List<Schedule> listSchedule(String time, String date, int type, String keyword, int num) {
+    public List<Schedule> listSchedule(String time, String date, int type, String keyword,long seq, int num) {
         ScheduleQuery query = new ScheduleQuery();
         query.setType(type);
+        query.setSeq(seq);
         query.setTime(time);
         query.setDate(date);
         query.setKeyword(keyword);
+        query.setStatus(Schedule.STATUS_OK);
         query.setPageSize(num);
 
         return scheduleDAO.listSchedule(query);

@@ -160,5 +160,5 @@ public interface IScheduleService {
      * @param num
      * @return
      */
-    List<Schedule> listSchedule(String time,String date,int type,String keyword ,int num);
+    List<Schedule> listSchedule(String time,String date,int type,String keyword ,long seq,int num);
 }

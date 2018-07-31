@@ -28,7 +28,7 @@
 INSERT INTO schedule
 	(
 	company_id,
-	TYPE,
+	type,
 	company_name,
 	title,
 	c_time,
@@ -110,10 +110,10 @@ INSERT INTO schedule
 					AND s_time >= #{date} and s_time <= #{date_end}
 					]]>
 			</if>
-			<if test="type != null">
+			<if test="type != null and type != -1 ">
 				AND type=#{type}
 			</if>
-			<if test="status != null">
+			<if test="status != null and status != 0 ">
 				AND status=#{status}
 			</if>
 			<if test="keyword != null and keyword != ''">
