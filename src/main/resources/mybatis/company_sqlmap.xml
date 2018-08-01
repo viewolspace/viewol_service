@@ -115,7 +115,7 @@
 		( SELECT  company_id  FROM company_category
 		<where>
 			<if test="categoryId != null and categoryId != '' ">
-				AND category_id = categoryId
+				AND category_id = #{categoryId}
 			</if>
 		</where>
 		) b

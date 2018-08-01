@@ -26,10 +26,12 @@ public class Product {
     private Date cTime;
     private Date mTime;
     private long seq;
+    private String reImg; //首页推荐位置图片
 
     private String imageView;
     private String contentView;
     private String pdfUrlView;
+    private String reImgView;
 
     public Integer getId() {
         return id;
@@ -173,6 +175,24 @@ public class Product {
         this.pdfUrl = ImageUtils.diffUrlPdf(pdfUrlView);
     }
 
+    public String getReImg() {
+        return reImg;
+    }
+
+    public void setReImg(String reImg) {
+        this.reImg = reImg;
+        this.reImgView = ImageUtils.addUrlImage(reImg);
+    }
+
+    public String getReImgView() {
+        return reImgView;
+    }
+
+    public void setReImgView(String reImgView) {
+        this.reImgView = reImgView;
+        this.reImg = ImageUtils.diffUrlImage(this.reImgView);
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -190,6 +210,11 @@ public class Product {
                 ", cTime=" + cTime +
                 ", mTime=" + mTime +
                 ", seq=" + seq +
+                ", reImg='" + reImg + '\'' +
+                ", imageView='" + imageView + '\'' +
+                ", contentView='" + contentView + '\'' +
+                ", pdfUrlView='" + pdfUrlView + '\'' +
+                ", reImgView='" + reImgView + '\'' +
                 '}';
     }
 }

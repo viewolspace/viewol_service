@@ -14,7 +14,8 @@
 				a.recommend_num,
 				a.c_time,
 				a.m_time,
-				a.seq
+				a.seq,
+				a.re_img
 	</sql>
 	<select id="select" parameterType="int" resultType="Product">
 		<include refid="selectCommon"/>
@@ -39,7 +40,8 @@
 									is_recommend,
 									recommend_num,
 									c_time,
-									m_time
+									m_time,
+									re_img
 									)
 									VALUES
 									(
@@ -54,7 +56,8 @@
 									#{isRecommend},
 									#{recommendNum},
 									#{cTime},
-									#{mTime}
+									#{mTime},
+									#{reImg}
 									)
 
 	</insert>
@@ -76,7 +79,8 @@
 						is_recommend = #{isRecommend} ,
 						recommend_num = #{recommendNum} ,
 						m_time = #{mTime},
-						seq = #{seq}
+						seq = #{seq},
+						re_img=#{reImg}
 
 						WHERE
 						id = #{id}

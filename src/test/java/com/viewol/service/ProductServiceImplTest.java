@@ -25,6 +25,7 @@ public class ProductServiceImplTest extends BaseTestClass{
         p.setName("摄像头");
         p.setStatus(0);
         p.setPdfUrl("");
+        p.setReImg("112");
         return p;
     }
     @Test
