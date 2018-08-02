@@ -8,6 +8,7 @@ import com.viewol.pojo.WxUserInfo;
 import com.viewol.service.IWxService;
 import com.viewol.wx.WxChannel;
 import com.youguu.core.util.ClassCast;
+import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.springframework.stereotype.Service;
 
@@ -70,7 +71,7 @@ public class WxServiceImpl implements IWxService {
 
 
     @Override
-    public WxUserInfo getUserInfo(int userId) {
+    public WxMpUser getUserInfo(int userId) {
         FUserBind userBind = ifUserBindDAO.getOpenId(userId, FUserBind.TYPE_WEIXIN);
 
         if(userBind==null){
@@ -83,13 +84,15 @@ public class WxServiceImpl implements IWxService {
     }
 
     @Override
-    public WxUserInfo getUserInfo(String token, String openId) {
+    public WxMpUser getUserInfo(String token, String openId) {
         WxChannel wxChannel = WxChannel.getInstance();
         WxMpUser wxMpUser = wxChannel.getUser(token, openId);
-        if(wxMpUser != null){
-            WxUserInfo wxUserInfo = ClassCast.cast(wxMpUser, WxUserInfo.class);
-            return wxUserInfo;
-        }
-        return null;
+        return wxMpUser;
+    }
+
+    @Override
+    public WxMpOAuth2AccessToken getAccessToken(String jscode) {
+        WxChannel wxChannel = WxChannel.getInstance();
+        return wxChannel.getAccessToken(jscode);
     }
 }

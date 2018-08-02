@@ -132,10 +132,10 @@ public class WxChannel {
      * @param code
      * @return
      */
-    public String getAccessToken(String code){
+    public WxMpOAuth2AccessToken getAccessToken(String code){
         try {
             WxMpOAuth2AccessToken accessToken = wxMpService.oauth2getAccessToken(code);
-            JSON.toJSONString(accessToken);
+            return accessToken;
         } catch (WxErrorException e) {
             e.printStackTrace();
         }

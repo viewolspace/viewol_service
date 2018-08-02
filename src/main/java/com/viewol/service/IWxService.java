@@ -1,6 +1,8 @@
 package com.viewol.service;
 
 import com.viewol.pojo.WxUserInfo;
+import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
+import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 /**
  * Created by lenovo on 2018/7/19.
@@ -43,7 +45,7 @@ public interface IWxService {
      * @param userId
      * @return
      */
-    WxUserInfo getUserInfo(int userId);
+    WxMpUser getUserInfo(int userId);
 
     /**
      * 未关注微信公众号用户，拉取用户数据
@@ -52,5 +54,7 @@ public interface IWxService {
      * @param openId
      * @return
      */
-    WxUserInfo getUserInfo(String token, String openId);
+    WxMpUser getUserInfo(String token, String openId);
+
+    WxMpOAuth2AccessToken getAccessToken(String jscode);
 }
