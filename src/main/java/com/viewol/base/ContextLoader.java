@@ -4,10 +4,8 @@ import com.youguu.core.dao.DataSourceLoader;
 import com.youguu.core.dao.multi.MultiDataSourceTransactionManager;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -39,7 +37,10 @@ public class ContextLoader extends DataSourceLoader {
 		transactionManager.setDataSource(getDataSource("viewol"));
 		return transactionManager;
 	}
-	
 
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 	
 }
