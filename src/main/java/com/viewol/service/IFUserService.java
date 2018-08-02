@@ -35,5 +35,7 @@ public interface IFUserService {
     //查询用户列表
     PageHolder<FUser> querFUser(FUserQuery query);
 
+    //根据uuid查询
+    FUser getUserByUuid(String uuid);
 
 }

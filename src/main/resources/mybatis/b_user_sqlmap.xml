@@ -2,7 +2,7 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="BUser">
 
-	<sql id="selectCommon">
+    <sql id="selectCommon">
 
 			SELECT 	a.user_id,
 					a.user_name,
@@ -13,59 +13,62 @@
 					a.c_time,
 					a.m_time,
 					a.open_id,
-					a.UUID
+					a.UUID,
+					a.head_img_url
 
 	</sql>
 
-	<insert id="insert" parameterType="BUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		<selectKey keyProperty="userId" resultType="int" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+    <insert id="insert" parameterType="BUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="userId" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
 
-		INSERT INTO viewol.b_user
-					(
-					user_name,
-					phone,
-					company_id,
-					status,
-					position,
-					c_time,
-					m_time,
-					open_id,
-					UUID
-					)
-					VALUES
-					(
-					#{userName},
-					#{phone},
-					#{companyId},
-					#{status},
-					#{position},
-					#{cTime},
-					#{mTime},
-					#{openId},
-					#{uuid}
-					)
+        INSERT INTO viewol.b_user
+        (
+        user_name,
+        phone,
+        company_id,
+        status,
+        position,
+        c_time,
+        m_time,
+        open_id,
+        UUID,
+        head_img_url
+        )
+        VALUES
+        (
+        #{userName},
+        #{phone},
+        #{companyId},
+        #{status},
+        #{position},
+        #{cTime},
+        #{mTime},
+        #{openId},
+        #{uuid},
+        #{headImgUrl}
+        )
 
-	</insert>
+    </insert>
 
-	<select id="select" parameterType="int" resultType="BUser">
-		<include refid="selectCommon"/>
-		from viewol.b_user a where user_id = #{userId}
-	</select>
+    <select id="select" parameterType="int" resultType="BUser">
+        <include refid="selectCommon"/>
+        from viewol.b_user a where user_id = #{userId}
+    </select>
 
-	<select id="getUserByOpenId" parameterType="map" resultType="BUser">
-		<include refid="selectCommon"/>
-		from viewol.b_user a where open_id = #{openId}
-	</select>
+    <select id="getUserByOpenId" parameterType="map" resultType="BUser">
+        <include refid="selectCommon"/>
+        from viewol.b_user a where open_id = #{openId}
+    </select>
 
 
-	<select id="listByCom" parameterType="map" resultType="BUser">
-		<include refid="selectCommon"/>
-		from viewol.b_user a where company_id = #{companyId} order by user_id
-	</select>
+    <select id="listByCom" parameterType="map" resultType="BUser">
+        <include refid="selectCommon"/>
+        from viewol.b_user a where company_id = #{companyId} order by user_id
+    </select>
 
-	<update id="update" parameterType="BUser">
+    <update id="update" parameterType="BUser">
 
 			UPDATE viewol.b_user
 						SET
@@ -77,14 +80,14 @@
 						position = #{position} ,
 						m_time = #{mTime} ,
 						open_id = #{openId} ,
-						uuid = #{uuid}
-
+						uuid = #{uuid},
+                        head_img_url = #{headImgUrl}
 						WHERE
 						user_id = #{userId}
 
 	</update>
 
-	<update id="setStatus" parameterType="BUser">
+    <update id="setStatus" parameterType="BUser">
 		UPDATE viewol.b_user
 		SET
 		status = #{status} ,
@@ -92,18 +95,6 @@
 		WHERE
 		user_id = #{userId}
 	</update>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </mapper>

@@ -17,6 +17,7 @@ public class FUser {
     private Date   mTime;
     private String uuid;
     private int companyId;
+    private String headImgUrl;
 
     public int getUserId() {
         return userId;
@@ -104,6 +105,14 @@ public class FUser {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
     }
 
     @Override

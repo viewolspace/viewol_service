@@ -126,4 +126,9 @@ public class FUserServiceImpl implements IFUserService {
     public PageHolder<FUser> querFUser(FUserQuery query) {
         return ifUserDAO.querFUser(query);
     }
+
+    @Override
+    public FUser getUserByUuid(String uuid) {
+        return ifUserDAO.getUserByUuid(uuid);
+    }
 }

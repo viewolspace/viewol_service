@@ -21,6 +21,7 @@ public class BUser {
     private Date mTime;
     private String openId;
     private String uuid;
+    private String headImgUrl;
 
     public int getUserId() {
         return userId;
@@ -100,6 +101,14 @@ public class BUser {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
     }
 
     @Override

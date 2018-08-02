@@ -2,7 +2,7 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="FUser">
 
-	<sql id="selectCommon">
+    <sql id="selectCommon">
 
 			SELECT 	a.user_id,
 					a.user_name,
@@ -14,54 +14,57 @@
 					a.c_time,
 					a.m_time,
 					a.UUID,
-					a.company_id
+					a.company_id,
+					a.head_img_url
 
 	</sql>
 
-	<insert id="insert" parameterType="FUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		<selectKey keyProperty="userId" resultType="int" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		INSERT INTO viewol.f_user
-						(
-						user_name,
-						phone,
-						company,
-						position,
-						email,
-						age,
-						c_time,
-						m_time,
-						UUID,
-						company_id
-						)
-						VALUES
-						(
-						#{userName},
-						#{phone},
-						#{company},
-						#{position},
-						#{email},
-						#{age},
-						#{cTime},
-						#{mTime},
-						#{uuid},
-						#{companyId}
-						)
+    <insert id="insert" parameterType="FUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="userId" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO viewol.f_user
+        (
+        user_name,
+        phone,
+        company,
+        position,
+        email,
+        age,
+        c_time,
+        m_time,
+        UUID,
+        company_id,
+        head_img_url
+        )
+        VALUES
+        (
+        #{userName},
+        #{phone},
+        #{company},
+        #{position},
+        #{email},
+        #{age},
+        #{cTime},
+        #{mTime},
+        #{uuid},
+        #{companyId},
+        #{headImgUrl}
+        )
 
-	</insert>
+    </insert>
 
-	<select id="select" parameterType="int" resultType="FUser">
-		<include refid="selectCommon"/>
-		from viewol.f_user a where user_id = #{userId}
-	</select>
+    <select id="select" parameterType="int" resultType="FUser">
+        <include refid="selectCommon"/>
+        from viewol.f_user a where user_id = #{userId}
+    </select>
 
-	<select id="getUserByUuid" parameterType="map" resultType="FUser">
-		<include refid="selectCommon"/>
-		from viewol.f_user a where uuid = #{uuid}
-	</select>
+    <select id="getUserByUuid" parameterType="map" resultType="FUser">
+        <include refid="selectCommon"/>
+        from viewol.f_user a where uuid = #{uuid}
+    </select>
 
-	<update id="update" parameterType="FUser">
+    <update id="update" parameterType="FUser">
 
 			UPDATE viewol.f_user
 				SET
@@ -74,63 +77,54 @@
 				c_time = #{cTime} ,
 				m_time = #{mTime} ,
 				UUID = #{uuid} ,
-				company_id = #{companyId}
-
+				company_id = #{companyId},
+				head_img_url = #{headImgUrl}
 				WHERE
 				user_id = #{userId} ;
 
 	</update>
 
 
-	<!--管理平台使用查询展商-->
-	<sql id="sql_count">
+    <!--管理平台使用查询展商-->
+    <sql id="sql_count">
 		select count(*)
 	</sql>
 
-	<sql id="sql_where">
-		FROM viewol.f_user a
-		<where>
-			<if test="userName != null">
-				and  user_name LIKE concat(concat('%',#{userName}),'%')
-			</if>
+    <sql id="sql_where">
+        FROM viewol.f_user a
+        <where>
+            <if test="userName != null">
+                and user_name LIKE concat(concat('%',#{userName}),'%')
+            </if>
 
-			<if test="phone != null">
-				and phone = #{phone}
-			</if>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
 
-			<if test="company != null">
-				and company LIKE concat(concat('%',#{company}),'%')
-			</if>
+            <if test="company != null">
+                and company LIKE concat(concat('%',#{company}),'%')
+            </if>
 
-			<if test="email != null">
-				AND email = #{email}
-			</if>
-		</where>
+            <if test="email != null">
+                AND email = #{email}
+            </if>
+        </where>
 
-	</sql>
+    </sql>
 
-	<sql id="sql_order">
+    <sql id="sql_order">
 		order by a.user_id desc
 	</sql>
 
-	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
-		<include refid="sql_count" />
-		<include refid="sql_where" />
-	</select>
-	<select id="findByParams" parameterType="java.util.HashMap" resultType="FUser">
-		<include refid="selectCommon" />
-		<include refid="sql_where" />
-		<include refid="sql_order" />
-	</select>
-
-
-
-
-
-
-
-
-
+    <select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+        <include refid="sql_count"/>
+        <include refid="sql_where"/>
+    </select>
+    <select id="findByParams" parameterType="java.util.HashMap" resultType="FUser">
+        <include refid="selectCommon"/>
+        <include refid="sql_where"/>
+        <include refid="sql_order"/>
+    </select>
 
 
 </mapper>
