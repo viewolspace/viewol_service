@@ -3,6 +3,7 @@ package com.viewol.wx;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.youguu.core.logging.Log;
@@ -85,11 +86,29 @@ public class WxChannel {
      * @param jscode 小程序调用wx.login()获取的code
      * @return
      */
-    public String getSessionInfo(String jscode){
+    public WxMaJscode2SessionResult getSessionInfo(String jscode){
         try {
             WxMaJscode2SessionResult result = wxMaService.getUserService().getSessionInfo(jscode);
-            return JSON.toJSONString(result);
+
+            return result;
         } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 小程序获取用户信息
+     * @param sessionKey
+     * @param encryptedData
+     * @param ivStr
+     * @return
+     */
+    public WxMaUserInfo getUserInfo(String sessionKey, String encryptedData, String ivStr){
+        try {
+            WxMaUserInfo wxMaUserInfo = wxMaService.getUserService().getUserInfo(sessionKey, encryptedData, ivStr);
+            return wxMaUserInfo;
+        } catch (Exception e){
             e.printStackTrace();
         }
         return null;

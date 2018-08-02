@@ -1,5 +1,7 @@
 package com.viewol.service.impl;
 
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.viewol.dao.IFUserBindDAO;
 import com.viewol.dao.IWxTokenDAO;
 import com.viewol.pojo.FUserBind;
@@ -27,9 +29,15 @@ public class WxServiceImpl implements IWxService {
     private IFUserBindDAO ifUserBindDAO;
 
     @Override
-    public String getSessionInfo(String jscode) {
+    public WxMaJscode2SessionResult getSessionInfo(String jscode) {
         WxChannel wxChannel = WxChannel.getInstance();
         return wxChannel.getSessionInfo(jscode);
+    }
+
+    @Override
+    public WxMaUserInfo getUserInfo(String sessionKey, String encryptedData, String ivStr) {
+        WxChannel wxChannel = WxChannel.getInstance();
+        return wxChannel.getUserInfo(sessionKey, encryptedData, ivStr);
     }
 
     @Override

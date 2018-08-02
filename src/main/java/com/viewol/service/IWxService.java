@@ -1,5 +1,7 @@
 package com.viewol.service;
 
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.viewol.pojo.WxUserInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
@@ -12,10 +14,19 @@ public interface IWxService {
 
     /**
      * 小程序获取登录后的session信息
-     * @param jscode
+     * @param code
      * @return
      */
-    String getSessionInfo(String jscode);
+    WxMaJscode2SessionResult getSessionInfo(String code);
+
+    /**
+     * 小程序获取用户信息
+     * @param sessionKey    会话密钥
+     * @param encryptedData 消息密文
+     * @param ivStr         加密算法的初始向量
+     * @return
+     */
+    WxMaUserInfo getUserInfo(String sessionKey, String encryptedData, String ivStr);
 
 
     /**
