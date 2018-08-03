@@ -1,68 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
 
-	<settings>
-		<setting name="cacheEnabled" value="true" />
-		<setting name="lazyLoadingEnabled" value="false" />
-		<setting name="useGeneratedKeys" value="true" />
-		<setting name="logPrefix" value="database.game" />
-		<setting name="mapUnderscoreToCamelCase" value="true" />
-	</settings>
-	<typeAliases>
-	    <typeAlias alias="Category" type="com.viewol.pojo.Category"/>
-		<typeAlias alias="Schedule" type="com.viewol.pojo.Schedule"/>
-		<typeAlias alias="RecommendSchedule" type="com.viewol.pojo.RecommendSchedule"/>
-		<typeAlias alias="Category" type="com.viewol.pojo.Category"/>
-		<typeAlias alias="CategorySeq" type="com.viewol.pojo.CategorySeq"/>
-		<typeAlias alias="CompanyCategory" type="com.viewol.pojo.CompanyCategory"/>
-		<typeAlias alias="Company" type="com.viewol.pojo.Company"/>
-		<typeAlias alias="Product" type="com.viewol.pojo.Product"/>
-		<typeAlias alias="Recommend" type="com.viewol.pojo.Recommend"/>
-		<typeAlias alias="ScheduleUser" type="com.viewol.pojo.ScheduleUser"/>
-		<typeAlias alias="FUserBind" type="com.viewol.pojo.FUserBind"/>
-		<typeAlias alias="FUser" type="com.viewol.pojo.FUser"/>
-		<typeAlias alias="BUser" type="com.viewol.pojo.BUser"/>
-		<typeAlias alias="UserCard" type="com.viewol.pojo.UserCard"/>
-		<typeAlias alias="UserCardVO" type="com.viewol.pojo.UserCardVO"/>
-		<typeAlias alias="ScheduleVO" type="com.viewol.pojo.ScheduleVO"/>
-		<typeAlias alias="UserCollection" type="com.viewol.pojo.UserCollection"/>
-		<typeAlias alias="UserDownload" type="com.viewol.pojo.UserDownload"/>
-		<typeAlias alias="UserBrowse" type="com.viewol.pojo.UserBrowse"/>
-		<typeAlias alias="UserAnswer" type="com.viewol.pojo.UserAnswer"/>
-		<typeAlias alias="WxToken" type="com.viewol.pojo.WxToken"/>
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="logPrefix" value="database.game"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
 
-	</typeAliases>
-	<plugins>
-		<plugin interceptor="com.youguu.core.dao.StatementInterceptor" />
-		<plugin interceptor="com.youguu.core.dao.ResultSetInterceptor" />
-	</plugins>
+    <typeAliases>
+        <typeAlias alias="Category" type="com.viewol.pojo.Category"/>
+        <typeAlias alias="Schedule" type="com.viewol.pojo.Schedule"/>
+        <typeAlias alias="RecommendSchedule" type="com.viewol.pojo.RecommendSchedule"/>
+        <typeAlias alias="Category" type="com.viewol.pojo.Category"/>
+        <typeAlias alias="CategorySeq" type="com.viewol.pojo.CategorySeq"/>
+        <typeAlias alias="CompanyCategory" type="com.viewol.pojo.CompanyCategory"/>
+        <typeAlias alias="Company" type="com.viewol.pojo.Company"/>
+        <typeAlias alias="Product" type="com.viewol.pojo.Product"/>
+        <typeAlias alias="Recommend" type="com.viewol.pojo.Recommend"/>
+        <typeAlias alias="ScheduleUser" type="com.viewol.pojo.ScheduleUser"/>
+        <typeAlias alias="FUserBind" type="com.viewol.pojo.FUserBind"/>
+        <typeAlias alias="FUser" type="com.viewol.pojo.FUser"/>
+        <typeAlias alias="BUser" type="com.viewol.pojo.BUser"/>
+        <typeAlias alias="UserCard" type="com.viewol.pojo.UserCard"/>
+        <typeAlias alias="UserCardVO" type="com.viewol.pojo.UserCardVO"/>
+        <typeAlias alias="ScheduleVO" type="com.viewol.pojo.ScheduleVO"/>
+        <typeAlias alias="UserCollection" type="com.viewol.pojo.UserCollection"/>
+        <typeAlias alias="UserDownload" type="com.viewol.pojo.UserDownload"/>
+        <typeAlias alias="UserBrowse" type="com.viewol.pojo.UserBrowse"/>
+        <typeAlias alias="UserAnswer" type="com.viewol.pojo.UserAnswer"/>
+        <typeAlias alias="WxToken" type="com.viewol.pojo.WxToken"/>
+        <typeAlias alias="UserSession" type="com.viewol.pojo.UserSession"/>
+    </typeAliases>
 
-	<mappers>
-	  <!--<mapper resource="mybatis/category_sqlmap.xml" />-->
-		<mapper resource="mybatis/schedule_sqlmap.xml" />
-		<mapper resource="mybatis/recommendSchedule_sqlmap.xml" />
-		<mapper resource="mybatis/categorySeq_sqlmap.xml" />
-		<mapper resource="mybatis/category_sqlmap.xml" />
-		<mapper resource="mybatis/companyCategory_sqlmap.xml" />
-		<mapper resource="mybatis/company_sqlmap.xml" />
-		<mapper resource="mybatis/product_sqlmap.xml" />
-		<mapper resource="mybatis/recommend_sqlmap.xml" />
-		<mapper resource="mybatis/schedule_user_sqlmap.xml" />
-		<mapper resource="mybatis/f_user_bind_sqlmap.xml" />
-		<mapper resource="mybatis/f_user_sqlmap.xml" />
-		<mapper resource="mybatis/b_user_sqlmap.xml" />
-		<mapper resource="mybatis/user_card_sqlmap.xml" />
-		<mapper resource="mybatis/user_collection_sqlmap.xml" />
-		<mapper resource="mybatis/user_download_sqlmap.xml" />
-		<mapper resource="mybatis/user_browse_sqlmap.xml" />
-		<mapper resource="mybatis/user_answer_sqlmap.xml" />
-		<mapper resource="mybatis/wx_token_sqlmap.xml" />
+    <plugins>
+        <plugin interceptor="com.youguu.core.dao.StatementInterceptor"/>
+        <plugin interceptor="com.youguu.core.dao.ResultSetInterceptor"/>
+    </plugins>
 
+    <mappers>
+        <!--<mapper resource="mybatis/category_sqlmap.xml" />-->
+        <mapper resource="mybatis/schedule_sqlmap.xml"/>
+        <mapper resource="mybatis/recommendSchedule_sqlmap.xml"/>
+        <mapper resource="mybatis/categorySeq_sqlmap.xml"/>
+        <mapper resource="mybatis/category_sqlmap.xml"/>
+        <mapper resource="mybatis/companyCategory_sqlmap.xml"/>
+        <mapper resource="mybatis/company_sqlmap.xml"/>
+        <mapper resource="mybatis/product_sqlmap.xml"/>
+        <mapper resource="mybatis/recommend_sqlmap.xml"/>
+        <mapper resource="mybatis/schedule_user_sqlmap.xml"/>
+        <mapper resource="mybatis/f_user_bind_sqlmap.xml"/>
+        <mapper resource="mybatis/f_user_sqlmap.xml"/>
+        <mapper resource="mybatis/b_user_sqlmap.xml"/>
+        <mapper resource="mybatis/user_card_sqlmap.xml"/>
+        <mapper resource="mybatis/user_collection_sqlmap.xml"/>
+        <mapper resource="mybatis/user_download_sqlmap.xml"/>
+        <mapper resource="mybatis/user_browse_sqlmap.xml"/>
+        <mapper resource="mybatis/user_answer_sqlmap.xml"/>
+        <mapper resource="mybatis/wx_token_sqlmap.xml"/>
+        <mapper resource="mybatis/user_session_sqlmap.xml"/>
+    </mappers>
 
-	</mappers>
-	
 </configuration>
