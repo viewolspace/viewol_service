@@ -6,6 +6,8 @@ import com.viewol.service.IUserSessionService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service("userSessionService")
 public class UserSessionServiceImpl implements IUserSessionService {
@@ -14,21 +16,40 @@ public class UserSessionServiceImpl implements IUserSessionService {
     private IUserSessionDAO userSessionDAO;
 
     @Override
-    public int saveSession(int userId, int type) {
-        String session = "123";
+    public String saveSession(int userId, int type) {
+        String session = getSessionID(userId);
 
-        return userSessionDAO.saveSession(userId, session, type);
+        int result = userSessionDAO.saveSession(userId, session, type);
+        if(result>0){
+            return session;
+        }
+        return null;
     }
 
     @Override
-    public int updateSession(int userId, int type) {
-        String session = "456";
+    public String updateSession(int userId, int type) {
+        String session = getSessionID(userId);
 
-        return userSessionDAO.updateSession(userId, session, type);
+        int result = userSessionDAO.updateSession(userId, session, type);
+        if(result>0){
+            return session;
+        }
+        return null;
     }
 
     @Override
     public UserSession getSession(int userId) {
         return userSessionDAO.getSession(userId);
+    }
+
+    /**
+     * 生成登录的会话ID
+     * @param userId
+     * @return
+     */
+    private String getSessionID(int userId) {
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String timeStamp =  df.format(new Date());
+        return timeStamp + userId;
     }
 }

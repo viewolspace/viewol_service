@@ -14,7 +14,7 @@ public class UserSessionServiceImplTest extends BaseTestClass {
 
     @Test
     public void saveSession() {
-        userSessionService.saveSession(111, UserSession.TYPE_H5);
+        userSessionService.saveSession(111, UserSession.TYPE_MA);
     }
 
     @Test

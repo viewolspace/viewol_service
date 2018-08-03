@@ -15,6 +15,7 @@
         (user_id,session_id,type,refresh_time,create_time)
         VALUES
         (#{userId},#{sessionId},#{type},#{refreshTime},#{createTime})
+        ON DUPLICATE KEY UPDATE session_id=#{sessionId}, type=#{type}, refresh_time=#{refreshTime}
 
     </insert>
 
