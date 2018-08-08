@@ -16,7 +16,9 @@
 				a.recommend_num,
 				a.c_time,
 				a.m_time,
-				a.seq
+				a.seq,
+				a.award,
+				a.top_num
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
@@ -43,7 +45,9 @@
 						content,
 						c_time,
 						m_time,
-						seq
+						seq,
+						award,
+						top_num
 						)
 						VALUES
 						(
@@ -61,7 +65,9 @@
 						#{content},
 						#{cTime},
 						#{mTime},
-						#{seq}
+						#{seq},
+						#{award},
+						#{topNum}
 						)
 
 	</insert>
@@ -83,13 +89,19 @@
 				recommend_num = #{recommendNum},
 				content = #{content},
 				m_time = #{mTime},
-				seq = #{seq}
+				seq = #{seq},
+				award = #{award},
+				top_num=#{topNum}
 
 				WHERE
 				id = #{id}
 	</update>
 	<update id="updateRecommend" parameterType="map">
 		UPDATE  company set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
+	</update>
+
+	<update id="updateTopNum" parameterType="map">
+		UPDATE  company set  top_num = #{topNum}  where id = #{id}
 	</update>
 
 	<update id="updateSeq" parameterType="map">
@@ -103,6 +115,11 @@
 	<select id="queryRecommentCompany" resultType="Company">
 		<include refid="selectCommon"></include>
 		from company a where is_recommend=1 order by recommend_num
+	</select>
+
+	<select id="queryTopCompany" resultType="Company">
+		<include refid="selectCommon"></include>
+		from company a where top_num>0 order by top_num
 	</select>
 
 	<!--管理平台使用查询展商-->

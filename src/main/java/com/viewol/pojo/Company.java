@@ -31,6 +31,8 @@ public class Company {
     private Date cTime;
     private Date mTime;
     private long seq;
+    private int award;
+    private int topNum;
 
     private String logoView;
     private String bannerView;
@@ -205,6 +207,22 @@ public class Company {
         this.content = ImageUtils.diffUrlContent(contentView);
     }
 
+    public int getAward() {
+        return award;
+    }
+
+    public void setAward(int award) {
+        this.award = award;
+    }
+
+    public int getTopNum() {
+        return topNum;
+    }
+
+    public void setTopNum(int topNum) {
+        this.topNum = topNum;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
@@ -224,6 +242,12 @@ public class Company {
                 ", cTime=" + cTime +
                 ", mTime=" + mTime +
                 ", seq=" + seq +
+                ", award=" + award +
+                ", topNum=" + topNum +
+                ", logoView='" + logoView + '\'' +
+                ", bannerView='" + bannerView + '\'' +
+                ", imageView='" + imageView + '\'' +
+                ", contentView='" + contentView + '\'' +
                 '}';
     }
 }

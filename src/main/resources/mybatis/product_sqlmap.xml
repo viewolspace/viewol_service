@@ -15,7 +15,8 @@
 				a.c_time,
 				a.m_time,
 				a.seq,
-				a.re_img
+				a.re_img,
+				a.top_num
 	</sql>
 	<select id="select" parameterType="int" resultType="Product">
 		<include refid="selectCommon"/>
@@ -41,7 +42,8 @@
 									recommend_num,
 									c_time,
 									m_time,
-									re_img
+									re_img,
+									top_num
 									)
 									VALUES
 									(
@@ -57,7 +59,8 @@
 									#{recommendNum},
 									#{cTime},
 									#{mTime},
-									#{reImg}
+									#{reImg},
+									#{topNum}
 									)
 
 	</insert>
@@ -80,13 +83,18 @@
 						recommend_num = #{recommendNum} ,
 						m_time = #{mTime},
 						seq = #{seq},
-						re_img=#{reImg}
+						re_img=#{reImg},
+						top_num=#{topNum}
 
 						WHERE
 						id = #{id}
 	</update>
 	<update id="updateRecommend" parameterType="map">
 		UPDATE  product set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
+	</update>
+
+	<update id="updateTopNum" parameterType="map">
+		UPDATE  product set  top_num = #{topNum}   where id = #{id}
 	</update>
 
 	<update id="updateSeq" parameterType="map">
@@ -100,6 +108,11 @@
 	<select id="queryRecommentProduct" resultType="Product">
 		<include refid="selectCommon"></include>
 		from product a where is_recommend=1 order by recommend_num
+	</select>
+
+	<select id="queryTopProduct" resultType="Product">
+		<include refid="selectCommon"></include>
+		from product a where top_num > 0  order by top_num
 	</select>
 
 	<delete id="delete" parameterType="int">

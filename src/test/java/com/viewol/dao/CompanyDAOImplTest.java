@@ -74,6 +74,22 @@ public class CompanyDAOImplTest extends BaseTestClass{
         System.out.println(dao.listCompany(query));
     }
 
+    @Test
+    public void delTop(){
+        System.out.println(dao.delTop(2));
+    }
+
+    @Test
+    public void addTop(){
+        System.out.println(dao.addTop(2,1));
+    }
+
+
+    @Test
+    public void queryTopCompany(){
+        System.out.println(dao.queryTopCompany());
+    }
+
 
 
 

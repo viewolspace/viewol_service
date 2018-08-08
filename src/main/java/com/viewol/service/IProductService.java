@@ -43,5 +43,13 @@ public interface IProductService {
     //客户端查询
     List<Product> listProduct(int companyId,String name,String categoryId,long lastSeq,int num);
 
+    //删除置顶
+    int delTop(int id);
+
+    //添加推荐
+    int addTop(int id,int num);
+
+    //查询推荐产品
+    List<Product> queryTopProduct();
 
 }

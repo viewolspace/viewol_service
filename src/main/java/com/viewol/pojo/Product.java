@@ -27,6 +27,7 @@ public class Product {
     private Date mTime;
     private long seq;
     private String reImg; //首页推荐位置图片
+    private int topNum;
 
     private String imageView;
     private String contentView;
@@ -193,6 +194,14 @@ public class Product {
         this.reImg = ImageUtils.diffUrlImage(this.reImgView);
     }
 
+    public int getTopNum() {
+        return topNum;
+    }
+
+    public void setTopNum(int topNum) {
+        this.topNum = topNum;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -211,6 +220,7 @@ public class Product {
                 ", mTime=" + mTime +
                 ", seq=" + seq +
                 ", reImg='" + reImg + '\'' +
+                ", topNum=" + topNum +
                 ", imageView='" + imageView + '\'' +
                 ", contentView='" + contentView + '\'' +
                 ", pdfUrlView='" + pdfUrlView + '\'' +

@@ -41,4 +41,13 @@ public interface ICompanyService {
     int delRecomment(int id);
     //添加推荐
     int addRecomment(int id,int num);
+
+    //删除置顶
+    int delTop(int id);
+
+    //添加置顶
+    int addTop(int id , int num);
+
+    //查询推荐的展商
+    List<Company> queryTopCompany();
 }

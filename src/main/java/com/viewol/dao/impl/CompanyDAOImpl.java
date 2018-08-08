@@ -19,14 +19,17 @@ import java.util.Map;
 public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     private long getSeq(Company company){
+
         int id = company.getId();
-        int recomment = company.getIsRecommend();
-        int num = 0;
-        if(recomment==Company.ISRECOMMEND_YES){
-            num = 100-company.getRecommendNum();
+
+        int num = company.getTopNum();
+
+        if(num > 0 ){
+            num = 100 - num;
         }
 
         long seq = num * 1000000 + id;
+
         return seq;
     }
     private int  updateSeq(Company company ){
@@ -115,5 +118,32 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("lastSeq",query.getLastSeq());
         map.put("num",query.getPageSize());
         return super.findBy("listCompany",map);
+    }
+
+    @Override
+    public int delTop(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("topNum",0);
+        int result = super.updateBy("updateTopNum",map);
+        Company company = this.getCompany(id);
+        this.updateSeq(company);
+        return result;
+    }
+
+    @Override
+    public int addTop(int id, int num) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("topNum",num);
+        int result = super.updateBy("updateTopNum",map);
+        Company company = this.getCompany(id);
+        this.updateSeq(company);
+        return result;
+    }
+
+    @Override
+    public List<Company> queryTopCompany() {
+        return super.findBy("queryTopCompany",null);
     }
 }

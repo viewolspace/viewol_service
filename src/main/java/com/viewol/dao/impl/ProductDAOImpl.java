@@ -121,10 +121,9 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
     private long getSeq(Product product){
         int id = product.getId();
-        int recomment = product.getIsRecommend();
-        int num = 0;
-        if(recomment==Company.ISRECOMMEND_YES){
-            num = 100-product.getRecommendNum();
+        int num = product.getTopNum();
+        if(num > 0 ){
+            num = 100-num;
         }
 
         long seq = num * 1000000 + id;
@@ -142,5 +141,30 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
     }
 
+    @Override
+    public int delTop(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("topNum",0);
+        int result = super.updateBy("updateTopNum",map);
+        Product product = this.getProduct(id);
+        this.updateSeq(product);
+        return result;
+    }
 
+    @Override
+    public int addTop(int id, int num) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("topNum",num);
+        int result = super.updateBy("updateTopNum",map);
+        Product product = this.getProduct(id);
+        this.updateSeq(product);
+        return result;
+    }
+
+    @Override
+    public List<Product> queryTopProduct() {
+        return super.findBy("queryTopProduct",null);
+    }
 }

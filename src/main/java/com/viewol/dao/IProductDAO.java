@@ -40,5 +40,14 @@ public interface IProductDAO {
     //客户端查询
     List<Product> listProduct(ProductQuery query);
 
+    //删除置顶
+    int delTop(int id);
+
+    //添加推荐
+    int addTop(int id,int num);
+
+    //查询推荐产品
+    List<Product> queryTopProduct();
+
 
 }

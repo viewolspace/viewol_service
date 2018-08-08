@@ -121,4 +121,19 @@ public class CompanyServiceImpl implements ICompanyService {
     public List<CompanyCategory> queryCompanyCategory(int companyId) {
         return companyCategoryDAO.queryCategory(companyId);
     }
+
+    @Override
+    public int delTop(int id) {
+        return companyDAO.delTop(id);
+    }
+
+    @Override
+    public int addTop(int id, int num) {
+        return companyDAO.addTop(id, num);
+    }
+
+    @Override
+    public List<Company> queryTopCompany() {
+        return companyDAO.queryTopCompany();
+    }
 }

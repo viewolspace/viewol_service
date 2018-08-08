@@ -95,4 +95,19 @@ public class ProductServiceImpl implements IProductService {
         query.setLastSeq(lastSeq);
         return productDAO.listProduct(query);
     }
+
+    @Override
+    public int delTop(int id) {
+        return productDAO.delTop(id);
+    }
+
+    @Override
+    public int addTop(int id, int num) {
+        return productDAO.addTop(id, num);
+    }
+
+    @Override
+    public List<Product> queryTopProduct() {
+        return productDAO.queryTopProduct();
+    }
 }

@@ -92,6 +92,18 @@ public class ProductDAOImplTest extends BaseTestClass{
         System.out.println(dao.comProductCount(1));
     }
 
+    @Test
+    public void addTop(){
+        System.out.println(dao.addTop(2,1));
+    }
 
+    @Test
+    public void delTop(){
+        System.out.println(dao.delTop(2));
+    }
 
+    @Test
+    public void queryTopProduct(){
+        System.out.println(dao.queryTopProduct());
+    }
 }
