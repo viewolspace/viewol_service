@@ -13,7 +13,7 @@ public class WxServiceImplTest extends BaseTestClass {
 
     @Test
     public void getSessionInfo() {
-        WxMaJscode2SessionResult result = wxService.getSessionInfo("071AM8kh0FSmyx1GYrkh0fyhkh0AM8ke");
+        WxMaJscode2SessionResult result = wxService.getSessionInfo("061DV9vD0BCb6e2sFQuD009evD0DV9vE");
         System.out.println(result.toString());
     }
 
