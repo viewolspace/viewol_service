@@ -22,10 +22,10 @@ public class WxMpConfiguration {
 	@Resource
 	private IWxTokenDAO wxTokenDAO;
 
-	@Value("${appId}")
+	@Value("${mp.appId}")
 	private String appId;
 
-	@Value("${appSecret}")
+	@Value("${mp.appSecret}")
 	private String appSecret;
 
 	@Bean
