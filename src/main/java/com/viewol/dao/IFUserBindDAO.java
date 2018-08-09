@@ -12,4 +12,6 @@ public interface IFUserBindDAO {
     boolean isExist(int type,String openId);
 
     FUserBind getOpenId(int userId,int type);
+
+    FUserBind getFUserBind(String openId,int type);
 }

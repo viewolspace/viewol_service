@@ -131,4 +131,14 @@ public class FUserServiceImpl implements IFUserService {
     public FUser getUserByUuid(String uuid) {
         return ifUserDAO.getUserByUuid(uuid);
     }
+
+    @Override
+    public FUser getUserByOpenId(String openId, int type) {
+        FUserBind userBind = ifUserBindDAO.getFUserBind(openId, type);
+        if(userBind!=null){
+            int userId = userBind.getUserId();
+            return ifUserDAO.getFuser(userId);
+        }
+        return null;
+    }
 }

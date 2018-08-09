@@ -45,4 +45,14 @@ public class FUserBindDAOImpl extends BaseDAO<FUserBind> implements IFUserBindDA
         map.put("type",type);
         return super.findUniqueBy("getOpenId",map);
     }
+
+
+    @Override
+    public FUserBind getFUserBind(String openId, int type) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("type",type);
+        map.put("openId",openId);
+        FUserBind userBind = super.findUniqueBy("selectByopenId",map);
+        return userBind;
+    }
 }

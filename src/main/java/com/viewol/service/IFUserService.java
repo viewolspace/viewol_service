@@ -38,4 +38,7 @@ public interface IFUserService {
     //根据uuid查询
     FUser getUserByUuid(String uuid);
 
+    //根据openid查询
+    FUser getUserByOpenId(String openId,int type);
+
 }
