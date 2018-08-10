@@ -11,6 +11,9 @@ import java.util.List;
  * Created by lenovo on 2018/7/9.
  */
 public interface IUserCardService {
+
+    int addUserCard(int fUserId,int bUserId,int companyId);
+
     int addUserCard(UserCard userCard);
 
     PageHolder<UserCardVO> queryUserCard(UserCardQuery query);

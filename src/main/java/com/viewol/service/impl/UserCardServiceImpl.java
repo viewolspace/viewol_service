@@ -21,6 +21,15 @@ public class UserCardServiceImpl implements IUserCardService {
     private IUserCardDAO iUserCardDAO;
 
     @Override
+    public int addUserCard(int fUserId, int bUserId, int companyId) {
+        UserCard userCard = new UserCard();
+        userCard.setbUserId(bUserId);
+        userCard.setfUserId(fUserId);
+        userCard.setCompanyId(companyId);
+        return iUserCardDAO.addUserCard(userCard);
+    }
+
+    @Override
     public int addUserCard(UserCard userCard) {
         return iUserCardDAO.addUserCard(userCard);
     }
