@@ -22,6 +22,9 @@ public class UserCardServiceImpl implements IUserCardService {
 
     @Override
     public int addUserCard(int fUserId, int bUserId, int companyId) {
+
+
+
         UserCard userCard = new UserCard();
         userCard.setbUserId(bUserId);
         userCard.setfUserId(fUserId);

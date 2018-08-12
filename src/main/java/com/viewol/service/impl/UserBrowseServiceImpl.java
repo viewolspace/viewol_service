@@ -35,7 +35,7 @@ public class UserBrowseServiceImpl implements IUserBrowseService {
         userBrowse.setType(type);
         userBrowse.setThirdId(thirdId);
 
-        if(type== UserCollection.TYPE_COM){
+        if(type== UserCollection.TYPE_PRODUCT){
             Product p = productDAO.getProduct(thirdId);
             if(p==null){
                 return 0;

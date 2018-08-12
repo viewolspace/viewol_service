@@ -36,6 +36,10 @@ public class UserDownloadDAOImpl extends BaseDAO<UserDownload> implements IUserD
 
     @Override
     public List<UserDownload> listDownload(int userId, int num, int lastId) {
+
+        if(lastId<=0){
+            lastId = Integer.MAX_VALUE;
+        }
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("num",num);

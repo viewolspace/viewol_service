@@ -49,7 +49,9 @@ public class UserCollectionDAOImpl extends BaseDAO<UserCollection> implements IU
 
     @Override
     public List<UserCollection> listUserCollection(int userId, int type, int num, int lastId) {
-
+        if(lastId <= 0){
+            lastId = Integer.MAX_VALUE;
+        }
         Map<String,Object> map = new HashMap<>();
         map.put("userId",userId);
         map.put("type",type);

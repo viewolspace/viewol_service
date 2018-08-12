@@ -34,7 +34,7 @@ public class UserCollectionServiceImpl implements IUserCollectionService {
         userCollection.setUserId(userId);
         userCollection.setType(type);
         userCollection.setThirdId(thirdId);
-        if(type==UserCollection.TYPE_COM){
+        if(type==UserCollection.TYPE_PRODUCT){
             Product p = productDAO.getProduct(thirdId);
             if(p==null){
                 return 0;
