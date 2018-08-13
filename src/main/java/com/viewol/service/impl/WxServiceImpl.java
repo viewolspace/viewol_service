@@ -6,18 +6,23 @@ import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.viewol.dao.IFUserBindDAO;
 import com.viewol.dao.IWxTokenDAO;
 import com.viewol.pojo.FUserBind;
+import com.viewol.pojo.Schedule;
 import com.viewol.pojo.WxToken;
+import com.viewol.service.IFUserService;
+import com.viewol.service.IScheduleService;
 import com.viewol.service.IWxService;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by lenovo on 2018/7/19.
@@ -34,6 +39,11 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     private WxMaService wxMaService;
     @Autowired
     private WxMpService wxMpService;
+
+    @Resource
+    private IScheduleService scheduleService;
+    @Resource
+    private IFUserService fUserService;
 
 
     @Override
@@ -149,9 +159,34 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public String sendTemplateMsg(WxMpTemplateMessage message) {
+    public String sendTemplateMsg(int scheduleId, int userId, String uuid, String templateId, String url) {
         try {
-            return wxMpService.getTemplateMsgService().sendTemplateMsg(message);
+            Schedule schedule = scheduleService.getSchedule(scheduleId);
+            if(schedule == null){
+                return "-1";
+            }
+
+            SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            String openId = fUserService.getOpenId(userId, FUserBind.TYPE_WEIXIN);
+            String title = schedule.getTitle();
+            String time = dft.format(schedule.getsTime());
+            String place = schedule.getPlace();
+            String remark = "请您合理安排时间，准时参加会议";
+
+            WxMpTemplateMessage remindTemplate = WxMpTemplateMessage.builder().build();
+            remindTemplate.setToUser(openId);
+            remindTemplate.setTemplateId(templateId);
+            remindTemplate.setUrl(url);
+            WxMpTemplateData titleData = new WxMpTemplateData("title", title);
+            WxMpTemplateData scheduleTimeData = new WxMpTemplateData("scheduleTime", time);
+            WxMpTemplateData schedulePlaceData = new WxMpTemplateData("schedulePlace", place);
+            WxMpTemplateData remarkData = new WxMpTemplateData("remark", remark);
+            remindTemplate.addData(titleData)
+                    .addData(scheduleTimeData)
+                    .addData(schedulePlaceData)
+                    .addData(remarkData);
+
+            return wxMpService.getTemplateMsgService().sendTemplateMsg(remindTemplate);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }

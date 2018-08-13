@@ -71,8 +71,10 @@ public interface IWxService {
 
     /**
      * 发送公众号模板消息
-     * @param message
-     * @return msgid
+     * @param scheduleId 活动ID
+     * @param userId 用户ID
+     * @param uuid 微信unionid
+     * @return msgId
      */
-    String sendTemplateMsg(WxMpTemplateMessage message);
+    String sendTemplateMsg(int scheduleId, int userId, String uuid, String templateId, String url);
 }
