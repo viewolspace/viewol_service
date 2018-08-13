@@ -177,10 +177,10 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             remindTemplate.setToUser(openId);
             remindTemplate.setTemplateId(templateId);
             remindTemplate.setUrl(url);
-            WxMpTemplateData titleData = new WxMpTemplateData("title", title);
-            WxMpTemplateData scheduleTimeData = new WxMpTemplateData("scheduleTime", time);
-            WxMpTemplateData schedulePlaceData = new WxMpTemplateData("schedulePlace", place);
-            WxMpTemplateData remarkData = new WxMpTemplateData("remark", remark);
+            WxMpTemplateData titleData = new WxMpTemplateData("keyword1", title);
+            WxMpTemplateData scheduleTimeData = new WxMpTemplateData("keyword2", time);
+            WxMpTemplateData schedulePlaceData = new WxMpTemplateData("keyword3", place);
+            WxMpTemplateData remarkData = new WxMpTemplateData("keyword5", remark);
             remindTemplate.addData(titleData)
                     .addData(scheduleTimeData)
                     .addData(schedulePlaceData)
