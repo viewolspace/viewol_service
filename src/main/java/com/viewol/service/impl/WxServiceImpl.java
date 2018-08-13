@@ -12,6 +12,7 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -145,6 +146,16 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String sendTemplateMsg(WxMpTemplateMessage message) {
+        try {
+            return wxMpService.getTemplateMsgService().sendTemplateMsg(message);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return "-1";
     }
 
     @Override

@@ -2,9 +2,9 @@ package com.viewol.service;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
-import com.viewol.pojo.WxUserInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 
 /**
  * Created by lenovo on 2018/7/19.
@@ -68,4 +68,11 @@ public interface IWxService {
     WxMpUser getUserInfo(String token, String openId);
 
     WxMpOAuth2AccessToken getAccessToken(String jscode);
+
+    /**
+     * 发送公众号模板消息
+     * @param message
+     * @return msgid
+     */
+    String sendTemplateMsg(WxMpTemplateMessage message);
 }
