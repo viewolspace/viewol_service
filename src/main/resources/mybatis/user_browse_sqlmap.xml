@@ -45,7 +45,7 @@
 
 	<select id="listUserBrowse" parameterType="map" resultType="UserBrowse">
 		<include refid="selectCommon"/>
-		from viewol.user_collection
+		from viewol.user_browse
 		<where>
 			user_id=#{userId} and type=#{type}
 
