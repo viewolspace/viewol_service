@@ -20,6 +20,8 @@ public class ScheduleUser extends FUser{
 
     private Date cTime;
 
+    private int reminderFlag;
+
     public int getId() {
         return id;
     }
@@ -52,6 +54,14 @@ public class ScheduleUser extends FUser{
     @Override
     public void setcTime(Date cTime) {
         this.cTime = cTime;
+    }
+
+    public int getReminderFlag() {
+        return reminderFlag;
+    }
+
+    public void setReminderFlag(int reminderFlag) {
+        this.reminderFlag = reminderFlag;
     }
 
     @Override

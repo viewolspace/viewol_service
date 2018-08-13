@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,5 +47,17 @@ public class ScheduleUserDAOImpl extends BaseDAO<ScheduleUser> implements ISched
             return 1;
         }
 
+    }
+
+    @Override
+    public int updateReminderFlag(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        return super.updateBy("updateReminderFlag",map);
+    }
+
+    @Override
+    public List<ScheduleUser> queryNeedReminder() {
+        return super.findBy("queryNeedReminder",null);
     }
 }

@@ -105,4 +105,15 @@ public class ScheduleServiceImplTest extends BaseTestClass{
         System.out.println(service.applyJoin(2,2,true));
     }
 
+
+    @Test
+    public void updateReminderFlag(){
+        System.out.println(service.updateReminderFlag(1));
+    }
+
+    @Test
+    public void queryNeedReminder(){
+        System.out.println(service.queryNeedReminder());
+    }
+
 }

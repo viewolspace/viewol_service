@@ -3,6 +3,8 @@ package com.viewol.dao;
 import com.viewol.pojo.ScheduleUser;
 import com.youguu.core.util.PageHolder;
 
+import java.util.List;
+
 /**
  * Created by lenovo on 2018/7/3.
  */
@@ -24,5 +26,11 @@ public interface IScheduleUserDAO {
      * @return
      */
     int isJoinSchedule(int userId,int scheduleId);
+
+
+    int updateReminderFlag(int id);
+
+
+    List<ScheduleUser> queryNeedReminder();
 
 }

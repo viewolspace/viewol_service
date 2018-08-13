@@ -264,4 +264,14 @@ public class ScheduleServiceImpl implements IScheduleService {
 
         return scheduleDAO.listSchedule(query);
     }
+
+    @Override
+    public int updateReminderFlag(int id) {
+        return scheduleUserDAO.updateReminderFlag(id);
+    }
+
+    @Override
+    public List<ScheduleUser> queryNeedReminder() {
+        return scheduleUserDAO.queryNeedReminder();
+    }
 }
