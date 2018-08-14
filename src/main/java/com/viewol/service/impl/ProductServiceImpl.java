@@ -89,6 +89,9 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public List<Product> listProduct(int companyId, String name, String categoryId, long lastSeq, int num) {
         ProductQuery query = new ProductQuery();
+        if(companyId!=0){
+            query.setCompanyId(companyId);
+        }
         query.setName(name);
         query.setCategoryId(categoryId);
         query.setPageSize(num);
