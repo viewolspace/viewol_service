@@ -195,14 +195,27 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public File createWxaCodeUnlimit(int companyId, int fUserId, String page) {
+    public File createCompanyWxaCode(int type, int companyId, int fUserId, String page) {
         try {
-            String scene = String.valueOf(companyId);
-            if (fUserId > 0) {
-                scene = companyId + ":" + fUserId;
-            }
+            StringBuffer scene = new StringBuffer();
+            scene.append("a=").append(type).append("&")
+                    .append("c=").append(companyId).append("&")
+                    .append("u=").append(fUserId);
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene, page);
+    @Override
+    public File createProductWxaCode(int type, int companyId, int productId, String page) {
+        try {
+            StringBuffer scene = new StringBuffer();
+            scene.append("a=").append(type).append("&")
+                    .append("c=").append(companyId).append("&")
+                    .append("p=").append(productId);
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
