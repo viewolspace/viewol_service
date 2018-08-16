@@ -55,7 +55,7 @@ public class EmailUtil {
             message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(toMail));
             //设置发送信息主题.信息正文
             message.setSubject("产品说明书");
-            message.setContent(content,"text/html");
+            message.setContent(content,"text/html;charset=UTF-8");
             //发送信息
             Transport.send(message);
         }catch(MessagingException e){
@@ -69,7 +69,7 @@ public class EmailUtil {
 
     public static void main(String[] args) {
 
-        System.out.println(EmailUtil.sendMail("247858193@qq.com","1111"));
+        System.out.println(EmailUtil.sendMail("247858193@qq.com","大家伙"));
 
     }
 }
