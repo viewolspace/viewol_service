@@ -5,6 +5,9 @@ import com.viewol.pojo.Product;
 import com.viewol.pojo.query.ProductQuery;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by lenovo on 2018/6/28.
  */
@@ -105,5 +108,16 @@ public class ProductDAOImplTest extends BaseTestClass{
     @Test
     public void queryTopProduct(){
         System.out.println(dao.queryTopProduct());
+    }
+
+    @Test
+    public void listProductByIds(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        System.out.println(dao.listProductByIds(list));
     }
 }

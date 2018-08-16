@@ -113,4 +113,9 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> queryTopProduct() {
         return productDAO.queryTopProduct();
     }
+
+    @Override
+    public List<Product> listProductByIds(List<Integer> ids) {
+        return productDAO.listProductByIds(ids);
+    }
 }

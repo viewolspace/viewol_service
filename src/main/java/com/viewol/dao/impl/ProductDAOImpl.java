@@ -167,4 +167,11 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     public List<Product> queryTopProduct() {
         return super.findBy("queryTopProduct",null);
     }
+
+    @Override
+    public List<Product> listProductByIds(List<Integer> ids) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("ids",ids);
+        return super.findBy("listProductByIds",map);
+    }
 }

@@ -24,6 +24,17 @@
 		from viewol.product a where id = #{id}
 	</select>
 
+	<select id="listProductByIds" parameterType="map" resultType="Product">
+		<include refid="selectCommon"/>
+
+		from viewol.product a where id in
+
+		<foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+
+	</select>
+
 	<insert id="insert" parameterType="Product"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		<selectKey keyProperty="id" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()

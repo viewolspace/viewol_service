@@ -52,4 +52,8 @@ public interface IProductService {
     //查询推荐产品
     List<Product> queryTopProduct();
 
+
+    //通过id查询
+    List<Product> listProductByIds(List<Integer> ids);
+
 }

@@ -40,6 +40,9 @@ public interface IProductDAO {
     //客户端查询
     List<Product> listProduct(ProductQuery query);
 
+    //通过id查询
+    List<Product> listProductByIds(List<Integer> ids);
+
     //删除置顶
     int delTop(int id);
 
