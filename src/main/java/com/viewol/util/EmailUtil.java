@@ -1,8 +1,11 @@
 package com.viewol.util;
 
+import com.sun.mail.util.MailSSLSocketFactory;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.security.GeneralSecurityException;
 import java.util.Properties;
 
 /**
@@ -23,6 +26,21 @@ public class EmailUtil {
         props.put("mail.smtp.host",host);
         props.put("mail.smtp.auth", "true");
         props.put("mail.transport.protocol", "smtp");
+
+
+        String SSL_FACTORY="javax.net.ssl.SSLSocketFactory";
+        props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.put("mail.smtp.socketFactory.fallback", "false");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.port", "465"); //google使用465或587端口
+        MailSSLSocketFactory sf = null;
+        try {
+            sf = new MailSSLSocketFactory();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+        sf.setTrustAllHosts(true);
+        props.put("mail.smtp.ssl.socketFactory", sf);
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
