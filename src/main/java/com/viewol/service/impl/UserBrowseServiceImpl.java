@@ -42,7 +42,7 @@ public class UserBrowseServiceImpl implements IUserBrowseService {
             }
 
             userBrowse.setName(p.getName());
-            userBrowse.setImage(p.getImageView());
+            userBrowse.setImage(p.getImage());
 
         }else{
             Company company = companyDAO.getCompany(thirdId);
@@ -50,7 +50,7 @@ public class UserBrowseServiceImpl implements IUserBrowseService {
                 return 0;
             }
             userBrowse.setName(company.getName());
-            userBrowse.setImage(company.getLogoView());
+            userBrowse.setImage(company.getLogo());
         }
         return userBrowseDAO.addUserBrowse(userBrowse);
     }
