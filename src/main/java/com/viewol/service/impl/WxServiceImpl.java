@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 /**
@@ -191,6 +192,34 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             e.printStackTrace();
         }
         return "-1";
+    }
+
+    @Override
+    public File createCompanyWxaCode(int type, int companyId, int fUserId, String page) {
+        try {
+            StringBuffer scene = new StringBuffer();
+            scene.append("a=").append(type).append("&")
+                    .append("c=").append(companyId).append("&")
+                    .append("u=").append(fUserId);
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public File createProductWxaCode(int type, int companyId, int productId, String page) {
+        try {
+            StringBuffer scene = new StringBuffer();
+            scene.append("a=").append(type).append("&")
+                    .append("c=").append(companyId).append("&")
+                    .append("p=").append(productId);
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

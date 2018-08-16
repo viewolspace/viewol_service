@@ -6,6 +6,8 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 
+import java.io.File;
+
 /**
  * Created by lenovo on 2018/7/19.
  * 返回微信相关
@@ -77,4 +79,23 @@ public interface IWxService {
      * @return msgId
      */
     String sendTemplateMsg(int scheduleId, int userId, String uuid, String templateId, String url);
+
+
+    /**
+     * 获取展商小程序码（永久有效、数量暂无限制）.
+     * @param companyId 展商ID
+     * @param fUserId 业务员ID
+     * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
+     * @return
+     */
+    File createCompanyWxaCode(int type, int companyId, int fUserId, String page);
+
+    /**
+     * 获取产品小程序码（永久有效、数量暂无限制）.
+     * @param companyId 展商ID
+     * @param productId 产品ID
+     * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
+     * @return
+     */
+    File createProductWxaCode(int type, int companyId, int productId, String page);
 }
