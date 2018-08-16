@@ -41,7 +41,7 @@ public class UserCollectionServiceImpl implements IUserCollectionService {
             }
 
             userCollection.setName(p.getName());
-            userCollection.setImage(p.getImageView());
+            userCollection.setImage(p.getImage());
 
         }else{
             Company company = companyDAO.getCompany(thirdId);
@@ -49,7 +49,7 @@ public class UserCollectionServiceImpl implements IUserCollectionService {
                 return 0;
             }
             userCollection.setName(company.getName());
-            userCollection.setImage(company.getLogoView());
+            userCollection.setImage(company.getLogo());
         }
 
         return userCollectionDAO.addUserCollection(userCollection);
