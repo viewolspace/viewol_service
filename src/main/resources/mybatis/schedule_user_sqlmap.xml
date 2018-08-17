@@ -3,7 +3,8 @@
 <mapper namespace="ScheduleUser">
 	<sql id="selectCommon">
 		select
-		a.schedule_id
+		a.user_id
+		,a.schedule_id
 		,a.reminder_time
 		,a.c_time
 		,a.id
