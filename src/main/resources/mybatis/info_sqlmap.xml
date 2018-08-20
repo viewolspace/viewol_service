@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Info">
+
+    <sql id="selectCommon">
+			SELECT id,title,summary,pub_time,pic_url,content_url,create_time
+	</sql>
+
+    <insert id="insert" parameterType="Info" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        INSERT INTO viewol.info
+        (title,summary,pub_time,pic_url,content_url,create_time)
+        VALUES
+        (#{title},#{summary},#{pubTime},#{picUrl},#{contentUrl},#{createTime})
+
+    </insert>
+
+    <select id="listInfo" parameterType="map" resultType="Info">
+        <include refid="selectCommon"/>
+        from viewol.info
+        <where>
+            <if test="lastSeq != null and lastSeq != 0">
+                <![CDATA[
+					AND id < #{lastSeq}
+				]]>
+            </if>
+        </where>
+        order by id desc limit 0, #{pageSize}
+    </select>
+
+    <sql id="sql_count">
+		select count(*)
+	</sql>
+
+    <sql id="sql_order">
+		order by id desc
+	</sql>
+
+    <sql id="sql_where">
+        FROM viewol.info
+        <where>
+            <if test="startTime != null and startTime != 0">
+                <![CDATA[
+					AND pub_time > #{startTime}
+				]]>
+            </if>
+
+            <if test="endTime != null and endTime != 0">
+                <![CDATA[
+					AND pub_time < #{endTime}
+				]]>
+            </if>
+
+            <if test="title != null and title != ''">
+                AND title LIKE concat(concat('%',#{title}),'%')
+            </if>
+        </where>
+
+    </sql>
+
+    <select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+        <include refid="sql_count" />
+        <include refid="sql_where" />
+    </select>
+    <select id="findByParams" parameterType="java.util.HashMap" resultType="Info">
+        <include refid="selectCommon" />
+        <include refid="sql_where" />
+        <include refid="sql_order" />
+    </select>
+
+</mapper>

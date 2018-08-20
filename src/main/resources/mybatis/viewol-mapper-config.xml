@@ -36,6 +36,7 @@
         <typeAlias alias="UserAnswer" type="com.viewol.pojo.UserAnswer"/>
         <typeAlias alias="WxToken" type="com.viewol.pojo.WxToken"/>
         <typeAlias alias="UserSession" type="com.viewol.pojo.UserSession"/>
+        <typeAlias alias="Info" type="com.viewol.pojo.Info"/>
     </typeAliases>
 
     <plugins>
@@ -64,6 +65,7 @@
         <mapper resource="mybatis/user_answer_sqlmap.xml"/>
         <mapper resource="mybatis/wx_token_sqlmap.xml"/>
         <mapper resource="mybatis/user_session_sqlmap.xml"/>
+        <mapper resource="mybatis/info_sqlmap.xml"/>
     </mappers>
 
 </configuration>
