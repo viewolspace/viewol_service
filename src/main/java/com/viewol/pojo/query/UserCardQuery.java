@@ -68,7 +68,7 @@ public class UserCardQuery {
     public Map<String,Object> getMap(){
         Map<String,Object> map = new HashMap<>();
 
-        if(lastId <= 0){
+        if(lastId ==null ||  lastId <= 0){
             lastId = Integer.MAX_VALUE;
         }
 
