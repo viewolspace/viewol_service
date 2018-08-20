@@ -69,8 +69,8 @@
 
 		</where>
 		) a
-		LEFT JOIN f_user b ON   a.b_user_id = b.user_id
-		LEFT JOIN b_user c ON a.f_user_id=c.user_id
+		LEFT JOIN f_user b ON   a.f_user_id = b.user_id
+		LEFT JOIN b_user c ON a.b_user_id=c.user_id
 		LEFT JOIN company d ON a.company_id=d.id
 	</sql>
 
