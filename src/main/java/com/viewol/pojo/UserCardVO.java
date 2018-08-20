@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import com.viewol.util.ImageUtils;
+
 import java.util.Date;
 
 /**
@@ -30,6 +32,8 @@ public class UserCardVO {
     private String  logo;
     private String  name;
     private String  shortName; //简称
+
+    private String  logoView;
 
     public int getId() {
         return id;
@@ -157,6 +161,7 @@ public class UserCardVO {
 
     public void setLogo(String logo) {
         this.logo = logo;
+        this.logoView = ImageUtils.addUrlImage(logo);
     }
 
     public String getName() {
@@ -173,6 +178,15 @@ public class UserCardVO {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+
+    public String getLogoView() {
+        return logoView;
+    }
+
+    public void setLogoView(String logoView) {
+        this.logoView = logoView;
     }
 
     @Override
