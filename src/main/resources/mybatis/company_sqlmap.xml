@@ -129,7 +129,7 @@
 
 	<sql id="sql_where">
 		FROM company a ,
-		( SELECT  company_id  FROM company_category
+		( SELECT  distinct company_id as company_id FROM company_category
 		<where>
 			<if test="categoryId != null and categoryId != '' ">
 				AND category_id = #{categoryId}
