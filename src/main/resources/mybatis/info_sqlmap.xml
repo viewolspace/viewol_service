@@ -3,7 +3,7 @@
 <mapper namespace="Info">
 
     <sql id="selectCommon">
-			SELECT id,title,summary,pub_time,pic_url,content_url,create_time
+			SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str
 	</sql>
 
     <insert id="insert" parameterType="Info" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -12,9 +12,9 @@
         </selectKey>
 
         INSERT INTO viewol.info
-        (title,summary,pub_time,pic_url,content_url,create_time)
+        (title,summary,pub_time,pic_url,content_url,create_time,md5_str)
         VALUES
-        (#{title},#{summary},#{pubTime},#{picUrl},#{contentUrl},#{createTime})
+        (#{title},#{summary},#{pubTime},#{picUrl},#{contentUrl},#{createTime},#{md5Str})
 
     </insert>
 
@@ -69,6 +69,17 @@
         <include refid="selectCommon" />
         <include refid="sql_where" />
         <include refid="sql_order" />
+    </select>
+
+
+    <select id="isRepeat" parameterType="java.util.HashMap" resultType="Info">
+        <include refid="selectCommon"/>
+        from viewol.info
+        <where>
+            <if test="md5Str != null and md5Str != ''">
+		      AND md5_str =#{md5Str}
+            </if>
+        </where>
     </select>
 
 </mapper>

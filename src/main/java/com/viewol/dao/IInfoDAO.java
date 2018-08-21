@@ -13,4 +13,5 @@ public interface IInfoDAO {
 
     List<Info> listInfo(int lastSeq, int pageSize);
 
+    boolean isRepeat(String title);
 }

@@ -3,6 +3,7 @@ package com.viewol.dao.impl;
 import com.viewol.dao.BaseDAO;
 import com.viewol.dao.IInfoDAO;
 import com.viewol.pojo.Info;
+import com.youguu.core.util.MD5;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 public class InfoDAOImpl extends BaseDAO<Info> implements IInfoDAO {
     @Override
     public int save(Info info) {
+        info.setMd5Str(new MD5().getMD5ofStr(info.getTitle()));
         return this.insert(info);
     }
 
@@ -33,5 +35,16 @@ public class InfoDAOImpl extends BaseDAO<Info> implements IInfoDAO {
         map.put("lastSeq", lastSeq);
         map.put("pageSize", pageSize);
         return this.findBy("listInfo", map);
+    }
+
+    @Override
+    public boolean isRepeat(String title) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("md5Str", new MD5().getMD5ofStr(title));
+        Info info = this.findUniqueBy("isRepeat", map);
+        if(info!=null){
+            return true;
+        }
+        return false;
     }
 }

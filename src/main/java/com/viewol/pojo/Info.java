@@ -11,6 +11,7 @@ public class Info {
     private String picUrl;
     private String contentUrl;
     private Date createTime;
+    private String md5Str;
 
     public int getId() {
         return id;
@@ -66,5 +67,13 @@ public class Info {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getMd5Str() {
+        return md5Str;
+    }
+
+    public void setMd5Str(String md5Str) {
+        this.md5Str = md5Str;
     }
 }

@@ -17,7 +17,11 @@ public class InfoServiceImpl implements IInfoService {
 
     @Override
     public int save(Info info) {
-        return infoDAO.save(info);
+        boolean repeat = this.isRepeat(info.getTitle());
+        if(!repeat){
+            return infoDAO.save(info);
+        }
+        return -1;
     }
 
     @Override
@@ -28,5 +32,10 @@ public class InfoServiceImpl implements IInfoService {
     @Override
     public List<Info> listInfo(int lastSeq, int pageSize) {
         return infoDAO.listInfo(lastSeq, pageSize);
+    }
+
+    @Override
+    public boolean isRepeat(String title) {
+        return infoDAO.isRepeat(title);
     }
 }
