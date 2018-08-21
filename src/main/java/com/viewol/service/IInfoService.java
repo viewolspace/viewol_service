@@ -12,4 +12,6 @@ public interface IInfoService {
     PageHolder<Info> queryInfo(String title, String startTime, String endTime, int pageIndex, int pageSize);
 
     List<Info> listInfo(int lastSeq, int pageSize);
+
+    boolean isRepeat(String contentUrl);
 }
