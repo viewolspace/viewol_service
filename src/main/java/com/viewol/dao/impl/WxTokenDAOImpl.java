@@ -20,15 +20,17 @@ public class WxTokenDAOImpl extends BaseDAO<WxToken> implements IWxTokenDAO {
         map.put("token", token);
         map.put("tokenTime", new Date());
         map.put("appId", appId);
+        map.put("cTime", new Date());
         return super.updateBy("uodateToken", map);
     }
 
     @Override
-    public int uodateJsapiTicket(String appId, String jsapiTicket) {
+    public int updateJsapiTicket(String appId, String jsapiTicket) {
         Map<String, Object> map = new HashMap<>();
         map.put("jsapiTicket", jsapiTicket);
         map.put("ticketTime", new Date());
         map.put("appId", appId);
+        map.put("cTime", new Date());
         return super.updateBy("uodateJsapiTicket", map);
     }
 

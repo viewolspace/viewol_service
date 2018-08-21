@@ -9,7 +9,7 @@ public interface IWxTokenDAO {
 
     int updateToken(String appId, String token);
 
-    int uodateJsapiTicket(String appId, String jsapiTicket);
+    int updateJsapiTicket(String appId, String jsapiTicket);
 
     WxToken getWxToken(String appId);
 }

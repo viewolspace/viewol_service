@@ -43,11 +43,19 @@
 	</select>
 
     <update id="uodateToken" parameterType="map">
-		update viewol.wx_token set token = #{token} , token_time=#{tokenTime} where app_id = #{appId}
+		INSERT INTO viewol.wx_token
+        (app_id,token,token_time,c_time)
+        VALUES
+        (#{appId},#{token},#{tokenTime},#{cTime})
+        ON DUPLICATE KEY UPDATE token = #{token}, token_time=#{tokenTime}
 	</update>
 
 	<update id="uodateJsapiTicket" parameterType="map">
-		update viewol.wx_token set jsapi_ticket = #{jsapiTicket} , ticket_time=#{ticketTime} where app_id = #{appId}
+		INSERT INTO viewol.wx_token
+        (app_id,jsapi_ticket,ticket_time,c_time)
+        VALUES
+        (#{appId},#{jsapiTicket},#{ticketTime},#{cTime})
+        ON DUPLICATE KEY UPDATE jsapi_ticket = #{jsapiTicket} , ticket_time=#{ticketTime}
 	</update>
 
 

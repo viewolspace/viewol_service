@@ -30,6 +30,6 @@ public class WxMpInMysqlConfigStorage extends WxMpInMemoryConfigStorage {
     @Override
     public synchronized void updateJsapiTicket(String jsapiTicket, int expiresInSeconds) {
         super.updateJsapiTicket(jsapiTicket, expiresInSeconds);
-        wxTokenDAO.uodateJsapiTicket(this.getAppId(), jsapiTicket);
+        wxTokenDAO.updateJsapiTicket(this.getAppId(), jsapiTicket);
     }
 }
