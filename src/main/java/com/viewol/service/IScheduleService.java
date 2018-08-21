@@ -163,7 +163,7 @@ public interface IScheduleService {
     List<Schedule> listSchedule(String time,String date,int type,String keyword ,long seq,int num);
 
 
-    int updateReminderFlag(int id);
+    int updateReminderFlag(int id, int reminderFlag);
 
 
     List<ScheduleUser> queryNeedReminder();

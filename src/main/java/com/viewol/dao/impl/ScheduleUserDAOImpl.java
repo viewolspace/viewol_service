@@ -50,9 +50,10 @@ public class ScheduleUserDAOImpl extends BaseDAO<ScheduleUser> implements ISched
     }
 
     @Override
-    public int updateReminderFlag(int id) {
+    public int updateReminderFlag(int id, int reminderFlag) {
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);
+        map.put("reminderFlag",reminderFlag);
         return super.updateBy("updateReminderFlag",map);
     }
 

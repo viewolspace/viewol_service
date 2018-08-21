@@ -12,6 +12,8 @@ public class ScheduleUser extends FUser{
 
     public static final int REMINDER_NO = 1; //不需要提醒
 
+    public static final int REMINDER_FAIL = 2; //提醒失败
+
     private int id;
 
     private int scheduleId;

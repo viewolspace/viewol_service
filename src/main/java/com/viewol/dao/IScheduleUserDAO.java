@@ -28,7 +28,13 @@ public interface IScheduleUserDAO {
     int isJoinSchedule(int userId,int scheduleId);
 
 
-    int updateReminderFlag(int id);
+    /**
+     * 修改提现标识
+     * @param id
+     * @param reminderFlag 0 未通知 1已通知 2通知失败
+     * @return
+     */
+    int updateReminderFlag(int id, int reminderFlag);
 
 
     List<ScheduleUser> queryNeedReminder();

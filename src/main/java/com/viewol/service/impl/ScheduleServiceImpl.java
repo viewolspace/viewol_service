@@ -266,8 +266,8 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public int updateReminderFlag(int id) {
-        return scheduleUserDAO.updateReminderFlag(id);
+    public int updateReminderFlag(int id, int reminderFlag) {
+        return scheduleUserDAO.updateReminderFlag(id, reminderFlag);
     }
 
     @Override

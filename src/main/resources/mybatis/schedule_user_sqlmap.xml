@@ -33,7 +33,7 @@
 	</insert>
 
 	<update id="updateReminderFlag" parameterType="map">
-		update viewol.schedule_user set reminder_flag = 1 where id=#{id}
+		update viewol.schedule_user set reminder_flag = #{reminderFlag} where id=#{id}
 	</update>
 
 	<select id="queryNeedReminder" resultType="ScheduleUser">
