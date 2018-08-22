@@ -2,9 +2,9 @@ package com.viewol.service;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
-import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 
 import java.io.File;
 
@@ -98,4 +98,13 @@ public interface IWxService {
      * @return
      */
     File createProductWxaCode(int type, int companyId, int productId, String page);
+
+    /**
+     * <pre>
+     * 创建调用jsapi时所需要的签名
+     *
+     * 详情请见：http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115&token=&lang=zh_CN
+     * </pre>
+     */
+    WxJsapiSignature createJsapiSignature(String url);
 }

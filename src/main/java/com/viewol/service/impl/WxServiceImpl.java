@@ -11,6 +11,7 @@ import com.viewol.pojo.WxToken;
 import com.viewol.service.IFUserService;
 import com.viewol.service.IScheduleService;
 import com.viewol.service.IWxService;
+import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
@@ -217,6 +218,16 @@ public class WxServiceImpl implements IWxService, InitializingBean {
                     .append("p=").append(productId);
             return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
         } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public WxJsapiSignature createJsapiSignature(String url) {
+        try {
+            return wxMpService.createJsapiSignature(url);
+        }catch (WxErrorException e) {
             e.printStackTrace();
         }
         return null;
