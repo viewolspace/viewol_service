@@ -113,7 +113,7 @@ INSERT INTO schedule
 			<if test="type != null and type != -1 ">
 				AND type=#{type}
 			</if>
-			<if test="status != null and status != 0 ">
+			<if test="status != null">
 				AND status=#{status}
 			</if>
 			<if test="keyword != null and keyword != ''">
