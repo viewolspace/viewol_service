@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.viewol.util.Base64Img;
+import com.youguu.core.logging.Log;
+import com.youguu.core.logging.LogFactory;
 import com.youguu.core.pojo.Response;
 
 import java.io.BufferedReader;
@@ -22,6 +24,7 @@ import java.util.Map;
  */
 public class ScanTestXY implements IScanCard{
 
+    private static final Log logger = LogFactory.getLog(ScanTestXY.class);
 
     @Override
     public JSONObject scan(Map<String, String> param) {
@@ -57,7 +60,7 @@ public class ScanTestXY implements IScanCard{
              * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
              */
             Response<String> res = sendPost(url,headers,bodys,"UTF-8");
-            System.out.println(res.toString());
+            logger.debug("SendPost Response: "+res.toString());
 
             if(res.getCode().equals("0000")){
                 JSONObject scanResult = JSON.parseObject(res.getT());
