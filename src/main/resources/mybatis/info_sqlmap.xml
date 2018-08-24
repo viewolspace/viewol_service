@@ -28,7 +28,7 @@
 				]]>
             </if>
         </where>
-        order by pub_time desc limit 0, #{pageSize}
+        order by id desc limit 0, #{pageSize}
     </select>
 
     <sql id="sql_count">

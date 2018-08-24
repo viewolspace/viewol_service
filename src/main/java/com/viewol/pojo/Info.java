@@ -2,7 +2,7 @@ package com.viewol.pojo;
 
 import java.util.Date;
 
-public class Info {
+public class Info implements Comparable<Info> {
 
     private int id;
     private String title;
@@ -75,5 +75,14 @@ public class Info {
 
     public void setMd5Str(String md5Str) {
         this.md5Str = md5Str;
+    }
+
+    @Override
+    public int compareTo(Info o) {
+        //自定义比较方法，如果认为此实体本身大则返回1，否则返回-1
+        if (this.pubTime.getTime() >= o.getPubTime().getTime()) {
+            return 1;
+        }
+        return -1;
     }
 }
