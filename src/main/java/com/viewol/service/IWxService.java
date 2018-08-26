@@ -100,6 +100,14 @@ public interface IWxService {
     File createProductWxaCode(int type, int companyId, int productId, String page);
 
     /**
+     * 生成小程序的二维码
+     * @param width
+     * @param page
+     * @return
+     */
+    File createProgramWxaCode(int width, String page);
+
+    /**
      * <pre>
      * 创建调用jsapi时所需要的签名
      *

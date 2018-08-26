@@ -224,6 +224,16 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
+    public File createProgramWxaCode(int width, String page) {
+        try {
+            return wxMaService.getQrcodeService().createWxaCode(page, width);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public WxJsapiSignature createJsapiSignature(String url) {
         try {
             return wxMpService.createJsapiSignature(url);
