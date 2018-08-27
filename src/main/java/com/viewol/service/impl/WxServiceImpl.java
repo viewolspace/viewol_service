@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 
 /**
@@ -202,8 +204,8 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             scene.append("a=").append(type).append("&")
                     .append("c=").append(companyId).append("&")
                     .append("u=").append(bUserId);
-            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
-        } catch (WxErrorException e) {
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(URLEncoder.encode(scene.toString(), "UTF-8"), page);
+        } catch (WxErrorException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return null;
