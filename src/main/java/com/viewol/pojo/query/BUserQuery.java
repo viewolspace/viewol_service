@@ -8,9 +8,9 @@ public class BUserQuery {
 
     private String phone;
 
-    private int companyId;
+    private Integer companyId;
 
-    private int status;
+    private Integer status;
 
     private int pageIndex = 1;
 
@@ -32,19 +32,19 @@ public class BUserQuery {
         this.phone = phone;
     }
 
-    public int getCompanyId() {
+    public Integer getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
