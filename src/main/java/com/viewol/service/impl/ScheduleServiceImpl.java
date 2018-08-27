@@ -260,7 +260,12 @@ public class ScheduleServiceImpl implements IScheduleService {
         query.setTime(time);
         query.setDate(date);
         query.setKeyword(keyword);
-        query.setStatus(status);
+
+        //如果不是这三个状态，则查询全部
+        if(Schedule.STATUS_OK == status || Schedule.STATUS_TRIAL == status || Schedule.STATUS_BACK == status){
+            query.setStatus(status);
+        }
+
         query.setCompanyId(companyId);
         query.setPageSize(num);
 
