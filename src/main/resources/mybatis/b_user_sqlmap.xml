@@ -105,19 +105,19 @@
     <sql id="sql_where">
         FROM viewol.b_user a
         <where>
-            <if test="userName != null">
+            <if test="userName != null and userName != ''">
                 and user_name LIKE concat(concat('%',#{userName}),'%')
             </if>
 
-            <if test="phone != null">
+            <if test="phone != null and phone != ''">
                 and phone = #{phone}
             </if>
 
-            <if test="companyId != null and companyId !='0' ">
+            <if test="companyId != null and companyId !=0 ">
                 and company_id=#{companyId}
             </if>
 
-            <if test="status != null">
+            <if test="status != null and status>=-1">
                 AND status = #{status}
             </if>
         </where>
