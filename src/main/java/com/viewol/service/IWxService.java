@@ -84,11 +84,11 @@ public interface IWxService {
     /**
      * 获取展商小程序码（永久有效、数量暂无限制）.
      * @param companyId 展商ID
-     * @param fUserId 业务员ID
+     * @param bUserId 业务员ID
      * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
      * @return
      */
-    File createCompanyWxaCode(int type, int companyId, int fUserId, String page);
+    File createCompanyWxaCode(int type, int companyId, int bUserId, String page);
 
     /**
      * 获取产品小程序码（永久有效、数量暂无限制）.
