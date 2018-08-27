@@ -2,7 +2,9 @@ package com.viewol.service.impl;
 
 import com.viewol.dao.IBUserDAO;
 import com.viewol.pojo.BUser;
+import com.viewol.pojo.query.BUserQuery;
 import com.viewol.service.IBUserService;
+import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,5 +47,10 @@ public class BUserServiceImpl implements IBUserService {
     @Override
     public int setStatus(int userId, int status) {
         return ibUserDAO.setStatus(userId, status);
+    }
+
+    @Override
+    public PageHolder<BUser> queryBUser(BUserQuery query) {
+        return ibUserDAO.queryBUser(query);
     }
 }

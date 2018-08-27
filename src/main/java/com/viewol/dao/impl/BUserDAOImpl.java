@@ -3,6 +3,8 @@ package com.viewol.dao.impl;
 import com.viewol.dao.BaseDAO;
 import com.viewol.dao.IBUserDAO;
 import com.viewol.pojo.BUser;
+import com.viewol.pojo.query.BUserQuery;
+import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -60,5 +62,16 @@ public class BUserDAOImpl extends BaseDAO<BUser> implements IBUserDAO {
         map.put("mTime",new Date());
         map.put("userId",userId);
         return super.updateBy("setStatus",map);
+    }
+
+    @Override
+    public PageHolder<BUser> queryBUser(BUserQuery query) {
+        Map<String,Object> map =new HashMap<>();
+        map.put("userName",query.getUserName());
+        map.put("phone",query.getPhone());
+        map.put("companyId",query.getCompanyId());
+        map.put("status",query.getStatus());
+
+        return super.pagedQuery("findByParams", map, query.getPageIndex(), query.getPageSize());
     }
 }

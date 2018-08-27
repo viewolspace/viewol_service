@@ -88,7 +88,7 @@ public interface IWxService {
      * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
      * @return
      */
-    File createCompanyWxaCode(int type, int companyId, int bUserId, String page);
+    File createCompanyWxaCode(int type, int companyId, int bUserId, String page, int width);
 
     /**
      * 获取产品小程序码（永久有效、数量暂无限制）.
@@ -97,7 +97,7 @@ public interface IWxService {
      * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
      * @return
      */
-    File createProductWxaCode(int type, int companyId, int productId, String page);
+    File createProductWxaCode(int type, int companyId, int productId, String page, int width);
 
     /**
      * 生成小程序的二维码

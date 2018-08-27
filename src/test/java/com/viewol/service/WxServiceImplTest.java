@@ -44,4 +44,9 @@ public class WxServiceImplTest extends BaseTestClass {
     @Test
     public void getAccessToken() {
     }
+
+    @Test
+    public void createCompanyWxaCode(){
+        wxService.createCompanyWxaCode(1, 382, 4, "pages/company/index", 100);
+    }
 }
