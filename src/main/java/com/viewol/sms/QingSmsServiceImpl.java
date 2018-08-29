@@ -150,6 +150,6 @@ public class QingSmsServiceImpl implements ISmsService {
 
     public static void main(String[] args) {
         QingSmsServiceImpl q = new QingSmsServiceImpl();
-        q.sendRand("138104363651","1234");
+        q.sendRand("13810436365","1234");
     }
 }

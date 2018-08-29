@@ -8,6 +8,9 @@ public class ScheduleQuery {
     //时间 -- 处于此区间
     private String time;
 
+    //时间 -- 处于此区间
+    private String endTtime;
+
     //日期 查询这一天的所有的活动
     private String date;
 
@@ -96,5 +99,13 @@ public class ScheduleQuery {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getEndTtime() {
+        return endTtime;
+    }
+
+    public void setEndTtime(String endTtime) {
+        this.endTtime = endTtime;
     }
 }

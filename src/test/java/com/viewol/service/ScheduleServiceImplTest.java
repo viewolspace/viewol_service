@@ -108,7 +108,7 @@ public class ScheduleServiceImplTest extends BaseTestClass{
 
     @Test
     public void updateReminderFlag(){
-        System.out.println(service.updateReminderFlag(1));
+//        System.out.println(service.updateReminderFlag(1));
     }
 
     @Test
