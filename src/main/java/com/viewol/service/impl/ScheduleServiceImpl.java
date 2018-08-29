@@ -252,14 +252,21 @@ public class ScheduleServiceImpl implements IScheduleService {
 
 
     @Override
-    public List<Schedule> listSchedule(String time, String date, int type, String keyword,long seq, int num) {
+    public List<Schedule> listSchedule(String time, String date, int type, String keyword,long seq, int num,
+                                       int companyId, int status) {
         ScheduleQuery query = new ScheduleQuery();
         query.setType(type);
         query.setSeq(seq);
         query.setTime(time);
         query.setDate(date);
         query.setKeyword(keyword);
-        query.setStatus(Schedule.STATUS_OK);
+
+        //如果不是这三个状态，则查询全部
+        if(Schedule.STATUS_OK == status || Schedule.STATUS_TRIAL == status || Schedule.STATUS_BACK == status){
+            query.setStatus(status);
+        }
+
+        query.setCompanyId(companyId);
         query.setPageSize(num);
 
         return scheduleDAO.listSchedule(query);

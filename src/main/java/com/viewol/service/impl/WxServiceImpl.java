@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 
 /**
@@ -65,7 +67,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
         try {
             WxMaUserInfo wxMaUserInfo = wxMaService.getUserService().getUserInfo(sessionKey, encryptedData, ivStr);
             return wxMaUserInfo;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -74,7 +76,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     @Override
     public String getTokenFromDb(String appId) {
         WxToken wxToken = wxTokenDAO.getWxToken(appId);
-        if(wxToken!=null){
+        if (wxToken != null) {
             return wxToken.getToken();
         }
         return null;
@@ -96,7 +98,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     public boolean isFollow(int userId) {
         FUserBind userBind = ifUserBindDAO.getOpenId(userId, FUserBind.TYPE_WEIXIN);
 
-        if(userBind==null){
+        if (userBind == null) {
             return false;
         }
 
@@ -108,8 +110,8 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             e.printStackTrace();
         }
 
-        if(wxMpUser != null){
-           return wxMpUser.getSubscribe();
+        if (wxMpUser != null) {
+            return wxMpUser.getSubscribe();
         }
 
         return false;
@@ -120,14 +122,14 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     public WxMpUser getUserInfo(int userId) {
         FUserBind userBind = ifUserBindDAO.getOpenId(userId, FUserBind.TYPE_WEIXIN);
 
-        if(userBind==null){
+        if (userBind == null) {
             return null;
         }
         String openId = userBind.getOpenId();
 
         try {
             String access_token = wxMpService.getAccessToken(false);
-            return this.getUserInfo(access_token,openId);
+            return this.getUserInfo(access_token, openId);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -164,7 +166,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     public String sendTemplateMsg(int scheduleId, int userId, String uuid, String templateId, String url) {
         try {
             Schedule schedule = scheduleService.getSchedule(scheduleId);
-            if(schedule == null){
+            if (schedule == null) {
                 return "-1";
             }
 
@@ -196,13 +198,15 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public File createCompanyWxaCode(int type, int companyId, int fUserId, String page) {
+    public File createCompanyWxaCode(int type, int companyId, int bUserId, String page, int width) {
         try {
             StringBuffer scene = new StringBuffer();
-            scene.append("a=").append(type).append("&")
-                    .append("c=").append(companyId).append("&")
-                    .append("u=").append(fUserId);
-            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
+            scene.append(type).append(":").append(companyId).append(":").append(bUserId);
+
+            if(width<=0){
+                width = 430;
+            }
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -210,13 +214,26 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public File createProductWxaCode(int type, int companyId, int productId, String page) {
+    public File createProductWxaCode(int type, int companyId, int productId, String page, int width) {
         try {
             StringBuffer scene = new StringBuffer();
-            scene.append("a=").append(type).append("&")
-                    .append("c=").append(companyId).append("&")
-                    .append("p=").append(productId);
-            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page);
+            scene.append(type).append(":").append(companyId).append(":").append(productId);
+
+            if(width<=0){
+                width = 430;
+            }
+
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public File createProgramWxaCode(int width, String page) {
+        try {
+            return wxMaService.getQrcodeService().createWxaCode(page, width);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -227,7 +244,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     public WxJsapiSignature createJsapiSignature(String url) {
         try {
             return wxMpService.createJsapiSignature(url);
-        }catch (WxErrorException e) {
+        } catch (WxErrorException e) {
             e.printStackTrace();
         }
         return null;
