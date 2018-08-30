@@ -74,16 +74,27 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
     public List<Schedule> listSchedule(ScheduleQuery query) {
         Map<String,Object> map = new HashMap<>();
 
-        if(query.getTime()==null || query.getTime().equals("")){
+
+
+
+        if( (query.getTime()==null || query.getTime().equals("")) && (query.getEndTtime()==null || query.getEndTtime().equals(""))){
             if(query.getDate()!=null){
                 map.put("date",query.getDate());
                 map.put("date_end",query.getDate() + " 23:59:59");
             }
         }else{
-            map.put("time",query.getDate() + " " + query.getTime());
+            if(query.getTime()!=null && !query.getTime().equals("")){
+                map.put("time",query.getDate() + " " + query.getTime());
+            }
+
+            if(query.getEndTtime()!=null && !query.getEndTtime().equals("")){
+                map.put("endTime",query.getDate() + " " + query.getEndTtime());
+            }
+
         }
 
         map.put("seq",query.getSeq());
+        map.put("place",query.getPlace());
         map.put("type",query.getType());
         map.put("status",query.getStatus());
         map.put("keyword",query.getKeyword());

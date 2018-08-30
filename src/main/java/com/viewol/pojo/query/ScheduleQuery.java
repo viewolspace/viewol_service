@@ -11,6 +11,9 @@ public class ScheduleQuery {
     //时间 -- 处于此区间
     private String endTtime;
 
+    //地址
+    private String place;
+
     //日期 查询这一天的所有的活动
     private String date;
 
@@ -107,5 +110,13 @@ public class ScheduleQuery {
 
     public void setEndTtime(String endTtime) {
         this.endTtime = endTtime;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 }

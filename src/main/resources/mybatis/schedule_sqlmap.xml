@@ -102,9 +102,17 @@ INSERT INTO schedule
 			</if>
 			<if test="time != null and time != ''"> <!--查询当前正在进行的-->
 				<![CDATA[
-					AND s_time <= #{time} and e_time >=#{time}
+					AND s_time >= #{time}
 					]]>
 			</if>
+
+			<if test="endTime != null and endTime != ''"> <!--查询当前正在进行的-->
+				<![CDATA[
+					AND s_time <=#{endTime}
+					]]>
+			</if>
+
+
 			<if test="date != null and date != ''"><!--查询某一天的-->
 				<![CDATA[
 					AND s_time >= #{date} and s_time <= #{date_end}
@@ -118,6 +126,10 @@ INSERT INTO schedule
 			</if>
 			<if test="keyword != null and keyword != ''">
 				AND (company_name LIKE concat(concat('%',#{keyword}),'%') or title  LIKE concat(concat('%',#{keyword}),'%') )
+			</if>
+
+			<if test="place != null and place != ''">
+				AND  place  LIKE concat(concat('%',#{place}),'%')
 			</if>
 
 			<if test="seq != null">
