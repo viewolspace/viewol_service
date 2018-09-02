@@ -41,7 +41,7 @@ public class RecommendServiceImpl implements IRecommendService {
             return -2;
         }else{
             recommend.setName(company.getName());
-            recommend.setImage(company.getImage());
+            recommend.setImage(company.getLogo());
             List<CompanyCategory> list =  companyCategoryDAO.queryCategory(thridId);
             for(CompanyCategory companyCategory:list){
                 recommend.setCategoryId(companyCategory.getCategoryId());
