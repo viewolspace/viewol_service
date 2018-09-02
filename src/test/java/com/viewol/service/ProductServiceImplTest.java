@@ -61,7 +61,7 @@ public class ProductServiceImplTest extends BaseTestClass{
 
     @Test
     public void addRecomment(){
-        System.out.println(service.addRecomment(3, 2));
+        System.out.println(service.addRecomment(1, 1));
     }
 
     @Test
