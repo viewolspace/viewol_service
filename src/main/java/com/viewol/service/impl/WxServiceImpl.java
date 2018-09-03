@@ -3,6 +3,7 @@ package com.viewol.service.impl;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
+import cn.binarywang.wx.miniapp.util.crypt.WxMaCryptUtils;
 import com.viewol.dao.IFUserBindDAO;
 import com.viewol.dao.IWxTokenDAO;
 import com.viewol.pojo.FUserBind;
@@ -11,6 +12,8 @@ import com.viewol.pojo.WxToken;
 import com.viewol.service.IFUserService;
 import com.viewol.service.IScheduleService;
 import com.viewol.service.IWxService;
+import com.youguu.core.logging.Log;
+import com.youguu.core.logging.LogFactory;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -31,7 +34,7 @@ import java.text.SimpleDateFormat;
  */
 @Service("wxService")
 public class WxServiceImpl implements IWxService, InitializingBean {
-
+    private static final Log log = LogFactory.getLog(WxServiceImpl.class);
     @Resource
     private IWxTokenDAO wxTokenDAO;
     @Resource
