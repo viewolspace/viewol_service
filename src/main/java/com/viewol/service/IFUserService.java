@@ -17,6 +17,8 @@ public interface IFUserService {
     //添加用户 , openId,uuid,
     int addFUser(String openId, String uuid, int type);
 
+    int addFuserBind(int userId,String openId, String uuid, int type);
+
 
     //添加用户 , openId,uuid,
     int addFUser(FUser fuser , String answer, String openId, String uuid, int type);

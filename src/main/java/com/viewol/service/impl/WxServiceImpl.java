@@ -24,8 +24,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 
 /**
@@ -93,6 +91,16 @@ public class WxServiceImpl implements IWxService, InitializingBean {
         return null;
     }
 
+    @Override
+    public WxMpUser getUserInfo(String openId) {
+        WxMpUser wxMpUser = null;
+        try {
+            wxMpUser = wxMpService.getUserService().userInfo(openId);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return wxMpUser;
+    }
 
     @Override
     public boolean isFollow(int userId) {

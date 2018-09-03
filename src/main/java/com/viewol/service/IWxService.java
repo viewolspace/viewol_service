@@ -61,6 +61,14 @@ public interface IWxService {
     WxMpUser getUserInfo(int userId);
 
     /**
+     * 已关注微信公众号用户，拉取用户数据
+     *
+     * @param openId
+     * @return
+     */
+    WxMpUser getUserInfo(String openId);
+
+    /**
      * 未关注微信公众号用户，拉取用户数据
      *
      * @param token

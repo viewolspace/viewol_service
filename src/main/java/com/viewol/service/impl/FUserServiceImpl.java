@@ -55,6 +55,18 @@ public class FUserServiceImpl implements IFUserService {
         return uid;
     }
 
+    @Override
+    public int addFuserBind(int userId,String openId, String uuid, int type) {
+        FUserBind fUserBind = new FUserBind();
+        fUserBind.setUserId(userId);
+        fUserBind.setOpenId(openId);
+        fUserBind.setUuid(uuid);
+        fUserBind.setcTime(new Date());
+        fUserBind.setType(type);
+        int result = ifUserBindDAO.addFUserBind(fUserBind);
+        return 1;
+    }
+
     @Transactional("viewolTX")
     @Override
     public int addFUser(FUser fuser, String openId, String uuid , int type) {
