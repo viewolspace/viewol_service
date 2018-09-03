@@ -137,4 +137,11 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
         map.put("type",type);
         return super.findBy("queryNowRecommendSchedule",map);
     }
+
+    @Override
+    public int comTodayNum(int comId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("companyId",comId);
+        return super.count("appLimit",map);
+    }
 }

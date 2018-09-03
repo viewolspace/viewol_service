@@ -50,6 +50,8 @@ public class ScheduleServiceImpl implements IScheduleService {
         }
     }
 
+
+
     @Override
     public int applySchedule(int companyId, String title, String place, String content, String startTime, String endTime) {
         //判断公司是否有权限申请活动
@@ -61,16 +63,16 @@ public class ScheduleServiceImpl implements IScheduleService {
             return -98;
         }
 
-        //判断公司是否已经有未审核的活动
+        //判断公司今天申请的数量是否已经上限
 
-        if(hasApplySchedule(companyId)){
+        if(this.comTodayNum(companyId) >= 2){
             return -99;
         }
 
 
         Schedule schedule = new Schedule();
         schedule.setType(Schedule.TYPE_COM);
-        schedule.setStatus(Schedule.STATUS_TRIAL);
+        schedule.setStatus(Schedule.STATUS_OK);
         schedule.setCompanyId(companyId);
         schedule.setCompanyName(company.getName());
         schedule.setPlace(place);
@@ -277,6 +279,11 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public int updateReminderFlag(int id, int reminderFlag) {
         return scheduleUserDAO.updateReminderFlag(id, reminderFlag);
+    }
+
+    @Override
+    public int comTodayNum(int comId) {
+        return scheduleDAO.comTodayNum(comId);
     }
 
     @Override

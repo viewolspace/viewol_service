@@ -167,4 +167,6 @@ public interface IScheduleService {
 
 
     List<ScheduleUser> queryNeedReminder();
+
+    int comTodayNum(int comId);
 }

@@ -83,4 +83,7 @@ public interface IScheduleDAO {
      * @return
      */
     List<Schedule> queryNowHostSchedule();
+
+
+    int comTodayNum(int  comId);
 }

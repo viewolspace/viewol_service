@@ -86,6 +86,11 @@ INSERT INTO schedule
 		WHERE
 		id = #{id}
 	</update>
+	<select id="appLimit" parameterType="java.util.HashMap" resultType="int">
+		<![CDATA[
+			select count(*) from schedule WHERE DATE_FORMAT( c_time,'%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') and company_id=#{companyId};
+		]]>
+	</select>
 
 
 
