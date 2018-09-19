@@ -115,10 +115,10 @@ public class ScheduleServiceImpl implements IScheduleService {
             if(userId<=0){
                 return svo;
             }
-
-            if(svo.getType().equals(Schedule.TYPE_COM)){
-                return svo;
-            }
+            //放开展商的报名
+//            if(svo.getType().equals(Schedule.TYPE_COM)){
+//                return svo;
+//            }
 
             svo.setApplyStatus(ScheduleVO.APPLY_STATUS_CAN); //主办方的可以参与
 
