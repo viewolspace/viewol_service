@@ -3,7 +3,6 @@ package com.viewol.service.impl;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
-import cn.binarywang.wx.miniapp.util.crypt.WxMaCryptUtils;
 import com.viewol.dao.IFUserBindDAO;
 import com.viewol.dao.IWxTokenDAO;
 import com.viewol.pojo.FUserBind;
@@ -214,6 +213,19 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             StringBuffer scene = new StringBuffer();
             scene.append(type).append(":").append(companyId).append(":").append(bUserId);
 
+            if(width<=0){
+                width = 430;
+            }
+            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public File createPublicxaCode(String page, String scene, int width) {
+        try {
             if(width<=0){
                 width = 430;
             }

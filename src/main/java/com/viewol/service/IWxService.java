@@ -107,6 +107,8 @@ public interface IWxService {
      */
     File createProductWxaCode(int type, int companyId, int productId, String page, int width);
 
+    File createPublicxaCode(String page , String scene , int width);
+
     /**
      * 生成小程序的二维码
      * @param width
