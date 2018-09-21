@@ -67,6 +67,11 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
+    public int delCompany(int id) {
+        return companyDAO.delCompany(id);
+    }
+
+    @Override
     public Company getCompany(int id) {
         return companyDAO.getCompany(id);
     }

@@ -19,6 +19,8 @@ public interface ICompanyService {
     //修改展商 categoryIds为空表示不做分类的修改
     int updateCompany(Company company,List<String> categoryIds);
 
+    int delCompany(int id);
+
     //获取展商
     Company getCompany(int id);
 
