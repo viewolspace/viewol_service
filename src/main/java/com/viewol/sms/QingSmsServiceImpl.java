@@ -106,8 +106,8 @@ public class QingSmsServiceImpl implements ISmsService {
         Map<String, String> querys = new HashMap<String, String>();
         querys.put("param", rand);
         querys.put("phone", phone);
-        querys.put("sign", "1");
-        querys.put("skin", "1");
+        querys.put("sign", "51806");
+        querys.put("skin", "100001");
         //JDK 1.8示例代码请在这里下载：  http://code.fegine.com/Tools.zip
 
         try {
