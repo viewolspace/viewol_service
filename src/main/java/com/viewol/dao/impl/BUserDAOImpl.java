@@ -25,6 +25,13 @@ public class BUserDAOImpl extends BaseDAO<BUser> implements IBUserDAO {
     }
 
     @Override
+    public BUser getFirstBuser(int comId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("companyId",comId);
+        return super.findUniqueBy("getFirstBuser",map);
+    }
+
+    @Override
     public BUser getBUser(int uid) {
         return super.get(uid);
     }

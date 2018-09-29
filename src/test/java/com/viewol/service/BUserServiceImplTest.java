@@ -29,6 +29,11 @@ public class BUserServiceImplTest extends BaseTestClass{
         System.out.println(service.addBUser(beanUser()));
     }
 
+    @Test
+    public void getFirstBuser(){
+        System.out.println(service.getFirstBuser(2));
+    }
+
 
 
     @Test

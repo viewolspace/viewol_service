@@ -68,6 +68,12 @@
         from viewol.b_user a where company_id = #{companyId} order by user_id
     </select>
 
+
+    <select id="getFirstBuser" parameterType="map" resultType="BUser">
+        <include refid="selectCommon"/>
+        from viewol.b_user a where company_id = #{companyId} and status = 1 order by user_id limit 1
+    </select>
+
     <update id="update" parameterType="BUser">
 
 			UPDATE viewol.b_user

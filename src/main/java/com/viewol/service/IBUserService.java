@@ -14,6 +14,10 @@ public interface IBUserService {
     //通过公司id获取
     List<BUser> listByCom(int comId);
 
+
+    //获取公司第一个业务员
+    BUser getFirstBuser(int comId);
+
     BUser getBUser(int uid);
 
     BUser getBUser(String openId);

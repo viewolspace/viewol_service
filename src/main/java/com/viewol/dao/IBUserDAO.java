@@ -15,6 +15,9 @@ public interface IBUserDAO {
 
     BUser getBUser(int uid);
 
+    //获取公司第一个业务员
+    BUser getFirstBuser(int comId);
+
     BUser getBUser(String openId);
 
     int addBUser(BUser user);

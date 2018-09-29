@@ -25,6 +25,11 @@ public class BUserServiceImpl implements IBUserService {
     }
 
     @Override
+    public BUser getFirstBuser(int comId) {
+        return ibUserDAO.getFirstBuser(comId);
+    }
+
+    @Override
     public BUser getBUser(int uid) {
         return ibUserDAO.getBUser(uid);
     }
