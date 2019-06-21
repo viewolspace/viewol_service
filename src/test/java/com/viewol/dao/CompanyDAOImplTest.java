@@ -51,7 +51,7 @@ public class CompanyDAOImplTest extends BaseTestClass{
 
     @Test
     public void queryRecommentCompany(){
-        System.out.println(dao.queryRecommentCompany());
+        System.out.println(dao.queryRecommentCompany(2));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class CompanyDAOImplTest extends BaseTestClass{
 
     @Test
     public void queryTopCompany(){
-        System.out.println(dao.queryTopCompany());
+        System.out.println(dao.queryTopCompany(2));
     }
 
 

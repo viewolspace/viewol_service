@@ -31,6 +31,7 @@ public class Schedule {
     private String place; //位置信息
     private Integer vType; //不是数据库字段 等同于RecommendSchedule的type字段
     private Long seq;
+    private Integer expoId;
 
     private String contentView;
 
@@ -146,6 +147,14 @@ public class Schedule {
     public void setContentView(String contentView) {
         this.contentView = contentView;
         this.content = ImageUtils.diffUrlContent(contentView);
+    }
+
+    public Integer getExpoId() {
+        return expoId;
+    }
+
+    public void setExpoId(Integer expoId) {
+        this.expoId = expoId;
     }
 
     @Override

@@ -38,11 +38,11 @@ public class ScheduleServiceImpl implements IScheduleService {
 
 
     @Override
-    public boolean hasApplySchedule(int companyId) {
+    public boolean hasApplySchedule(int expoId,int companyId) {
         ScheduleQuery query = new ScheduleQuery();
         query.setCompanyId(companyId);
         query.setStatus(Schedule.STATUS_TRIAL);
-        List<Schedule> list =  scheduleDAO.listSchedule(query);
+        List<Schedule> list =  scheduleDAO.listSchedule(expoId,query);
         if(list!=null &&list.size()>0){
             return true;
         }else{
@@ -53,7 +53,7 @@ public class ScheduleServiceImpl implements IScheduleService {
 
 
     @Override
-    public int applySchedule(int companyId, String title, String place, String content, String startTime, String endTime) {
+    public int applySchedule(int expoId,int companyId, String title, String place, String content, String startTime, String endTime) {
         //判断公司是否有权限申请活动
         Company company = companyDAO.getCompany(companyId);
         if(company==null){
@@ -81,11 +81,11 @@ public class ScheduleServiceImpl implements IScheduleService {
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
 
-        return scheduleDAO.addSchedule(schedule);
+        return scheduleDAO.addSchedule(expoId,schedule);
     }
 
     @Override
-    public int addSchedule(String title, String place, String content, String startTime, String endTime) {
+    public int addSchedule(int expoId,String title, String place, String content, String startTime, String endTime) {
         Schedule schedule = new Schedule();
         schedule.setType(Schedule.TYPE_HOST);
         schedule.setStatus(Schedule.STATUS_OK);
@@ -96,7 +96,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         schedule.setContentView(content);
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
-        return scheduleDAO.addSchedule(schedule);
+        return scheduleDAO.addSchedule(expoId,schedule);
     }
 
     @Override
@@ -184,13 +184,13 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public PageHolder<Schedule> querySchedule(ScheduleQuery query) {
-        return scheduleDAO.querySchedule(query);
+    public PageHolder<Schedule> querySchedule(int expoId,ScheduleQuery query) {
+        return scheduleDAO.querySchedule(expoId,query);
     }
 
     @Override
-    public PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query) {
-        return scheduleDAO.queryRecommendSchedule(query);
+    public PageHolder<ScheduleVO> queryRecommendSchedule(int expoId,RecommendScheduleQuery query) {
+        return scheduleDAO.queryRecommendSchedule(expoId,query);
     }
 
 
@@ -243,18 +243,18 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public List<Schedule> queryNowHostSchedule() {
-        return scheduleDAO.queryNowHostSchedule();
+    public List<Schedule> queryNowHostSchedule(int expoId) {
+        return scheduleDAO.queryNowHostSchedule(expoId);
     }
 
     @Override
-    public List<ScheduleVO> queryNowRecommendSchedule(int type) {
-        return scheduleDAO.queryNowRecommendSchedule(type);
+    public List<ScheduleVO> queryNowRecommendSchedule(int expoId,int type) {
+        return scheduleDAO.queryNowRecommendSchedule(expoId,type);
     }
 
 
     @Override
-    public List<Schedule> listSchedule(String time, String date, int type, String keyword,long seq, int num,
+    public List<Schedule> listSchedule(int expoId,String time, String date, int type, String keyword,long seq, int num,
                                        int companyId, int status,String endTime,String place) {
         ScheduleQuery query = new ScheduleQuery();
         query.setType(type);
@@ -273,7 +273,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         query.setCompanyId(companyId);
         query.setPageSize(num);
 
-        return scheduleDAO.listSchedule(query);
+        return scheduleDAO.listSchedule(expoId,query);
     }
 
     @Override

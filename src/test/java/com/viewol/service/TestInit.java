@@ -134,7 +134,7 @@ public class TestInit extends BaseTestClass {
             List<String> categorys = new ArrayList<>();
             categorys.add("00010008");
 
-            companyService.addCompany(company,categorys);
+            companyService.addCompany(2,company,categorys);
         }
 
         if(isProduct){
@@ -148,7 +148,7 @@ public class TestInit extends BaseTestClass {
             p.setName("摄像头");
             p.setStatus(0);
             p.setPdfUrl("");
-            productService.addProduct(p);
+            productService.addProduct(2,p);
         }
 
         if(isFuser){

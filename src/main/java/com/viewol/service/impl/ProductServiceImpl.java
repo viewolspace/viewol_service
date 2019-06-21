@@ -1,6 +1,7 @@
 package com.viewol.service.impl;
 
 import com.viewol.dao.ICompanyDAO;
+import com.viewol.dao.IExpoProductDAO;
 import com.viewol.dao.IProductDAO;
 import com.viewol.pojo.Company;
 import com.viewol.pojo.Product;
@@ -8,6 +9,7 @@ import com.viewol.pojo.query.ProductQuery;
 import com.viewol.service.IProductService;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,6 +23,9 @@ public class ProductServiceImpl implements IProductService {
     @Resource
     private IProductDAO productDAO;
 
+    @Resource
+    private IExpoProductDAO expoProductDAO;
+
 
     @Resource
     private ICompanyDAO companyDAO;
@@ -30,8 +35,9 @@ public class ProductServiceImpl implements IProductService {
         return productDAO.getProduct(id);
     }
 
+    @Transactional("viewolTX")
     @Override
-    public int addProduct(Product product) {
+    public int addProduct(int expoId,Product product) {
         int comId = product.getCompanyId();
 
         Company company = companyDAO.getCompany(comId);
@@ -47,12 +53,19 @@ public class ProductServiceImpl implements IProductService {
         if(countNum >= num){
             return -99;
         }
+        int result = 0;
 
-        return productDAO.addProduct(product);
+        result = productDAO.addProduct(product);
+
+        expoProductDAO.saveExpoProduct(expoId,product.getId());
+
+        return result;
     }
 
+    @Transactional("viewolTX")
     @Override
     public int delProduct(int id) {
+        expoProductDAO.delExpoProduct(id);
         return productDAO.delProduct(id);
     }
 
@@ -82,12 +95,12 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<Product> queryRecommentProduct() {
-        return productDAO.queryRecommentProduct();
+    public List<Product> queryRecommentProduct(int expoId) {
+        return productDAO.queryRecommentProduct(expoId);
     }
 
     @Override
-    public List<Product> listProduct(int companyId, String name, String categoryId, long lastSeq, int num) {
+    public List<Product> listProduct(int expoId,int companyId, String name, String categoryId, long lastSeq, int num) {
         ProductQuery query = new ProductQuery();
         if(companyId!=0){
             query.setCompanyId(companyId);
@@ -96,6 +109,7 @@ public class ProductServiceImpl implements IProductService {
         query.setCategoryId(categoryId);
         query.setPageSize(num);
         query.setLastSeq(lastSeq);
+        query.setExpoId(expoId);
         return productDAO.listProduct(query);
     }
 
@@ -110,8 +124,8 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<Product> queryTopProduct() {
-        return productDAO.queryTopProduct();
+    public List<Product> queryTopProduct(int expoId) {
+        return productDAO.queryTopProduct(expoId);
     }
 
     @Override

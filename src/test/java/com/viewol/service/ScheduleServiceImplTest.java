@@ -18,7 +18,7 @@ public class ScheduleServiceImplTest extends BaseTestClass{
 
     @Test
     public void hasApplySchedule(){
-        System.out.println(service.hasApplySchedule(1));
+        System.out.println(service.hasApplySchedule(2,1));
 
     }
 
@@ -31,7 +31,7 @@ public class ScheduleServiceImplTest extends BaseTestClass{
         String content = "嘉宾不少";
         String startTime = "2018-09-12 11:23:11" ;
         String endTime = "2018-09-12 12:23:11";
-        System.out.println(service.applySchedule(companyId,title,place,content,startTime,endTime));
+        System.out.println(service.applySchedule(2,companyId,title,place,content,startTime,endTime));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class ScheduleServiceImplTest extends BaseTestClass{
         String content = "嘉宾不少呀";
         String startTime = "2018-09-12 11:23:11" ;
         String endTime = "2018-09-12 12:23:11";
-        System.out.println(service.addSchedule(title,place,content,startTime,endTime));
+        System.out.println(service.addSchedule(2,title,place,content,startTime,endTime));
 
     }
 
@@ -85,11 +85,11 @@ public class ScheduleServiceImplTest extends BaseTestClass{
     public void querySchedule(){
         ScheduleQuery query = new ScheduleQuery();
         query.setStatus(1);
-        query.setKeyword("卡");
-        query.setCompanyId(1);
+//        query.setKeyword("卡");
+//        query.setCompanyId(1);
         query.setType(1);
         query.setTime("2018-09-01");
-        System.out.println(service.querySchedule(query));
+        System.out.println(service.querySchedule(2,query));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ScheduleServiceImplTest extends BaseTestClass{
         RecommendScheduleQuery query = new RecommendScheduleQuery();
         query.setType(1);
         query.setTime("2018-09-12 11:45:11");
-        System.out.println(service.queryRecommendSchedule(query));
+        System.out.println(service.queryRecommendSchedule(2,query));
     }
 
     @Test

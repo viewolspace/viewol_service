@@ -66,6 +66,7 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         map.put("companyId",query.getCompanyId());
         map.put("name",query.getName());
         map.put("status",query.getStatus());
+        map.put("expoId",query.getExpoId());
         return super.pagedQuery("findByParams", map, query.getPageIndex(), query.getPageSize());
     }
 
@@ -103,12 +104,15 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         map.put("status",Product.STATUS_ON);
         map.put("num",query.getPageSize());
         map.put("lastSeq",query.getLastSeq());
+        map.put("expoId",query.getExpoId());
         return this.findBy("listProduct",map);
     }
 
     @Override
-    public List<Product> queryRecommentProduct() {
-        return super.findBy("queryRecommentProduct",null);
+    public List<Product> queryRecommentProduct(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryRecommentProduct",map);
     }
 
 
@@ -164,8 +168,10 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     }
 
     @Override
-    public List<Product> queryTopProduct() {
-        return super.findBy("queryTopProduct",null);
+    public List<Product> queryTopProduct(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryTopProduct",map);
     }
 
     @Override

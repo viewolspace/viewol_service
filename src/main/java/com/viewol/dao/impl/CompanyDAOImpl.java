@@ -78,12 +78,15 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         Map<String,Object> map = new HashMap<>();
         map.put("categoryId",query.getCategoryId());
         map.put("name",query.getName());
+        map.put("expoId",query.getExpoId());
         return super.pagedQuery("findByParams",map,query.getPageIndex(),query.getPageSize());
     }
 
     @Override
-    public List<Company> queryRecommentCompany() {
-        return super.findBy("queryRecommentCompany",null);
+    public List<Company> queryRecommentCompany(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryRecommentCompany",map);
     }
 
     @Override
@@ -117,6 +120,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("categoryId",query.getCategoryId());
         map.put("lastSeq",query.getLastSeq());
         map.put("num",query.getPageSize());
+        map.put("expoId",query.getExpoId());
         return super.findBy("listCompany",map);
     }
 
@@ -143,7 +147,9 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
     }
 
     @Override
-    public List<Company> queryTopCompany() {
-        return super.findBy("queryTopCompany",null);
+    public List<Company> queryTopCompany(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryTopCompany",map);
     }
 }

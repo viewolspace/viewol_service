@@ -15,6 +15,8 @@ public class ProductQuery {
 
     private Long lastSeq;
 
+    private int expoId = 1;
+
     private int pageIndex = 1;
 
     private int pageSize = 20;
@@ -73,5 +75,13 @@ public class ProductQuery {
 
     public void setLastSeq(Long lastSeq) {
         this.lastSeq = lastSeq;
+    }
+
+    public int getExpoId() {
+        return expoId;
+    }
+
+    public void setExpoId(int expoId) {
+        this.expoId = expoId;
     }
 }

@@ -114,12 +114,12 @@
 
 	<select id="queryRecommentCompany" resultType="Company">
 		<include refid="selectCommon"></include>
-		from company a where is_recommend=1 order by recommend_num
+		from company a , expo_company b where a.id = b.company_id and b.expo_id=#{expoId} and a.is_recommend=1 order by recommend_num
 	</select>
 
 	<select id="queryTopCompany" resultType="Company">
 		<include refid="selectCommon"></include>
-		from company a where top_num>0 order by top_num
+		from company a , expo_company b where a.id = b.company_id and b.expo_id=#{expoId} and top_num>0 order by top_num
 	</select>
 
 	<!--管理平台使用查询展商-->
@@ -135,9 +135,15 @@
 				AND category_id = #{categoryId}
 			</if>
 		</where>
-		) b
+		) b , expo_company c
 		<where>
+
 			a.id=b.company_id
+
+			and a.id = c.company_id
+
+			and c.expo_id = #{expoId}
+
 			<if test="name != null and name != '' ">
 				AND a.name LIKE concat(concat('%',#{name}),'%')
 			</if>

@@ -116,14 +116,16 @@
 		UPDATE  product set  status = #{status}   where id = #{id}
 	</update>
 
-	<select id="queryRecommentProduct" resultType="Product">
+	<select id="queryRecommentProduct" resultType="Product" parameterType="map">
 		<include refid="selectCommon"></include>
-		from product a where is_recommend=1 order by recommend_num
+		from product a , expo_product b where a.id = b.product_id
+		and b.expo_id = #{expoId} and is_recommend=1 order by recommend_num
 	</select>
 
-	<select id="queryTopProduct" resultType="Product">
+	<select id="queryTopProduct" resultType="Product" parameterType="map">
 		<include refid="selectCommon"></include>
-		from product a where top_num > 0  order by top_num
+		from product a , expo_product b where a.id = b.product_id
+		and b.expo_id = #{expoId} and top_num > 0  order by top_num
 	</select>
 
 	<delete id="delete" parameterType="int">
@@ -136,8 +138,11 @@
 	</sql>
 
 	<sql id="sql_where">
-		FROM product a
+		FROM product a , expo_product b
 		<where>
+			a.id = b.product_id
+			and b.expo_id = #{expoId}
+
 			<if test="status != null">
 				and status = #{status}
 			</if>

@@ -34,7 +34,7 @@ public interface ICompanyDAO {
     List<Company> listCompany(CompanyQuery query);
 
     //查询推荐的展商
-    List<Company> queryRecommentCompany();
+    List<Company> queryRecommentCompany(int expoId);
 
     //删除推荐
     int delRecomment(int id);
@@ -48,5 +48,5 @@ public interface ICompanyDAO {
     int addTop(int id , int num);
 
     //查询推荐的展商
-    List<Company> queryTopCompany();
+    List<Company> queryTopCompany(int expoId);
 }

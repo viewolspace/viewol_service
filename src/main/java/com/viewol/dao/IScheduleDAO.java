@@ -18,7 +18,7 @@ public interface IScheduleDAO {
      * @param schedule
      * @return
      */
-    int addSchedule(Schedule schedule);
+    int addSchedule(int expoId,Schedule schedule);
 
     int delSchedule(int id);
 
@@ -54,13 +54,13 @@ public interface IScheduleDAO {
      * type
      * @return
      */
-    List<Schedule> listSchedule(ScheduleQuery query);
+    List<Schedule> listSchedule(int expoId,ScheduleQuery query);
 
     /**
      * 管理平台查询
      * @return
      */
-    PageHolder<Schedule> querySchedule(ScheduleQuery query);
+    PageHolder<Schedule> querySchedule(int expoId,ScheduleQuery query);
 
 
     /**
@@ -68,21 +68,21 @@ public interface IScheduleDAO {
      * @param query
      * @return
      */
-    PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query);
+    PageHolder<ScheduleVO> queryRecommendSchedule(int expoId,RecommendScheduleQuery query);
 
     /**
      * 客户端使用查询当前推荐的展商活动
      * @param type 1 置顶  2推荐
      * @return
      */
-    List<ScheduleVO> queryNowRecommendSchedule(int type);
+    List<ScheduleVO> queryNowRecommendSchedule(int expoId,int type);
 
 
     /**
      * 首页使用的接口 ， 查询主办方当前的活动 和 将要进行的活动
      * @return
      */
-    List<Schedule> queryNowHostSchedule();
+    List<Schedule> queryNowHostSchedule(int expoId);
 
 
     int comTodayNum(int  comId);

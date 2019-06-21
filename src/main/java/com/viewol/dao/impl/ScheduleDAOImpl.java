@@ -38,9 +38,10 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
         return seq;
     }
     @Override
-    public int addSchedule(Schedule schedule) {
+    public int addSchedule(int expoId,Schedule schedule) {
         schedule.setcTime(new Date());
         schedule.setSeq(this.getSeq(schedule));
+        schedule.setExpoId(expoId);
 
         return super.insert(schedule);
     }
@@ -71,7 +72,8 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
 
 
     @Override
-    public List<Schedule> listSchedule(ScheduleQuery query) {
+    public List<Schedule> listSchedule(int expoId,ScheduleQuery query) {
+        query.setExpoId(expoId);
         Map<String,Object> map = new HashMap<>();
 
 
@@ -99,42 +101,49 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
         map.put("status",query.getStatus());
         map.put("keyword",query.getKeyword());
         map.put("companyId",query.getCompanyId());
+        map.put("expoId",query.getExpoId());
 
         map.put("num",query.getPageSize());
         return super.findBy("listSchedule",map);
     }
 
     @Override
-    public PageHolder<Schedule> querySchedule(ScheduleQuery query) {
-
+    public PageHolder<Schedule> querySchedule(int expoId,ScheduleQuery query) {
+        query.setExpoId(expoId);
         Map<String,Object> map = new HashMap<>();
         map.put("time",query.getTime());
         map.put("companyId",query.getCompanyId());
         map.put("type",query.getType());
         map.put("status",query.getStatus());
         map.put("keyword",query.getKeyword());
+        map.put("expoId",query.getExpoId());
 
         return super.pagedQuery("findByParams",map,query.getPageIndex(),query.getPageSize());
     }
 
     @Override
-    public PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query) {
+    public PageHolder<ScheduleVO> queryRecommendSchedule(int expoId,RecommendScheduleQuery query) {
+        query.setExpoId(expoId);
         Map<String,Object> map = new HashMap<>();
         map.put("type",query.getType());
         map.put("time",query.getTime());
+        map.put("expoId",query.getExpoId());
         return super.pagedQuery("findRecommen",map,query.getPageIndex(),query.getPageSize());
 
     }
 
     @Override
-    public List<Schedule> queryNowHostSchedule() {
-        return super.findBy("queryNowHostSchedule",null);
+    public List<Schedule> queryNowHostSchedule(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryNowHostSchedule",map);
     }
 
     @Override
-    public List<ScheduleVO> queryNowRecommendSchedule(int type) {
+    public List<ScheduleVO> queryNowRecommendSchedule(int expoId,int type) {
         Map<String,Object> map = new HashMap<>();
         map.put("type",type);
+        map.put("expoId",expoId);
         return super.findBy("queryNowRecommendSchedule",map);
     }
 

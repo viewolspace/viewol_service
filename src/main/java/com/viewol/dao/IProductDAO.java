@@ -35,7 +35,7 @@ public interface IProductDAO {
     int addRecomment(int id,int num);
 
     //查询推荐产品
-    List<Product> queryRecommentProduct();
+    List<Product> queryRecommentProduct(int expoId);
 
     //客户端查询
     List<Product> listProduct(ProductQuery query);
@@ -50,7 +50,7 @@ public interface IProductDAO {
     int addTop(int id,int num);
 
     //查询推荐产品
-    List<Product> queryTopProduct();
+    List<Product> queryTopProduct(int expoId);
 
 
 }

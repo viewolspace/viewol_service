@@ -19,7 +19,7 @@ public interface IProductService {
      * @param product
      * @return
      */
-    int addProduct(Product product);
+    int addProduct(int expoId,Product product);
 
     int delProduct(int  id);
 
@@ -38,10 +38,10 @@ public interface IProductService {
     int addRecomment(int id,int num);
 
     //查询推荐产品
-    List<Product> queryRecommentProduct();
+    List<Product> queryRecommentProduct(int expoId);
 
     //客户端查询
-    List<Product> listProduct(int companyId,String name,String categoryId,long lastSeq,int num);
+    List<Product> listProduct(int expoId,int companyId,String name,String categoryId,long lastSeq,int num);
 
     //删除置顶
     int delTop(int id);
@@ -50,7 +50,7 @@ public interface IProductService {
     int addTop(int id,int num);
 
     //查询推荐产品
-    List<Product> queryTopProduct();
+    List<Product> queryTopProduct(int expoId);
 
 
     //通过id查询

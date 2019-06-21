@@ -19,7 +19,7 @@ public interface IScheduleService {
      * @param companyId
      * @return
      */
-    boolean hasApplySchedule(int companyId);
+    boolean hasApplySchedule(int expoId,int companyId);
 
     /**
      * 展商申请活动
@@ -28,7 +28,7 @@ public interface IScheduleService {
      * -98 表示公司没有申请活动的权限
      * @return
      */
-    int applySchedule(int companyId,String title,String place,String content,String startTime,String endTime);
+    int applySchedule(int expoId,int companyId,String title,String place,String content,String startTime,String endTime);
 
     /**
      * 主办方添加
@@ -39,7 +39,7 @@ public interface IScheduleService {
      * @param endTime
      * @return
      */
-    int addSchedule(String title,String place,String content,String startTime,String endTime);
+    int addSchedule(int expoId,String title,String place,String content,String startTime,String endTime);
 
 
     /**
@@ -99,7 +99,7 @@ public interface IScheduleService {
      * 管理平台查询
      * @return
      */
-    PageHolder<Schedule> querySchedule(ScheduleQuery query);
+    PageHolder<Schedule> querySchedule(int expoId,ScheduleQuery query);
 
 
     /**
@@ -107,7 +107,7 @@ public interface IScheduleService {
      * @param query
      * @return
      */
-    PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query);
+    PageHolder<ScheduleVO> queryRecommendSchedule(int expoId,RecommendScheduleQuery query);
 
     /**
      * 查询报名活动的用户
@@ -142,14 +142,14 @@ public interface IScheduleService {
      * 首页使用的接口 ， 查询主办方当前的活动 和 将要进行的活动
      * @return
      */
-    List<Schedule> queryNowHostSchedule();
+    List<Schedule> queryNowHostSchedule(int expoId);
 
     /**
      * 客户端使用查询当前推荐的展商活动
      * @param type 1 置顶  2推荐
      * @return
      */
-    List<ScheduleVO> queryNowRecommendSchedule(int type);
+    List<ScheduleVO> queryNowRecommendSchedule(int expoId,int type);
 
     /**
      *
@@ -160,7 +160,7 @@ public interface IScheduleService {
      * @param num
      * @return
      */
-    List<Schedule> listSchedule(String time,String date,int type,String keyword ,long seq,int num, int companyId, int status,String endTime,String place);
+    List<Schedule> listSchedule(int expoId,String time,String date,int type,String keyword ,long seq,int num, int companyId, int status,String endTime,String place);
 
 
     int updateReminderFlag(int id, int reminderFlag);
