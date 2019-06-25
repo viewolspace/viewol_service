@@ -22,6 +22,8 @@ CREATE TABLE `expo_product` (
 alter table `viewol`.`schedule`
    add column `expo_id` int(11) DEFAULT '1' NOT NULL after `seq`;
 
+ALTER TABLE `viewol_ms`.`sys_user`
+ADD COLUMN `expo_id` int(11) NULL COMMENT '展会ID' AFTER `company_id`;
 
 
 
