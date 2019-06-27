@@ -3,7 +3,7 @@
 <mapper namespace="Info">
 
     <sql id="selectCommon">
-			SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str
+			SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id
 	</sql>
 
     <insert id="insert" parameterType="Info" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -12,16 +12,23 @@
         </selectKey>
 
         INSERT INTO viewol.info
-        (title,summary,pub_time,pic_url,content_url,create_time,md5_str)
+        (title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,content)
         VALUES
-        (#{title},#{summary},#{pubTime},#{picUrl},#{contentUrl},#{createTime},#{md5Str})
+        (#{title},#{summary},#{pubTime},#{picUrl},#{contentUrl},#{createTime},#{md5Str},#{status},#{mTime},#{classify},#{companyId},#{content})
 
     </insert>
+
+    <select id="select" resultType="Info" parameterType="int">
+        SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,content
+        from viewol.info where id = #{id}
+    </select>
 
     <select id="listInfo" parameterType="map" resultType="Info">
         <include refid="selectCommon"/>
         from viewol.info
         <where>
+            status = 1
+            and classify = #{classify}
             <if test="lastSeq != null and lastSeq != 0">
                 <![CDATA[
 					AND id < #{lastSeq}
@@ -30,6 +37,10 @@
         </where>
         order by id desc limit 0, #{pageSize}
     </select>
+
+    <update id="updateStatus" parameterType="map">
+        update viewol.info set status = #{status} ,m_time = #{mTime} where id = #{id}
+    </update>
 
     <sql id="sql_count">
 		select count(*)
@@ -42,6 +53,17 @@
     <sql id="sql_where">
         FROM viewol.info
         <where>
+            classify = #{classify}
+            <if test="status != null">
+                <![CDATA[
+					AND status = #{status}
+				]]>
+            </if>
+            <if test="companyId != null">
+                <![CDATA[
+					AND company_id = #{companyId}
+				]]>
+            </if>
             <if test="startTime != null and startTime != 0">
                 <![CDATA[
 					AND pub_time > #{startTime}

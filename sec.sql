@@ -26,5 +26,21 @@ ALTER TABLE `viewol_ms`.`sys_user`
 ADD COLUMN `expo_id` int(11) NULL COMMENT '展会ID' AFTER `company_id`;
 
 
+alter table `viewol`.`info`
+   add column `status` int(11) NULL COMMENT '-1 打回  0 待审 1 发布' after `md5_str`;
+
+alter table `viewol`.`info`
+   add column `m_time` datetime NULL   after `md5_str`;
+
+alter table `viewol`.`info`
+   add column `content` text NULL   after `md5_str`;
+
+alter table `viewol`.`info`
+   add column `classify` int(11) NULL DEFAULT '1' COMMENT '1 安防展  1 消防展' after `md5_str`;
+
+alter table `viewol`.`info`
+   add column `company_id` int(11) NULL after `classify`;
+
+
 
 
