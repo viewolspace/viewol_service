@@ -18,6 +18,30 @@
 
     </insert>
 
+    <update id="update" parameterType="Info">
+        UPDATE viewol.info
+            SET
+            title = #{title} ,
+            summary = #{summary} ,
+            pub_time = #{pubTime} ,
+            pic_url = #{picUrl} ,
+            content_url = #{contentUrl} ,
+            create_time = #{createTime} ,
+            md5_str = #{md5Str} ,
+            status = #{status} ,
+            m_time = #{mTime} ,
+            content = #{content} ,
+            classify = #{classify} ,
+            company_id = #{companyId}
+
+            WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from viewol.info where id = #{id}
+    </delete>
+
     <select id="select" resultType="Info" parameterType="int">
         SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,content
         from viewol.info where id = #{id}

@@ -26,6 +26,16 @@ public class InfoServiceImpl implements IInfoService {
     }
 
     @Override
+    public int updateInfo(Info info) {
+        return infoDAO.updateInfo(info);
+    }
+
+    @Override
+    public int deleteInfo(int id) {
+        return infoDAO.deleteInfo(id);
+    }
+
+    @Override
     public PageHolder<Info> queryInfo(InfoQuery query) {
         return infoDAO.queryInfo(query);
     }

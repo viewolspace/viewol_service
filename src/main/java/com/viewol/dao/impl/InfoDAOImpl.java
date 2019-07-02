@@ -31,6 +31,16 @@ public class InfoDAOImpl extends BaseDAO<Info> implements IInfoDAO {
     }
 
     @Override
+    public int updateInfo(Info info) {
+        return super.update(info);
+    }
+
+    @Override
+    public int deleteInfo(int id) {
+        return super.delete(id);
+    }
+
+    @Override
     public List<Info> listInfo(int classify,int lastSeq, int pageSize) {
         Map<String, Object> map = new HashMap<>();
         map.put("classify", classify);

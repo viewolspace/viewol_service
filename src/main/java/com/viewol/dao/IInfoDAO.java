@@ -10,6 +10,10 @@ public interface IInfoDAO {
 
     int save(int classify,Info info);
 
+    int updateInfo(Info info);
+
+    int deleteInfo(int id);
+
     Info getInfo(int id);
 
     int updateStatus(int id , int status);

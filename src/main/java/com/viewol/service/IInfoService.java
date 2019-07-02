@@ -10,6 +10,10 @@ public interface IInfoService {
 
     int save(int classify,Info info);
 
+    int updateInfo(Info info);
+
+    int deleteInfo(int id);
+
     PageHolder<Info> queryInfo(InfoQuery query);
 
     List<Info> listInfo(int classify,int lastSeq, int pageSize);

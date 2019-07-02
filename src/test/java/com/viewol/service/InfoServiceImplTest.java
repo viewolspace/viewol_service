@@ -31,6 +31,18 @@ public class InfoServiceImplTest  extends BaseTestClass {
         System.out.println(pageHolder.size());
     }
 
+
+    @Test
+    public void updateInfo() {
+        Info info = service.getInfo(2556);
+        service.updateInfo(info);
+    }
+
+    @Test
+    public void deleteInfo() {
+        System.out.println(service.deleteInfo(2556));
+    }
+
     @Test
     public void listInfo() {
         List<Info> list = service.listInfo(1,100, 20);
