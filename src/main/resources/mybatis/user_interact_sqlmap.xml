@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserInteract">
+
+	<sql id="selectCommon">
+		SELECT 	id,
+				classify,
+				TYPE,
+				third_id,
+				user_id,
+				user_name,
+				head_img_url,
+				COMMENT,
+				c_time
+	</sql>
+
+	<insert id="insert" parameterType="UserInteract" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		INSERT INTO viewol.user_interact
+							(
+							classify,
+							type,
+							third_id,
+							user_id,
+							user_name,
+							head_img_url,
+		                    comment,
+							c_time
+							)
+							VALUES
+							(
+							'#{classify}',
+							'#{type}',
+							'#{thirdId}',
+							'#{userId}',
+							'#{userName}',
+							'#{headImgUrl}',
+							'#{comment}',
+							'#{cTime}'
+							)
+
+
+	</insert>
+
+
+	<select id="listUserInteract" parameterType="map" resultType="UserCollection">
+		<include refid="selectCommon"/>
+		from viewol.user_interact
+		<where>
+
+			<if test="third_id != null and third_id > 0">
+				<![CDATA[
+					AND third_id = #{third_id}
+				]]>
+			</if>
+
+			<if test="classify != null and classify > 0">
+				<![CDATA[
+					AND classify = #{classify}
+				]]>
+			</if>
+
+			<if test="type != null and type > 0">
+				<![CDATA[
+					AND type = #{type}
+				]]>
+			</if>
+
+			<if test="userId != null and userId > 0">
+				<![CDATA[
+					AND userId = #{userId}
+				]]>
+			</if>
+
+		</where>
+
+		order by id desc limit 0,#{num}
+	</select>
+
+
+
+</mapper>

@@ -29,6 +29,10 @@ public class Product {
     private String reImg; //首页推荐位置图片
     private int topNum;
 
+    private int seeNum;
+    private int praiseNum;
+    private int commentNum;
+
     private String imageView;
     private String contentView;
     private String pdfUrlView;
@@ -200,6 +204,30 @@ public class Product {
 
     public void setTopNum(int topNum) {
         this.topNum = topNum;
+    }
+
+    public int getSeeNum() {
+        return seeNum;
+    }
+
+    public void setSeeNum(int seeNum) {
+        this.seeNum = seeNum;
+    }
+
+    public int getPraiseNum() {
+        return praiseNum;
+    }
+
+    public void setPraiseNum(int praiseNum) {
+        this.praiseNum = praiseNum;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
     }
 
     @Override

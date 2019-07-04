@@ -16,7 +16,10 @@
 				a.m_time,
 				a.seq,
 				a.re_img,
-				a.top_num
+				a.top_num,
+				a.see_num,
+				a.praise_num,
+				a.comment_num
 	</sql>
 	<select id="select" parameterType="int" resultType="Product">
 		<include refid="selectCommon"/>
@@ -111,6 +114,26 @@
 	<update id="updateSeq" parameterType="map">
 		UPDATE  product set  seq = #{seq} where id = #{id}
 	</update>
+
+
+	<update id="updateInteractNum" parameterType="map">
+		UPDATE  viewol.product set
+		<set>
+			<if test="seeNum != null  and seeNum != 0">
+				see_num = see_num+1,
+			</if>
+
+			<if test="praiseNum != null  and praiseNum != 0">
+				praise_num = praise_num+1,
+			</if>
+
+			<if test="commentNum != null  and commentNum != 0">
+				comment_num = comment_num+1,
+			</if>
+		</set>
+		 where id = #{id}
+	</update>
+
 
 	<update id="updateStatus" parameterType="map">
 		UPDATE  product set  status = #{status}   where id = #{id}
