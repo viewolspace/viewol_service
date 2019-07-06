@@ -1,5 +1,6 @@
 package com.viewol.pojo.query;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,35 +88,36 @@ public class InfoQuery {
         this.pageSize = pageSize;
     }
 
-    public Map<String,Object> map(){
-        Map<String,Object> map = new HashMap<>();
+    public Map<String, Object> map() {
+        Map<String, Object> map = new HashMap<>();
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
 
-        if(title!=null){
-            map.put("title",title);
+        if (title != null) {
+            map.put("title", title);
         }
 
-        if(startTime!=null){
-            map.put("startTime",startTime);
+        if (startTime != null) {
+            map.put("startTime", dft.format(startTime));
         }
 
-        if(endTime!=null){
-            map.put("endTime",endTime);
+        if (endTime != null) {
+            map.put("endTime", dft.format(endTime));
         }
 
-        if(status!=null){
-            map.put("status",status);
+        if (status != null) {
+            map.put("status", status);
         }
 
-        if(status!=null){
-            map.put("status",status);
+        if (status != null) {
+            map.put("status", status);
         }
 
-        if(classify!=null){
-            map.put("classify",classify);
+        if (classify != null) {
+            map.put("classify", classify);
         }
 
-        if(companyId!=null){
-            map.put("companyId",companyId);
+        if (companyId != null) {
+            map.put("companyId", companyId);
         }
 
         return map;

@@ -36,7 +36,7 @@ alter table `viewol`.`info`
    add column `content` text NULL   after `md5_str`;
 
 alter table `viewol`.`info`
-   add column `classify` int(11) NULL DEFAULT '1' COMMENT '1 安防展  1 消防展' after `md5_str`;
+   add column `classify` int(11) NULL DEFAULT '1' COMMENT '1 安防展  2 消防展' after `md5_str`;
 
 alter table `viewol`.`info`
    add column `company_id` int(11) NULL after `classify`;

@@ -88,13 +88,13 @@
 					AND company_id = #{companyId}
 				]]>
             </if>
-            <if test="startTime != null and startTime != 0">
+            <if test="startTime != null">
                 <![CDATA[
 					AND pub_time > #{startTime}
 				]]>
             </if>
 
-            <if test="endTime != null and endTime != 0">
+            <if test="endTime != null">
                 <![CDATA[
 					AND pub_time < #{endTime}
 				]]>
