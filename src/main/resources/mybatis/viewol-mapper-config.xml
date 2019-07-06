@@ -39,6 +39,7 @@
         <typeAlias alias="Info" type="com.viewol.pojo.Info"/>
         <typeAlias alias="ExpoCompany" type="com.viewol.pojo.ExpoCompany"/>
         <typeAlias alias="ExpoProduct" type="com.viewol.pojo.ExpoProduct"/>
+        <typeAlias alias="UserInteract" type="com.viewol.pojo.UserInteract"/>
     </typeAliases>
 
     <plugins>
@@ -70,6 +71,7 @@
         <mapper resource="mybatis/info_sqlmap.xml"/>
         <mapper resource="mybatis/expo_company_sqlmap.xml"/>
         <mapper resource="mybatis/expo_product_sqlmap.xml"/>
+        <mapper resource="mybatis/user_interact_sqlmap.xml"/>
     </mappers>
 
 </configuration>

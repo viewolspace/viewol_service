@@ -49,4 +49,10 @@ public interface ICompanyDAO {
 
     //查询推荐的展商
     List<Company> queryTopCompany(int expoId);
+
+    int incSeeNum(int id);
+
+    int incPraiseNum(int id);
+
+    int incCommentNum(int id);
 }

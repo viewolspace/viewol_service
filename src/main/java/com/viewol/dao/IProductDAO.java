@@ -53,4 +53,11 @@ public interface IProductDAO {
     List<Product> queryTopProduct(int expoId);
 
 
+    int incSeeNum(int id);
+
+    int incPraiseNum(int id);
+
+    int incCommentNum(int id);
+
+
 }

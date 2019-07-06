@@ -41,6 +41,29 @@ alter table `viewol`.`info`
 alter table `viewol`.`info`
    add column `company_id` int(11) NULL after `classify`;
 
+-------------2019-07-04---------------
+
+CREATE TABLE `user_interact` (
+  `id` INT(11) NOT NULL,
+  `classify` INT(11) NOT NULL  COMMENT '1 展商 2 产品',
+  `type` INT(11) NOT NULL  COMMENT '1 围观 2 点赞 3 评论',
+  `third_id` INT(11) NOT NULL COMMENT '展商ID 或者 产品ID',
+  `user_id` INT(11) NOT NULL,
+  `user_name` VARCHAR(50) DEFAULT NULL,
+  `head_img_url` VARCHAR(300) DEFAULT NULL,
+  `comment` VARCHAR(200) DEFAULT NULL COMMENT '100字以内',
+  `c_time` DATETIME,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 
 
+alter table `viewol`.`product`
+   add column `see_num` int(11) DEFAULT '0' NULL COMMENT '围观数量' after `top_num`,
+   add column `praise_num` int(11) DEFAULT '0' NULL COMMENT '点赞数量' after `see_num`,
+   add column `comment_num` int(11) DEFAULT '0' NULL COMMENT '评论数量' after `praise_num`;
+
+alter table `viewol`.`company`
+   add column `see_num` int(11) DEFAULT '0' NULL COMMENT '围观数量' after `top_num`,
+   add column `praise_num` int(11) DEFAULT '0' NULL COMMENT '点赞数量' after `see_num`,
+   add column `comment_num` int(11) DEFAULT '0' NULL COMMENT '评论数量' after `praise_num`;

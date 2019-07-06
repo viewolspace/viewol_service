@@ -152,4 +152,28 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("expoId",expoId);
         return super.findBy("queryTopCompany",map);
     }
+
+    @Override
+    public int incSeeNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("seeNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
+
+    @Override
+    public int incPraiseNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("praiseNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
+
+    @Override
+    public int incCommentNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("commentNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
 }

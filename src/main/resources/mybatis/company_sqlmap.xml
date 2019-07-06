@@ -18,7 +18,10 @@
 				a.m_time,
 				a.seq,
 				a.award,
-				a.top_num
+				a.top_num,
+				a.see_num,
+				a.praise_num,
+				a.comment_num
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
@@ -72,6 +75,23 @@
 
 	</insert>
 
+	<update id="updateInteractNum" parameterType="map">
+		UPDATE  viewol.company set
+		<set>
+			<if test="seeNum != null  and seeNum != 0">
+				see_num = see_num+1,
+			</if>
+
+			<if test="praiseNum != null  and praiseNum != 0">
+				praise_num = praise_num+1,
+			</if>
+
+			<if test="commentNum != null  and commentNum != 0">
+				comment_num = comment_num+1,
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
 	<update id="update" parameterType="Company">
 		UPDATE viewol.company
