@@ -52,6 +52,7 @@ public class CompanyShow {
     }
 
     public static CompanyShow json2Obj(String data){
+        if (data==null || "".equals(data)) return null;
         CompanyShow companyShow = JSON.parseObject(data,CompanyShow.class);
         return companyShow;
     }
