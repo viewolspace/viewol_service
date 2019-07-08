@@ -21,7 +21,8 @@
 				a.top_num,
 				a.see_num,
 				a.praise_num,
-				a.comment_num
+				a.comment_num,
+				a.show
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
@@ -50,7 +51,8 @@
 						m_time,
 						seq,
 						award,
-						top_num
+						top_num,
+						show
 						)
 						VALUES
 						(
@@ -70,7 +72,8 @@
 						#{mTime},
 						#{seq},
 						#{award},
-						#{topNum}
+						#{topNum},
+						#{show}
 						)
 
 	</insert>
@@ -111,11 +114,21 @@
 				m_time = #{mTime},
 				seq = #{seq},
 				award = #{award},
-				top_num=#{topNum}
+				top_num=#{topNum},
+				show=#{show}
 
 				WHERE
 				id = #{id}
 	</update>
+
+	<update id="updateShow" parameterType="Company">
+		UPDATE viewol.company
+		SET
+		show=#{show}
+		WHERE
+		id = #{id}
+	</update>
+
 	<update id="updateRecommend" parameterType="map">
 		UPDATE  company set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
 	</update>

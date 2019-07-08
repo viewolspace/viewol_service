@@ -52,4 +52,6 @@ public interface ICompanyService {
 
     //查询推荐的展商
     List<Company> queryTopCompany(int expoId);
+
+    int updateShow(int id, String show);
 }

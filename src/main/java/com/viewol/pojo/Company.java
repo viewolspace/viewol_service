@@ -33,6 +33,7 @@ public class Company {
     private long seq;
     private int award;
     private int topNum;
+    private String show;
 
     private String logoView;
     private String bannerView;
@@ -249,5 +250,14 @@ public class Company {
                 ", imageView='" + imageView + '\'' +
                 ", contentView='" + contentView + '\'' +
                 '}';
+    }
+
+
+    public String getShow() {
+        return show;
+    }
+
+    public void setShow(String show) {
+        this.show = show;
     }
 }

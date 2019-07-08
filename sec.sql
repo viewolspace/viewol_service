@@ -67,3 +67,6 @@ alter table `viewol`.`company`
    add column `see_num` int(11) DEFAULT '0' NULL COMMENT '围观数量' after `top_num`,
    add column `praise_num` int(11) DEFAULT '0' NULL COMMENT '点赞数量' after `see_num`,
    add column `comment_num` int(11) DEFAULT '0' NULL COMMENT '评论数量' after `praise_num`;
+
+alter table `viewol`.`company`
+   add column `show` varchar(1000) NULL COMMENT '展商秀相关' after `comment_num`

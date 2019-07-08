@@ -133,6 +133,11 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
+    public int updateShow(int id, String show) {
+        return companyDAO.updateShow(id, show);
+    }
+
+    @Override
     public List<CompanyCategory> queryCompanyCategory(int companyId) {
         return companyCategoryDAO.queryCategory(companyId);
     }

@@ -55,4 +55,6 @@ public interface ICompanyDAO {
     int incPraiseNum(int id);
 
     int incCommentNum(int id);
+
+    int updateShow(int id ,String show);
 }
