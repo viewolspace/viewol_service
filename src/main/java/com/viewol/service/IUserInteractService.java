@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface IUserInteractService {
 
+    UserInteract getUserInteract(int userId,int thirdId,int classify,int type);
+
     int userInteract(int userId , int thirdId , int classify , int type);
 
     int userComment(int userId, int classify,int thirdId, String comment);

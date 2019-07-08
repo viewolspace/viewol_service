@@ -31,6 +31,11 @@ public class UserInteractServiceImpl implements IUserInteractService {
     @Resource
     private IFUserService ifUserService;
 
+    @Override
+    public UserInteract getUserInteract(int userId, int thirdId, int classify, int type) {
+        return userInteractDAO.getUserInteract(userId, thirdId, classify, type);
+    }
+
     @Transactional("viewolTX")
     @Override
     public int userInteract(int userId, int thirdId, int classify, int type) {
