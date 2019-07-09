@@ -71,7 +71,7 @@
 
 			<if test="userId != null and userId > 0">
 				<![CDATA[
-					AND userId = #{userId}
+					AND user_id = #{userId}
 				]]>
 			</if>
 

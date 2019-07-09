@@ -70,3 +70,10 @@ alter table `viewol`.`company`
 
 alter table `viewol`.`company`
    add column `show` varchar(1000) NULL COMMENT '展商秀相关' after `comment_num`
+
+
+------init-sql
+INSERT INTO expo_company SELECT 1,id,NOW() FROM company;
+
+INSERT INTO expo_product SELECT 1,id,NOW() FROM  product;
+
