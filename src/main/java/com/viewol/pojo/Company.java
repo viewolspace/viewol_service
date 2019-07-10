@@ -33,7 +33,7 @@ public class Company {
     private long seq;
     private int award;
     private int topNum;
-    private String show;
+    private String showInfo;
 
     private String logoView;
     private String bannerView;
@@ -252,12 +252,11 @@ public class Company {
                 '}';
     }
 
-
-    public String getShow() {
-        return show;
+    public String getShowInfo() {
+        return showInfo;
     }
 
-    public void setShow(String show) {
-        this.show = show;
+    public void setShowInfo(String showInfo) {
+        this.showInfo = showInfo;
     }
 }

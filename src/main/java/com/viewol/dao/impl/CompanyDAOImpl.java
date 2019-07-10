@@ -178,9 +178,9 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
     }
 
     @Override
-    public int updateShow(int id, String show) {
+    public int updateShow(int id, String showInfo) {
         Map<String,Object> map = new HashMap<>();
-        map.put("show",show);
+        map.put("showInfo",showInfo);
         map.put("id",id);
         return super.updateBy("updateShow", map);
     }

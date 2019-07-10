@@ -77,3 +77,7 @@ INSERT INTO expo_company SELECT 1,id,NOW() FROM company;
 
 INSERT INTO expo_product SELECT 1,id,NOW() FROM  product;
 
+
+ALTER TABLE `viewol`.`company`
+CHANGE COLUMN `show` `show_info` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '展商秀相关' AFTER `comment_num`;
+

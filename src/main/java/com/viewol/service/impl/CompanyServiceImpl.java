@@ -133,8 +133,8 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public int updateShow(int id, String show) {
-        return companyDAO.updateShow(id, show);
+    public int updateShow(int id, String showInfo) {
+        return companyDAO.updateShow(id, showInfo);
     }
 
     @Override

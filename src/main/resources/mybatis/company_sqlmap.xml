@@ -22,7 +22,7 @@
 				a.see_num,
 				a.praise_num,
 				a.comment_num,
-				a.show
+				a.show_info
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
@@ -52,7 +52,7 @@
 						seq,
 						award,
 						top_num,
-						show
+						show_info
 						)
 						VALUES
 						(
@@ -73,7 +73,7 @@
 						#{seq},
 						#{award},
 						#{topNum},
-						#{show}
+						#{showInfo}
 						)
 
 	</insert>
@@ -115,7 +115,7 @@
 				seq = #{seq},
 				award = #{award},
 				top_num=#{topNum},
-				show=#{show}
+				show_info=#{showInfo}
 
 				WHERE
 				id = #{id}
@@ -124,7 +124,7 @@
 	<update id="updateShow" parameterType="Company">
 		UPDATE viewol.company
 		SET
-		show=#{show}
+		show_info=#{showInfo}
 		WHERE
 		id = #{id}
 	</update>
