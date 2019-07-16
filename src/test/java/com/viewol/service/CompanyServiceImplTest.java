@@ -86,7 +86,7 @@ public class CompanyServiceImplTest extends BaseTestClass{
 
     @Test
     public void listCompany(){
-        System.out.println(service.listCompany(2,null,null,0,10));
+//        System.out.println(service.listCompany(2,null,null,0,10));
     }
 
 

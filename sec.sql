@@ -84,3 +84,7 @@ CHANGE COLUMN `show` `show_info` varchar(1000) CHARACTER SET utf8 COLLATE utf8_g
 alter table `viewol`.`product`
    add column `award` int(11) DEFAULT '0' NULL COMMENT '0 未获奖 1获奖' after `comment_num`
 
+--------2019-07-16 ----------
+ALTER TABLE `viewol`.`user_interact`
+MODIFY COLUMN `id` int(11) NOT NULL AUTO_INCREMENT FIRST;
+

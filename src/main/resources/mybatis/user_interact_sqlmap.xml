@@ -5,12 +5,12 @@
 	<sql id="selectCommon">
 		SELECT 	id,
 				classify,
-				TYPE,
+				type,
 				third_id,
 				user_id,
 				user_name,
 				head_img_url,
-				COMMENT,
+				comment,
 				c_time
 	</sql>
 
@@ -32,21 +32,21 @@
 							)
 							VALUES
 							(
-							'#{classify}',
-							'#{type}',
-							'#{thirdId}',
-							'#{userId}',
-							'#{userName}',
-							'#{headImgUrl}',
-							'#{comment}',
-							'#{cTime}'
+							#{classify},
+							#{type},
+							#{thirdId},
+							#{userId},
+							#{userName},
+							#{headImgUrl},
+							#{comment},
+							#{cTime}
 							)
 
 
 	</insert>
 
 
-	<select id="listUserInteract" parameterType="map" resultType="UserCollection">
+	<select id="listUserInteract" parameterType="map" resultType="UserInteract">
 		<include refid="selectCommon"/>
 		from viewol.user_interact
 		<where>
