@@ -1,6 +1,7 @@
 package com.viewol.service;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
@@ -29,6 +30,15 @@ public interface IWxService {
      * @return
      */
     WxMaUserInfo getUserInfo(String sessionKey, String encryptedData, String ivStr);
+
+    /**
+     * 获取手机号码
+     * @param sessionKey
+     * @param encryptedData
+     * @param ivStr
+     * @return
+     */
+    WxMaPhoneNumberInfo getPhoneNumberInfo(String sessionKey, String encryptedData, String ivStr);
 
 
     /**

@@ -28,6 +28,8 @@ public class Product {
     private long seq;
     private String reImg; //首页推荐位置图片
     private int topNum;
+    private int award;
+
 
     private int seeNum;
     private int praiseNum;
@@ -37,6 +39,8 @@ public class Product {
     private String contentView;
     private String pdfUrlView;
     private String reImgView;
+
+
 
     public Integer getId() {
         return id;
@@ -228,6 +232,14 @@ public class Product {
 
     public void setCommentNum(int commentNum) {
         this.commentNum = commentNum;
+    }
+
+    public int getAward() {
+        return award;
+    }
+
+    public void setAward(int award) {
+        this.award = award;
     }
 
     @Override

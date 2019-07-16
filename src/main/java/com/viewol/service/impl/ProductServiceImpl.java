@@ -100,7 +100,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<Product> listProduct(int expoId,int companyId, String name, String categoryId, long lastSeq, int num) {
+    public List<Product> listProduct(int expoId,int companyId, String name, String categoryId, int award,long lastSeq, int num) {
         ProductQuery query = new ProductQuery();
         if(companyId!=0){
             query.setCompanyId(companyId);
@@ -110,6 +110,7 @@ public class ProductServiceImpl implements IProductService {
         query.setPageSize(num);
         query.setLastSeq(lastSeq);
         query.setExpoId(expoId);
+        query.setAward(award);
         return productDAO.listProduct(query);
     }
 

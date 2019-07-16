@@ -2,6 +2,7 @@ package com.viewol.dao.impl;
 
 import com.viewol.dao.BaseDAO;
 import com.viewol.dao.IScheduleUserDAO;
+import com.viewol.pojo.Schedule;
 import com.viewol.pojo.ScheduleUser;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,15 @@ public class ScheduleUserDAOImpl extends BaseDAO<ScheduleUser> implements ISched
         Map<String,Object> map = new HashMap<>();
         map.put("scheduleId",scheduleId);
         return super.pagedQuery("findByParams",map,pageIndex,pageSize);
+    }
+
+    @Override
+    public List<Schedule> queryUserSchedule(int userId, int startNum, int pageSize) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("startNum",startNum);
+        map.put("pageSize",pageSize);
+        return super.findBy("queryUserSchedule",map);
     }
 
     @Override

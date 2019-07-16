@@ -16,6 +16,8 @@ public class CompanyQuery {
 
     private int pageSize = 20;
 
+    private int award = 0;
+
     public long getLastSeq() {
         return lastSeq;
     }
@@ -62,5 +64,13 @@ public class CompanyQuery {
 
     public void setExpoId(int expoId) {
         this.expoId = expoId;
+    }
+
+    public int getAward() {
+        return award;
+    }
+
+    public void setAward(int award) {
+        this.award = award;
     }
 }
