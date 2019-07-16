@@ -290,4 +290,9 @@ public class ScheduleServiceImpl implements IScheduleService {
     public List<ScheduleUser> queryNeedReminder() {
         return scheduleUserDAO.queryNeedReminder();
     }
+
+    @Override
+    public List<Schedule> queryUserSchedule(int userId, int startNum, int pageSize) {
+        return scheduleUserDAO.queryUserSchedule(userId, startNum, pageSize);
+    }
 }

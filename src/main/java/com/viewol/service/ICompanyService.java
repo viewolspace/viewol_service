@@ -37,7 +37,10 @@ public interface ICompanyService {
     PageHolder<Company> queryCompany(CompanyQuery query);
 
     //前端使用的展商搜索
-    List<Company> listCompany(int expoId,String keyWord,String categoryId,long lastSeq,int num);
+    List<Company> listCompany(int expoId,String keyWord,String categoryId,int award,long lastSeq,int num);
+
+    //前端使用的展商搜索
+    List<Company> listAwardCompany(int expoId,long lastSeq,int num);
 
     //删除推荐
     int delRecomment(int id);

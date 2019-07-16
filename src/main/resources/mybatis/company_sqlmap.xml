@@ -180,6 +180,11 @@
 			<if test="name != null and name != '' ">
 				AND a.name LIKE concat(concat('%',#{name}),'%')
 			</if>
+
+			<if test="award != null and award != 0 ">
+				AND a.award = 1
+			</if>
+
 			<if test="lastSeq != null and lastSeq != 0 ">
 				<![CDATA[
 					AND a.seq < #{lastSeq}

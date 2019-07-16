@@ -121,6 +121,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("lastSeq",query.getLastSeq());
         map.put("num",query.getPageSize());
         map.put("expoId",query.getExpoId());
+        map.put("award",query.getAward());
         return super.findBy("listCompany",map);
     }
 

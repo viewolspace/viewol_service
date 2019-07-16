@@ -1,5 +1,6 @@
 package com.viewol.dao;
 
+import com.viewol.pojo.Schedule;
 import com.viewol.pojo.ScheduleUser;
 import com.youguu.core.util.PageHolder;
 
@@ -11,6 +12,9 @@ import java.util.List;
 public interface IScheduleUserDAO {
 
     PageHolder<ScheduleUser> queryScheduleUser(int scheduleId,int pageIndex,int pageSize);
+
+
+    List<Schedule> queryUserSchedule(int userId,int startNum,int pageSize);
 
     /**
      * 报名参加活动

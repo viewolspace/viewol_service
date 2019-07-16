@@ -119,7 +119,7 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public List<Company> listCompany(int expoId,String keyWord, String categoryId, long lastSeq, int num) {
+    public List<Company> listCompany(int expoId,String keyWord, String categoryId,int award, long lastSeq, int num) {
         if(lastSeq==0){
             lastSeq = Long.MAX_VALUE;
         }
@@ -127,6 +127,20 @@ public class CompanyServiceImpl implements ICompanyService {
         query.setLastSeq(lastSeq);
         query.setName(keyWord);
         query.setCategoryId(categoryId);
+        query.setPageSize(num);
+        query.setAward(award);
+        query.setExpoId(expoId);
+        return companyDAO.listCompany(query);
+    }
+
+    @Override
+    public List<Company> listAwardCompany(int expoId, long lastSeq, int num) {
+        if(lastSeq==0){
+            lastSeq = Long.MAX_VALUE;
+        }
+        CompanyQuery query = new CompanyQuery();
+        query.setLastSeq(lastSeq);
+        query.setAward(1);
         query.setPageSize(num);
         query.setExpoId(expoId);
         return companyDAO.listCompany(query);

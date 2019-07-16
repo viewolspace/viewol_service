@@ -19,7 +19,8 @@
 				a.top_num,
 				a.see_num,
 				a.praise_num,
-				a.comment_num
+				a.comment_num,
+				a.award
 	</sql>
 	<select id="select" parameterType="int" resultType="Product">
 		<include refid="selectCommon"/>
@@ -182,6 +183,10 @@
 
 			<if test="categoryId != null and categoryId != ''">
 				and category_id = #{categoryId}
+			</if>
+
+			<if test="award != null and award != 0">
+				and award =1
 			</if>
 
 			<if test="name != null and name != ''">

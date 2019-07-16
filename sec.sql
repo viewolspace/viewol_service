@@ -81,3 +81,6 @@ INSERT INTO expo_product SELECT 1,id,NOW() FROM  product;
 ALTER TABLE `viewol`.`company`
 CHANGE COLUMN `show` `show_info` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '展商秀相关' AFTER `comment_num`;
 
+alter table `viewol`.`product`
+   add column `award` int(11) DEFAULT '0' NULL COMMENT '0 未获奖 1获奖' after `comment_num`
+
