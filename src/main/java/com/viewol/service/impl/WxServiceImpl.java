@@ -2,6 +2,7 @@ package com.viewol.service.impl;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.viewol.dao.IFUserBindDAO;
 import com.viewol.dao.IWxTokenDAO;
@@ -67,6 +68,18 @@ public class WxServiceImpl implements IWxService, InitializingBean {
         try {
             WxMaUserInfo wxMaUserInfo = wxMaService.getUserService().getUserInfo(sessionKey, encryptedData, ivStr);
             return wxMaUserInfo;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    @Override
+    public WxMaPhoneNumberInfo getPhoneNumberInfo(String sessionKey, String encryptedData, String ivStr) {
+        try {
+            WxMaPhoneNumberInfo phoneNoInfo = wxMaService.getUserService().getPhoneNoInfo(sessionKey, encryptedData, ivStr);
+            return phoneNoInfo;
         } catch (Exception e) {
             e.printStackTrace();
         }
