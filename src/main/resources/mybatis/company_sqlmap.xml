@@ -79,7 +79,7 @@
 	</insert>
 
 	<update id="updateInteractNum" parameterType="map">
-		UPDATE  viewol.company set
+		UPDATE  viewol.company
 		<set>
 			<if test="seeNum != null  and seeNum != 0">
 				see_num = see_num+1,
