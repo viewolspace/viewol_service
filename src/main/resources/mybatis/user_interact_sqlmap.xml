@@ -51,9 +51,9 @@
 		from viewol.user_interact
 		<where>
 
-			<if test="third_id != null and third_id > 0">
+			<if test="thirdId != null and thirdId > 0">
 				<![CDATA[
-					AND third_id = #{third_id}
+					AND third_id = #{thirdId}
 				]]>
 			</if>
 
