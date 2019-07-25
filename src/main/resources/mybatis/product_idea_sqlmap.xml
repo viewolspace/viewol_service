@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductIdea">
+	<sql id="selectCommon">
+		SELECT 	product_id,
+				product_name,
+				company_id,
+				company_name,
+				company_place,
+				liaison_man,
+				phone,
+				land_line,
+				website,
+				email,
+				category_id,
+				logo,
+				des,
+				quota,
+				idea_point,
+				extend,
+				product_pic,
+				com_logo,
+				ext,
+				c_time,
+				m_time,
+				model,
+				status
+	</sql>
+	<select id="select" parameterType="int" resultType="ProductIdea">
+		<include refid="selectCommon"/>
+
+		from viewol.product_idea a where product_id = #{productId}
+	</select>
+
+
+	<insert id="insert" parameterType="ProductIdea"  >
+
+			INSERT INTO viewol.product_idea
+								(product_id,
+								product_name,
+								company_id,
+								company_name,
+								company_place,
+								liaison_man,
+								phone,
+								land_line,
+								website,
+								email,
+								category_id,
+								logo,
+								des,
+								quota,
+								idea_point,
+								extend,
+								product_pic,
+								com_logo,
+								ext,
+								c_time,
+								m_time,
+								model,
+								status
+								)
+								VALUES
+								(
+								#{productId},
+								#{productName},
+								#{companyId},
+								#{companyName},
+								#{companyPlace},
+								#{liaisonMan},
+								#{phone},
+								#{landLine},
+								#{website},
+								#{email},
+								#{categoryId},
+								#{logo},
+								#{des},
+								#{quota},
+								#{ideaPoint},
+								#{extend},
+								#{productPic},
+								#{comLogo},
+								#{ext},
+								#{cTime},
+								#{mTime},
+								#{model},
+								#{status}
+								)
+
+	</insert>
+
+
+	<update id="update" parameterType="ProductIdea">
+
+		UPDATE viewol.product_idea
+			SET
+			product_id = #{productId} ,
+			product_name = #{productName} ,
+			company_id = #{companyId} ,
+			company_name = #{companyName} ,
+			company_place = #{companyPlace} ,
+			liaison_man = #{liaisonMan} ,
+			phone = #{phone} ,
+			land_line = #{landLine} ,
+			website = #{website} ,
+			email = #{email} ,
+			category_id = #{categoryId} ,
+			logo = #{logo} ,
+			des = #{des} ,
+			quota = #{quota} ,
+			idea_point = #{ideaPoint} ,
+			extend = #{extend} ,
+			product_pic = #{productPic} ,
+			com_logo = #{comLogo} ,
+			ext = #{ext} ,
+			c_time = #{cTime} ,
+			m_time = #{mTime} ,
+			model = #{model} ,
+			status = #{status}
+
+			WHERE
+			product_id = #{productId}
+
+
+	</update>
+
+
+
+	<update id="updateStatus" parameterType="map">
+		UPDATE  product_idea set  status = #{status}  where product_id = #{productId}
+	</update>
+
+
+
+	<!--管理平台使用查询展商-->
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM product_idea
+		<where>
+
+			<if test="status != null">
+				and status = #{status}
+			</if>
+
+
+			<if test="productName != null and productName != ''">
+				AND product_name LIKE concat(concat('%',#{productName}),'%')
+			</if>
+		</where>
+
+	</sql>
+
+	<sql id="sql_order">
+		order by m_time desc
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="Product">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+
+</mapper>

@@ -88,3 +88,44 @@ alter table `viewol`.`product`
 ALTER TABLE `viewol`.`user_interact`
 MODIFY COLUMN `id` int(11) NOT NULL AUTO_INCREMENT FIRST;
 
+
+
+--------2019-07-25 ----------
+CREATE TABLE `product_idea` (
+  `product_id` INT(11) NOT NULL,
+  `company_id` INT(11) NOT NULL,
+  `company_name` VARCHAR(200) NOT NULL,
+  `company_place` VARCHAR(200) NOT NULL COMMENT '展位号',
+
+  `liaison_man` VARCHAR(200) NOT NULL COMMENT '联系人',
+  `phone` VARCHAR(200) NOT NULL  COMMENT '手机',
+  `land_line` VARCHAR(200) NOT NULL COMMENT '座机',
+  `website` VARCHAR(200) NOT NULL COMMENT '网站',
+  `email` VARCHAR(200) NOT NULL COMMENT '邮箱',
+
+  `category_id` VARCHAR(200) NOT NULL COMMENT '产品类别',
+  `logo` VARCHAR(200) NOT NULL COMMENT '产品商标',
+
+  `des` VARCHAR(200) NOT NULL COMMENT '产品概况',
+  `quota` VARCHAR(200) NOT NULL COMMENT '关键技术指标',
+  `idea_point` VARCHAR(200) NOT NULL COMMENT '产品创新点',
+  `extend` VARCHAR(200) NOT NULL COMMENT '国内外市场推广情况',
+
+  `product_pic` VARCHAR(200) NOT NULL COMMENT '展品图片',
+  `com_logo` VARCHAR(200) NOT NULL COMMENT '公司logo',
+  `ext` VARCHAR(200) NOT NULL COMMENT '相关证书(证书打包上传)',
+  `c_time` DATETIME NULL DEFAULT NULL,
+  `m_time` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`product_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+
+alter table `viewol`.`product_idea`
+   add column `product_name` varchar(200) NOT NULL after `product_id`;
+
+alter table `viewol`.`product_idea`
+   add column `model` varchar(100) NULL after `m_time`;
+
+alter table `viewol`.`product_idea`
+   add column `status` int(4) DEFAULT '0' NULL COMMENT '0 等待评选  1 评选通过 -1 评选失败' after `model`
+
