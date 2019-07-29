@@ -7,9 +7,11 @@ import java.util.Date;
  */
 public class FUserBind {
 
-    public static final int TYPE_PROGRAM = 1; //小程序
+    public static final int TYPE_PROGRAM = 1; //小程序观展通
 
     public static final int TYPE_WEIXIN = 2 ; //公众号
+
+    public static final int TYPE_PROGRAM_NO2 = 3; //小程序观展讯
 
     private int id;
     private int userId;

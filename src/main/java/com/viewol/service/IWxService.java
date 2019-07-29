@@ -25,7 +25,7 @@ public interface IWxService {
 
     /**
      * 小程序获取用户信息
-     * @paran type 1 观展通  2 观展讯
+     * @paran type 1 观展通  3 观展讯
      * @param sessionKey    会话密钥
      * @param encryptedData 消息密文
      * @param ivStr         加密算法的初始向量
@@ -35,7 +35,7 @@ public interface IWxService {
 
     /**
      * 获取手机号码
-     * @paran maNum 1 观展通  2 观展讯
+     * @paran maNum 1 观展通  3 观展讯
      * @param sessionKey
      * @param encryptedData
      * @param ivStr

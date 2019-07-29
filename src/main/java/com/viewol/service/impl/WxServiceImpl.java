@@ -57,7 +57,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
 
     private WxMaService getWxMpService(int maNum){
 
-        if(maNum  == 2){
+        if(maNum  == 3){
             return wxMaNo2Service;
         }
 
