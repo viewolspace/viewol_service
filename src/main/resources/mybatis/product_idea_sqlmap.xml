@@ -161,7 +161,7 @@
 		<include refid="sql_count" />
 		<include refid="sql_where" />
 	</select>
-	<select id="findByParams" parameterType="java.util.HashMap" resultType="Product">
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="ProductIdea">
 		<include refid="selectCommon" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />
