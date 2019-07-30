@@ -17,18 +17,18 @@ import javax.annotation.Resource;
  */
 @Configuration
 @PropertySource(value={"classpath:/properties/wxMa.properties"})
-public class WxMaConfiguration {
+public class WxMaNo2Configuration {
 	@Resource
 	private IWxTokenDAO wxTokenDAO;
 
-	@Value("${ma.appId}")
+	@Value("${ma2.appId}")
 	private String appId;
 
-	@Value("${ma.appSecret}")
+	@Value("${ma2.appSecret}")
 	private String appSecret;
 
 	@Bean
-	public WxMaInMemoryConfig wxMaConfigStorage() {
+	public WxMaInMemoryConfig wxMaNo2ConfigStorage() {
 		WxMaInMysqlConfig wxMaInMysqlConfig = new WxMaInMysqlConfig();
 		wxMaInMysqlConfig.setAppid(this.appId);
 		wxMaInMysqlConfig.setSecret(this.appSecret);
@@ -41,10 +41,10 @@ public class WxMaConfiguration {
 		return wxMaInMysqlConfig;
 	}
 
-	@Bean("wxMaService")
-	public WxMaService wxMaService() {
+	@Bean("wxMaNo2Service")
+	public WxMaService wxMaNo2Service() {
 		WxMaService wxMaService = new WxMaServiceImpl();
-		wxMaService.setWxMaConfig(wxMaConfigStorage());
+		wxMaService.setWxMaConfig(wxMaNo2ConfigStorage());
 		return wxMaService;
 	}
 }

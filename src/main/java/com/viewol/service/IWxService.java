@@ -17,28 +17,31 @@ public interface IWxService {
 
     /**
      * 小程序获取登录后的session信息
+     * @paran maNum 1 观展通  2 观展讯
      * @param code
      * @return
      */
-    WxMaJscode2SessionResult getSessionInfo(String code);
+    WxMaJscode2SessionResult getSessionInfo(int maNum,String code);
 
     /**
      * 小程序获取用户信息
+     * @paran type 1 观展通  3 观展讯
      * @param sessionKey    会话密钥
      * @param encryptedData 消息密文
      * @param ivStr         加密算法的初始向量
      * @return
      */
-    WxMaUserInfo getUserInfo(String sessionKey, String encryptedData, String ivStr);
+    WxMaUserInfo getUserInfo(int type,String sessionKey, String encryptedData, String ivStr);
 
     /**
      * 获取手机号码
+     * @paran maNum 1 观展通  3 观展讯
      * @param sessionKey
      * @param encryptedData
      * @param ivStr
      * @return
      */
-    WxMaPhoneNumberInfo getPhoneNumberInfo(String sessionKey, String encryptedData, String ivStr);
+    WxMaPhoneNumberInfo getPhoneNumberInfo(int maNum,String sessionKey, String encryptedData, String ivStr);
 
 
     /**
@@ -106,7 +109,7 @@ public interface IWxService {
      * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
      * @return
      */
-    File createCompanyWxaCode(int type, int companyId, int bUserId, String page, int width);
+    File createCompanyWxaCode(int maNum,int type, int companyId, int bUserId, String page, int width);
 
     /**
      * 获取产品小程序码（永久有效、数量暂无限制）.
@@ -115,9 +118,9 @@ public interface IWxService {
      * @param page      必须是已经发布的小程序页面，例如 "pages/index/index" ,如果不填写这个字段，默认跳主页面
      * @return
      */
-    File createProductWxaCode(int type, int companyId, int productId, String page, int width);
+    File createProductWxaCode(int maNum,int type, int companyId, int productId, String page, int width);
 
-    File createPublicxaCode(String page , String scene , int width);
+    File createPublicxaCode(int maNum,String page , String scene , int width);
 
     /**
      * 生成小程序的二维码
@@ -125,7 +128,7 @@ public interface IWxService {
      * @param page
      * @return
      */
-    File createProgramWxaCode(int width, String page);
+    File createProgramWxaCode(int maNum,int width, String page);
 
     /**
      * <pre>

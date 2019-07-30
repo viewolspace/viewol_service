@@ -7,8 +7,6 @@ import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
 import com.viewol.base.BaseTestClass;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class WxServiceImplTest extends BaseTestClass {
 
     private IWxService wxService = (IWxService) getInstance("wxService");
@@ -16,7 +14,7 @@ public class WxServiceImplTest extends BaseTestClass {
 
     @Test
     public void getSessionInfo() {
-        WxMaJscode2SessionResult result = wxService.getSessionInfo("061DV9vD0BCb6e2sFQuD009evD0DV9vE");
+        WxMaJscode2SessionResult result = wxService.getSessionInfo(2,"061DV9vD0BCb6e2sFQuD009evD0DV9vE");
         System.out.println(result.toString());
     }
 
@@ -51,7 +49,7 @@ public class WxServiceImplTest extends BaseTestClass {
 
         WxMaUserInfo userInfo = WxMaGsonBuilder.create().fromJson(json, WxMaUserInfo.class);
 
-        wxService.getUserInfo(sessionKey, encryptedData, ivStr);
+        wxService.getUserInfo(2,sessionKey, encryptedData, ivStr);
     }
 
     @Test
@@ -60,6 +58,6 @@ public class WxServiceImplTest extends BaseTestClass {
 
     @Test
     public void createCompanyWxaCode(){
-        wxService.createCompanyWxaCode(1, 382, 4, "pages/company/index", 100);
+        wxService.createCompanyWxaCode(2,1, 382, 4, "pages/company/index", 100);
     }
 }

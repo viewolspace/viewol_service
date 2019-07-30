@@ -40,8 +40,12 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     @Resource
     private IFUserBindDAO ifUserBindDAO;
 
-    @Autowired
+    @Resource(name="wxMaService")
     private WxMaService wxMaService;
+
+    @Resource(name="wxMaNo2Service")
+    private WxMaService wxMaNo2Service;
+
     @Autowired
     private WxMpService wxMpService;
 
@@ -51,10 +55,20 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     private IFUserService fUserService;
 
 
+    private WxMaService getWxMpService(int maNum){
+
+        if(maNum  == 3){
+            return wxMaNo2Service;
+        }
+
+        return wxMaService;
+    }
+
+
     @Override
-    public WxMaJscode2SessionResult getSessionInfo(String jscode) {
+    public WxMaJscode2SessionResult getSessionInfo(int maNum,String jscode) {
         try {
-            WxMaJscode2SessionResult result = wxMaService.getUserService().getSessionInfo(jscode);
+            WxMaJscode2SessionResult result = getWxMpService(maNum).getUserService().getSessionInfo(jscode);
 
             return result;
         } catch (WxErrorException e) {
@@ -64,9 +78,9 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public WxMaUserInfo getUserInfo(String sessionKey, String encryptedData, String ivStr) {
+    public WxMaUserInfo getUserInfo(int maNum,String sessionKey, String encryptedData, String ivStr) {
         try {
-            WxMaUserInfo wxMaUserInfo = wxMaService.getUserService().getUserInfo(sessionKey, encryptedData, ivStr);
+            WxMaUserInfo wxMaUserInfo = getWxMpService(maNum).getUserService().getUserInfo(sessionKey, encryptedData, ivStr);
             return wxMaUserInfo;
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,9 +90,9 @@ public class WxServiceImpl implements IWxService, InitializingBean {
 
 
     @Override
-    public WxMaPhoneNumberInfo getPhoneNumberInfo(String sessionKey, String encryptedData, String ivStr) {
+    public WxMaPhoneNumberInfo getPhoneNumberInfo(int maNum,String sessionKey, String encryptedData, String ivStr) {
         try {
-            WxMaPhoneNumberInfo phoneNoInfo = wxMaService.getUserService().getPhoneNoInfo(sessionKey, encryptedData, ivStr);
+            WxMaPhoneNumberInfo phoneNoInfo = getWxMpService(maNum).getUserService().getPhoneNoInfo(sessionKey, encryptedData, ivStr);
             return phoneNoInfo;
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,7 +112,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     @Override
     public String getJsapiTicket() {
         try {
-            String ticket = wxMpService.getJsapiTicket();
+            String ticket =wxMpService.getJsapiTicket();
             return ticket;
         } catch (WxErrorException e) {
             e.printStackTrace();
@@ -221,7 +235,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public File createCompanyWxaCode(int type, int companyId, int bUserId, String page, int width) {
+    public File createCompanyWxaCode(int maNum,int type, int companyId, int bUserId, String page, int width) {
         try {
             StringBuffer scene = new StringBuffer();
             scene.append(type).append(":").append(companyId).append(":").append(bUserId);
@@ -229,7 +243,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             if(width<=0){
                 width = 430;
             }
-            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
+            return getWxMpService(maNum).getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -237,12 +251,12 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public File createPublicxaCode(String page, String scene, int width) {
+    public File createPublicxaCode(int maNum,String page, String scene, int width) {
         try {
             if(width<=0){
                 width = 430;
             }
-            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
+            return getWxMpService(maNum).getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -250,7 +264,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public File createProductWxaCode(int type, int companyId, int productId, String page, int width) {
+    public File createProductWxaCode(int maNum,int type, int companyId, int productId, String page, int width) {
         try {
             StringBuffer scene = new StringBuffer();
             scene.append(type).append(":").append(companyId).append(":").append(productId);
@@ -259,7 +273,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
                 width = 430;
             }
 
-            return wxMaService.getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
+            return getWxMpService(maNum).getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -267,9 +281,9 @@ public class WxServiceImpl implements IWxService, InitializingBean {
     }
 
     @Override
-    public File createProgramWxaCode(int width, String page) {
+    public File createProgramWxaCode(int maNum,int width, String page) {
         try {
-            return wxMaService.getQrcodeService().createWxaCode(page, width);
+            return getWxMpService(maNum).getQrcodeService().createWxaCode(page, width);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
