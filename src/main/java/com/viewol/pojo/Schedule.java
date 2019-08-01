@@ -16,7 +16,9 @@ public class Schedule {
     public static final int STATUS_BACK = -1; //打回
     public static final int STATUS_TRIAL = 0; //审核
 
-    public static final String HOSTNAME = "中国安全防范产品行业协会";
+//    public static final String HOSTNAME = "中国安全防范产品行业协会";
+    public static final String HOSTNAME = "中国消防协会";
+
 
     private Integer  id ;
     private Integer companyId;
