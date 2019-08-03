@@ -49,4 +49,9 @@ public class ProductIdeaDAOImpl extends BaseDAO<ProductIdea> implements IProduct
     public PageHolder<ProductIdea> queryProductIdea(ProductIdeaQuery query) {
         return super.pagedQuery("findByParams",query.map(),query.getPageIndex(),query.getPageSize());
     }
+
+    @Override
+    public int countByCompanyId(int companyId) {
+        return super.count("countByCompanyId", companyId);
+    }
 }

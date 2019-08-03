@@ -167,5 +167,7 @@
 		<include refid="sql_order" />
 	</select>
 
-
+	<select id="countByCompanyId" parameterType="int" resultType="int">
+		select count(*) from product_idea where company_id=#{companyId}
+	</select>
 </mapper>

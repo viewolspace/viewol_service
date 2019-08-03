@@ -42,4 +42,9 @@ public class ProductIdeaServiceImpl implements IProductIdeaService {
     public PageHolder<ProductIdea> queryProductIdea(ProductIdeaQuery query) {
         return productIdeaDAO.queryProductIdea(query);
     }
+
+    @Override
+    public int countByCompanyId(int companyId) {
+        return productIdeaDAO.countByCompanyId(companyId);
+    }
 }
