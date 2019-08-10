@@ -17,6 +17,7 @@ public class ProductIdea {
     private String website;
     private String email;
     private String categoryId;
+    private String otherCategory;
     private String logo;
     private String des;
     private String quota;
@@ -212,5 +213,13 @@ public class ProductIdea {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getOtherCategory() {
+        return otherCategory;
+    }
+
+    public void setOtherCategory(String otherCategory) {
+        this.otherCategory = otherCategory;
     }
 }
