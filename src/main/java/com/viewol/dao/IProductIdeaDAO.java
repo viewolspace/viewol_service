@@ -13,6 +13,8 @@ public interface IProductIdeaDAO {
 
     int addProductIdea(ProductIdea productIdea);
 
+    int deleteProductIdea(int id);
+
     int updateStatus(int productId,int status);
 
     int  updateProductIdea(ProductIdea productIdea);
