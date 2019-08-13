@@ -22,6 +22,8 @@ public class CompanyShow {
      */
     private List<String> productUrl;
 
+    private String showFlag;
+
     public List<String> getImgUrl() {
         return imgUrl;
     }
@@ -46,6 +48,13 @@ public class CompanyShow {
         this.productUrl = productUrl;
     }
 
+    public String getShowFlag() {
+        return showFlag;
+    }
+
+    public void setShowFlag(String showFlag) {
+        this.showFlag = showFlag;
+    }
 
     public String toJson(){
         return JSON.toJSONString(this);

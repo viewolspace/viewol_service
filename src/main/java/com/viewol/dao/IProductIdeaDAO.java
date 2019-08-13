@@ -18,4 +18,6 @@ public interface IProductIdeaDAO {
     int  updateProductIdea(ProductIdea productIdea);
 
     PageHolder<ProductIdea> queryProductIdea(ProductIdeaQuery query);
+
+    int countByCompanyId(int companyId);
 }
