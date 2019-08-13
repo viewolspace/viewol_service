@@ -19,6 +19,8 @@ public class FUser {
     private int companyId;
     private String headImgUrl;
 
+    private int userJoin;
+
     public int getUserId() {
         return userId;
     }
@@ -113,6 +115,14 @@ public class FUser {
 
     public void setHeadImgUrl(String headImgUrl) {
         this.headImgUrl = headImgUrl;
+    }
+
+    public int getUserJoin() {
+        return userJoin;
+    }
+
+    public void setUserJoin(int userJoin) {
+        this.userJoin = userJoin;
     }
 
     @Override

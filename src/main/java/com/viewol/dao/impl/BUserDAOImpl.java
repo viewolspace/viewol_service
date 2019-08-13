@@ -44,6 +44,13 @@ public class BUserDAOImpl extends BaseDAO<BUser> implements IBUserDAO {
     }
 
     @Override
+    public BUser getBUserByUuid(String uuid) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("uuid",uuid);
+        return super.findUniqueBy("getUserByUUid",map);
+    }
+
+    @Override
     public int addBUser(BUser user) {
         Date  d = new Date();
         user.setcTime(d);

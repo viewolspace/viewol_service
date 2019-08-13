@@ -3,6 +3,7 @@ package com.viewol.service.impl;
 import com.viewol.dao.ICompanyDAO;
 import com.viewol.dao.IExpoProductDAO;
 import com.viewol.dao.IProductDAO;
+import com.viewol.dao.IProductIdeaDAO;
 import com.viewol.pojo.Company;
 import com.viewol.pojo.Product;
 import com.viewol.pojo.query.ProductQuery;
@@ -29,6 +30,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Resource
     private ICompanyDAO companyDAO;
+
+    @Resource
+    private IProductIdeaDAO productIdeaDAO;
 
     @Override
     public Product getProduct(int id) {
@@ -66,6 +70,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public int delProduct(int id) {
         expoProductDAO.delExpoProduct(id);
+        productIdeaDAO.deleteProductIdea(id);
         return productDAO.delProduct(id);
     }
 

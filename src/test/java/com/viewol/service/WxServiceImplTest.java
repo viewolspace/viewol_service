@@ -58,6 +58,6 @@ public class WxServiceImplTest extends BaseTestClass {
 
     @Test
     public void createCompanyWxaCode(){
-        wxService.createCompanyWxaCode(2,1, 382, 4, "pages/company/index", 100);
+        wxService.createCompanyWxaCode(3,11, 2515, 4, "pages/index/page", 100);
     }
 }

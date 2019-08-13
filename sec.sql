@@ -129,6 +129,12 @@ alter table `viewol`.`product_idea`
 alter table `viewol`.`product_idea`
    add column `status` int(4) DEFAULT '0' NULL COMMENT '0 等待评选  1 评选通过 -1 评选失败' after `model`
 
+
+
+#### 2019-07-29
+alter table `viewol`.`f_user`
+   add column `user_join` int(8) DEFAULT '0' NULL COMMENT '是否报名 0 未报名  1 已报名' after `head_img_url`
+
 ------2019-08-10---------
 ALTER TABLE `viewol`.`product_idea`
 ADD COLUMN `other_category` varchar(255) NULL COMMENT '自定义产品类别' AFTER `category_id`;

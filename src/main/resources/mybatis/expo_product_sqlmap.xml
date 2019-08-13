@@ -19,7 +19,7 @@
 
 
 
-	<delete id="deleteExpoCompany" parameterType="map">
+	<delete id="deleteExpoProduct" parameterType="map">
 		delete from viewol.expo_product where product_id = #{productId}
 	</delete>
 

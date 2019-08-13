@@ -31,6 +31,11 @@ public class ProductIdeaDAOImpl extends BaseDAO<ProductIdea> implements IProduct
     }
 
     @Override
+    public int deleteProductIdea(int id) {
+        return super.delete(id);
+    }
+
+    @Override
     public int updateProductIdea(ProductIdea productIdea) {
         Date d = new Date();
         productIdea.setmTime(d);
