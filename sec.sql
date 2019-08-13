@@ -132,3 +132,7 @@ alter table `viewol`.`product_idea`
 ------2019-08-10---------
 ALTER TABLE `viewol`.`product_idea`
 ADD COLUMN `other_category` varchar(255) NULL COMMENT '自定义产品类别' AFTER `category_id`;
+
+---------2019-08-12-----------------
+ALTER TABLE `viewol`.`info`
+ADD COLUMN `site` int(1) NULL COMMENT '1-站内 2-站外' AFTER `status`;

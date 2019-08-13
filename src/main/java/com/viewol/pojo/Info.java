@@ -22,7 +22,7 @@ public class Info implements Comparable<Info> {
     private int classify;
 
     private int companyId;
-
+    private int site;
 
     public int getId() {
         return id;
@@ -135,5 +135,13 @@ public class Info implements Comparable<Info> {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public int getSite() {
+        return site;
+    }
+
+    public void setSite(int site) {
+        this.site = site;
     }
 }

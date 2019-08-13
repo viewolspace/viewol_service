@@ -3,7 +3,7 @@
 <mapper namespace="Info">
 
     <sql id="selectCommon">
-			SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id
+			SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,site
 	</sql>
 
     <insert id="insert" parameterType="Info" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -12,9 +12,9 @@
         </selectKey>
 
         INSERT INTO viewol.info
-        (title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,content)
+        (title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,content,site)
         VALUES
-        (#{title},#{summary},#{pubTime},#{picUrl},#{contentUrl},#{createTime},#{md5Str},#{status},#{mTime},#{classify},#{companyId},#{content})
+        (#{title},#{summary},#{pubTime},#{picUrl},#{contentUrl},#{createTime},#{md5Str},#{status},#{mTime},#{classify},#{companyId},#{content},#{site})
 
     </insert>
 
@@ -32,8 +32,8 @@
             m_time = #{mTime} ,
             content = #{content} ,
             classify = #{classify} ,
-            company_id = #{companyId}
-
+            company_id = #{companyId},
+            site=#{site}
             WHERE
             id = #{id}
     </update>
@@ -43,7 +43,7 @@
     </delete>
 
     <select id="select" resultType="Info" parameterType="int">
-        SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,content
+        SELECT id,title,summary,pub_time,pic_url,content_url,create_time,md5_str,status,m_time,classify,company_id,content,site
         from viewol.info where id = #{id}
     </select>
 
@@ -108,13 +108,13 @@
     </sql>
 
     <select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
-        <include refid="sql_count" />
-        <include refid="sql_where" />
+        <include refid="sql_count"/>
+        <include refid="sql_where"/>
     </select>
     <select id="findByParams" parameterType="java.util.HashMap" resultType="Info">
-        <include refid="selectCommon" />
-        <include refid="sql_where" />
-        <include refid="sql_order" />
+        <include refid="selectCommon"/>
+        <include refid="sql_where"/>
+        <include refid="sql_order"/>
     </select>
 
 
@@ -123,7 +123,7 @@
         from viewol.info
         <where>
             <if test="md5Str != null and md5Str != ''">
-		      AND md5_str =#{md5Str}
+                AND md5_str =#{md5Str}
             </if>
         </where>
     </select>
