@@ -25,8 +25,41 @@
 				c_time,
 				m_time,
 				model,
-				status
+				status,
+				promise_pic
 	</sql>
+
+	<sql id="selectPage">
+		SELECT 	a.product_id,
+				a.product_name,
+				a.company_id,
+				a.company_name,
+				a.company_place,
+				a.liaison_man,
+				a.phone,
+				a.land_line,
+				a.website,
+				a.email,
+				a.category_id,
+				a.other_category,
+				a.logo,
+				a.des,
+				a.quota,
+				a.idea_point,
+				a.extend,
+				a.product_pic,
+				a.com_logo,
+				a.ext,
+				a.c_time,
+				a.m_time,
+				a.model,
+				a.status,
+				a.promise_pic,
+				b.praise_num,
+				b.see_num,
+				b.comment_num
+	</sql>
+
 	<select id="select" parameterType="int" resultType="ProductIdea">
 		<include refid="selectCommon"/>
 
@@ -60,7 +93,8 @@
 								c_time,
 								m_time,
 								model,
-								status
+								status,
+								promise_pic
 								)
 								VALUES
 								(
@@ -87,7 +121,8 @@
 								#{cTime},
 								#{mTime},
 								#{model},
-								#{status}
+								#{status},
+								#{promisePic}
 								)
 
 	</insert>
@@ -122,7 +157,8 @@
 			c_time = #{cTime} ,
 			m_time = #{mTime} ,
 			model = #{model} ,
-			status = #{status}
+			status = #{status},
+			promise_pic = #{promisePic}
 
 			WHERE
 			product_id = #{productId}
@@ -144,23 +180,22 @@
 	</sql>
 
 	<sql id="sql_where">
-		FROM product_idea
+		FROM product_idea a, product b
 		<where>
-
+			a.product_id=b.id
 			<if test="status != null">
-				and status = #{status}
+				and a.status = #{status}
 			</if>
 
-
 			<if test="productName != null and productName != ''">
-				AND product_name LIKE concat(concat('%',#{productName}),'%')
+				AND a.product_name LIKE concat(concat('%',#{productName}),'%')
 			</if>
 		</where>
 
 	</sql>
 
 	<sql id="sql_order">
-		order by m_time desc
+		order by b.praise_num desc
 	</sql>
 
 	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
@@ -168,7 +203,7 @@
 		<include refid="sql_where" />
 	</select>
 	<select id="findByParams" parameterType="java.util.HashMap" resultType="ProductIdea">
-		<include refid="selectCommon" />
+		<include refid="selectPage" />
 		<include refid="sql_where" />
 		<include refid="sql_order" />
 	</select>

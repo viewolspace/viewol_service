@@ -30,6 +30,15 @@ public class ProductIdea {
     private Date mTime;
     private String model;
     private int status;
+    /**
+     * 申报单位承诺,加盖单位印章的图片
+     */
+    private String promisePic;
+
+
+    private int praiseNum;
+    private int seeNum;
+    private int commentNum;
 
     public int getProductId() {
         return productId;
@@ -221,5 +230,37 @@ public class ProductIdea {
 
     public void setOtherCategory(String otherCategory) {
         this.otherCategory = otherCategory;
+    }
+
+    public int getPraiseNum() {
+        return praiseNum;
+    }
+
+    public void setPraiseNum(int praiseNum) {
+        this.praiseNum = praiseNum;
+    }
+
+    public int getSeeNum() {
+        return seeNum;
+    }
+
+    public void setSeeNum(int seeNum) {
+        this.seeNum = seeNum;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
+    }
+
+    public String getPromisePic() {
+        return promisePic;
+    }
+
+    public void setPromisePic(String promisePic) {
+        this.promisePic = promisePic;
     }
 }

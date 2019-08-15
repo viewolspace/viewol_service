@@ -142,3 +142,10 @@ ADD COLUMN `other_category` varchar(255) NULL COMMENT '自定义产品类别' AF
 ---------2019-08-12-----------------
 ALTER TABLE `viewol`.`info`
 ADD COLUMN `site` int(1) NULL COMMENT '1-站内 2-站外' AFTER `status`;
+
+---------2019-08-15-----------------
+ALTER TABLE `viewol`.`product_idea`
+ADD COLUMN `promise_pic` varchar(255) NULL COMMENT '申报单位承诺，加盖图片地址' AFTER `status`;
+
+ALTER TABLE `viewol`.`product_idea`
+MODIFY COLUMN `des` varchar(2000) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '产品概况' AFTER `logo`;
