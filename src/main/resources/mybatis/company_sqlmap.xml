@@ -124,7 +124,8 @@
 	<update id="updateShow" parameterType="Company">
 		UPDATE viewol.company
 		SET
-		show_info=#{showInfo}
+		show_info=#{showInfo},
+		m_time = #{mTime}
 		WHERE
 		id = #{id}
 	</update>

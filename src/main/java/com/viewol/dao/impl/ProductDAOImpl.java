@@ -8,6 +8,7 @@ import com.viewol.pojo.query.ProductQuery;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -127,11 +128,16 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     private long getSeq(Product product){
         int id = product.getId();
         int num = product.getTopNum();
+
+        Date date= new Date();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmss");
+
         if(num > 0 ){
             num = 100-num;
         }
 
-        long seq = num * 1000000 + id;
+        long seq = num * 10000000000L + Long.parseLong(dateFormat.format(date));
         return seq;
     }
 

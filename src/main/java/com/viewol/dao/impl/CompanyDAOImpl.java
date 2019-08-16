@@ -7,6 +7,7 @@ import com.viewol.pojo.query.CompanyQuery;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,9 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     private long getSeq(Company company){
 
+        Date date= new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmss");
+
         int id = company.getId();
 
         int num = company.getTopNum();
@@ -28,7 +32,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
             num = 100 - num;
         }
 
-        long seq = num * 1000000 + id;
+        long seq = num * 10000000000L + Long.parseLong(dateFormat.format(date));
 
         return seq;
     }
@@ -180,9 +184,14 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     @Override
     public int updateShow(int id, String showInfo) {
+        Date date = new Date();
         Map<String,Object> map = new HashMap<>();
         map.put("showInfo",showInfo);
         map.put("id",id);
-        return super.updateBy("updateShow", map);
+        map.put("mTime",date);
+        int  result = super.updateBy("updateShow", map);
+        Company company = this.getCompany(id);
+        this.updateSeq(company);
+        return result;
     }
 }
