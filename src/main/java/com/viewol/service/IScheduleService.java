@@ -160,7 +160,7 @@ public interface IScheduleService {
      * @param num
      * @return
      */
-    List<Schedule> listSchedule(int expoId,String time,String date,int type,String keyword ,long seq,int num, int companyId, int status,String endTime,String place);
+    List<Schedule> listSchedule(int expoId,int bbs,String time,String date,int type,String keyword ,long seq,int num, int companyId, int status,String endTime,String place);
 
 
     int updateReminderFlag(int id, int reminderFlag);

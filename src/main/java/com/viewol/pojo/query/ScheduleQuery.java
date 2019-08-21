@@ -25,6 +25,8 @@ public class ScheduleQuery {
 
     private String keyword;
 
+    private Integer bbs;
+
     private long seq;
 
     private int expoId = 1;
@@ -128,5 +130,13 @@ public class ScheduleQuery {
 
     public void setExpoId(int expoId) {
         this.expoId = expoId;
+    }
+
+    public Integer getBbs() {
+        return bbs;
+    }
+
+    public void setBbs(Integer bbs) {
+        this.bbs = bbs;
     }
 }

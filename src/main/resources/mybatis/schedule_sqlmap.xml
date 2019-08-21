@@ -137,6 +137,10 @@ INSERT INTO schedule
 				AND (company_name LIKE concat(concat('%',#{keyword}),'%') or title  LIKE concat(concat('%',#{keyword}),'%') )
 			</if>
 
+			<if test="bbs != null and bbs != -1 ">
+				AND bbs = #{bbs}
+			</if>
+
 			<if test="place != null and place != ''">
 				AND  place  LIKE concat(concat('%',#{place}),'%')
 			</if>

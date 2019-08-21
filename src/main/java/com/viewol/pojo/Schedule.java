@@ -34,6 +34,7 @@ public class Schedule {
     private Integer vType; //不是数据库字段 等同于RecommendSchedule的type字段
     private Long seq;
     private Integer expoId;
+    private Integer bbs; //1 论坛 0 其他
 
     private String contentView;
 
@@ -157,6 +158,14 @@ public class Schedule {
 
     public void setExpoId(Integer expoId) {
         this.expoId = expoId;
+    }
+
+    public Integer getBbs() {
+        return bbs;
+    }
+
+    public void setBbs(Integer bbs) {
+        this.bbs = bbs;
     }
 
     @Override

@@ -149,3 +149,7 @@ ADD COLUMN `promise_pic` varchar(255) NULL COMMENT '申报单位承诺，加盖�
 
 ALTER TABLE `viewol`.`product_idea`
 MODIFY COLUMN `des` varchar(2000) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '产品概况' AFTER `logo`;
+
+---------2019-08-21-----------------
+alter table `viewol`.`schedule`
+   add column `bbs` int(11) DEFAULT '0' NULL COMMENT '1 论坛  0 其他' after `expo_id`

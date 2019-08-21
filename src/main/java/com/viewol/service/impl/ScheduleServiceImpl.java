@@ -260,10 +260,11 @@ public class ScheduleServiceImpl implements IScheduleService {
 
 
     @Override
-    public List<Schedule> listSchedule(int expoId, String time, String date, int type, String keyword, long seq, int num,
+    public List<Schedule> listSchedule(int expoId, int bbs,String time, String date, int type, String keyword, long seq, int num,
                                        int companyId, int status, String endTime, String place) {
         ScheduleQuery query = new ScheduleQuery();
         query.setType(type);
+        query.setBbs(bbs);
         query.setSeq(seq);
         query.setTime(time);
         query.setEndTtime(endTime);

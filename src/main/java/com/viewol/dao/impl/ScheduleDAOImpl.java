@@ -95,6 +95,10 @@ public class ScheduleDAOImpl extends BaseDAO<Schedule> implements IScheduleDAO {
 
         }
 
+        if(query.getBbs()!=null){
+            map.put("bbs",query.getBbs());
+        }
+
         map.put("seq",query.getSeq());
         map.put("place",query.getPlace());
         map.put("type",query.getType());
