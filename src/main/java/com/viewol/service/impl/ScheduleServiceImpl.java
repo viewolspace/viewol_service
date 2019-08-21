@@ -83,12 +83,12 @@ public class ScheduleServiceImpl implements IScheduleService {
         schedule.setContentView(content);
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
-
+        schedule.setBbs(0); //1 论坛 0 其他
         return scheduleDAO.addSchedule(expoId, schedule);
     }
 
     @Override
-    public int addSchedule(int expoId, String title, String place, String content, String startTime, String endTime) {
+    public int addSchedule(int expoId, String title, String place, String content, String startTime, String endTime, Integer bbs) {
         Schedule schedule = new Schedule();
         schedule.setType(Schedule.TYPE_HOST);
         schedule.setStatus(Schedule.STATUS_OK);
@@ -103,6 +103,7 @@ public class ScheduleServiceImpl implements IScheduleService {
         schedule.setContentView(content);
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
+        schedule.setBbs(bbs);
         return scheduleDAO.addSchedule(expoId, schedule);
     }
 
@@ -260,7 +261,7 @@ public class ScheduleServiceImpl implements IScheduleService {
 
 
     @Override
-    public List<Schedule> listSchedule(int expoId, int bbs,String time, String date, int type, String keyword, long seq, int num,
+    public List<Schedule> listSchedule(int expoId, int bbs, String time, String date, int type, String keyword, long seq, int num,
                                        int companyId, int status, String endTime, String place) {
         ScheduleQuery query = new ScheduleQuery();
         query.setType(type);

@@ -35,7 +35,6 @@ public class ScheduleQuery {
 
     private int pageSize = 20;
 
-
     public String getTime() {
         return time;
     }
