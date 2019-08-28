@@ -172,7 +172,7 @@
 			</if>
 
 			<if test="companyId != null  and companyId != 0">
-				and company_id = #{companyId}
+				and company_id LIKE concat(concat('%',#{companyId}),'%')
 			</if>
 
 			<if test="lastSeq != null  and lastSeq != 0">

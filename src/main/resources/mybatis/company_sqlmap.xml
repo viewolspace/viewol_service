@@ -166,7 +166,7 @@
 		( SELECT  distinct company_id as company_id FROM company_category
 		<where>
 			<if test="categoryId != null and categoryId != '' ">
-				AND category_id = #{categoryId}
+				AND category_id LIKE concat(concat('%',#{companyId}),'%')
 			</if>
 		</where>
 		) b , expo_company c
