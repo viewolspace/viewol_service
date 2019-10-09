@@ -14,6 +14,7 @@ public class BbsJoin {
     private String email;
     private String idea;
     private int bbsId;
+    private int status;
 
     public int getId() {
         return id;
@@ -93,5 +94,30 @@ public class BbsJoin {
 
     public void setBbsId(int bbsId) {
         this.bbsId = bbsId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "BbsJoin{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", position='" + position + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", idea='" + idea + '\'' +
+                ", bbsId=" + bbsId +
+                ", status=" + status +
+                '}';
     }
 }

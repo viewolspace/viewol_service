@@ -9,7 +9,7 @@ public interface IBbsJoinDAO {
 
     BbsJoin getBbsJoin(int id);
 
-    BbsJoin getBbsJoin(String phone);
+    BbsJoin getBbsJoin(String phone,int bbsId);
 
     int addBbsJoin(BbsJoin bbsJoin);
 

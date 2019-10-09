@@ -41,7 +41,7 @@
         <typeAlias alias="ExpoProduct" type="com.viewol.pojo.ExpoProduct"/>
         <typeAlias alias="UserInteract" type="com.viewol.pojo.UserInteract"/>
         <typeAlias alias="ProductIdea" type="com.viewol.pojo.ProductIdea"/>
-        <typeAlias alias="ProductIdea" type="com.viewol.pojo.BbsJoin"/>
+        <typeAlias alias="BbsJoin" type="com.viewol.pojo.BbsJoin"/>
     </typeAliases>
 
     <plugins>

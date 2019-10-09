@@ -8,9 +8,9 @@ import com.viewol.pojo.BbsJoin;
 public interface IBbsJoinService {
     BbsJoin getBbsJoin(int id);
 
-    BbsJoin getBbsJoin(String phone);
+    BbsJoin getBbsJoin(String phone,int bbsId);
 
     int addBbsJoin(BbsJoin bbsJoin);
 
-    int signIn(String phone);
+    int signIn(String phone,int bbsId);
 }

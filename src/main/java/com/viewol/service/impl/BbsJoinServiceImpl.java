@@ -22,8 +22,8 @@ public class BbsJoinServiceImpl implements IBbsJoinService{
     }
 
     @Override
-    public BbsJoin getBbsJoin(String phone) {
-        return bbsJoinDAO.getBbsJoin(phone);
+    public BbsJoin getBbsJoin(String phone,int bbsId) {
+        return bbsJoinDAO.getBbsJoin(phone,bbsId);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class BbsJoinServiceImpl implements IBbsJoinService{
     }
 
     @Override
-    public int signIn(String phone) {
-        BbsJoin bbsJoin = bbsJoinDAO.getBbsJoin(phone);
+    public int signIn(String phone,int bbsId) {
+        BbsJoin bbsJoin = bbsJoinDAO.getBbsJoin(phone,bbsId);
         if(bbsJoin==null){
             return -99;
         }

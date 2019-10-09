@@ -20,15 +20,20 @@ public class BbsJoinDAOImpl extends BaseDAO<BbsJoin> implements IBbsJoinDAO{
     }
 
     @Override
-    public BbsJoin getBbsJoin(String phone) {
-        Map<String,String> map = new HashMap<>();
+    public BbsJoin getBbsJoin(String phone,int bbsId) {
+        Map<String,Object> map = new HashMap<>();
         map.put("phone",phone);
+        map.put("bbsId",bbsId);
         return super.findUniqueBy("selectByPhone",map);
     }
 
     @Override
     public int addBbsJoin(BbsJoin bbsJoin) {
-        return super.insert(bbsJoin);
+        int result = super.insert(bbsJoin);
+        if(result>0){
+            return bbsJoin.getId();
+        }
+        return result;
     }
 
     @Override

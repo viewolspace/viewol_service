@@ -47,7 +47,7 @@
         #{phone},
         #{email},
         #{idea},
-        #{bbs_id},
+        #{bbsId},
         #{status}
         )
 
@@ -61,13 +61,13 @@
 
     <select id="selectByPhone" parameterType="map" resultType="BbsJoin">
         <include refid="selectCommon"/>
-        from viewol.bss_join a where phone = #{phone}
+        from viewol.bss_join a where phone = #{phone} and bbs_id = #{bbsId}
     </select>
 
 
     <update id="updateStatus" parameterType="map">
 
-			UPDATE viewol.b_user
+			UPDATE viewol.bss_join
 						SET
 						status = #{status}
 
