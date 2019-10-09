@@ -57,7 +57,13 @@ public class WxServiceImplTest extends BaseTestClass {
     }
 
     @Test
-    public void createCompanyWxaCode(){
-        wxService.createCompanyWxaCode(3,11, 2515, 4, "pages/index/page", 100);
+    public void createCompanyWxaCode() throws Exception{
+//        wxService.createCompanyWxaCode(3,11, 2515, 4, "pages/index/page", 100);
+        for (int i=112;i<=126;i++){
+            wxService.createPublicxaCode(3,"pages/index/page","12:"+i,100);
+        }
+
+
+
     }
 }

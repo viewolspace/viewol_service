@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BbsJoin">
+
+    <sql id="selectCommon">
+
+			SELECT 	id,
+                    NAME,
+                    sex,
+                    company,
+                    address,
+                    POSITION,
+                    phone,
+                    email,
+                    idea,
+                    bbs_id,
+                    status
+
+	</sql>
+
+    <insert id="insert" parameterType="BbsJoin" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+
+        INSERT INTO viewol.bss_join
+        (
+        name,
+        sex,
+        company,
+        address,
+        position,
+        phone,
+        email,
+        idea,
+        bbs_id,
+        status
+        )
+        VALUES
+        (
+        #{name},
+        #{sex},
+        #{company},
+        #{address},
+        #{position},
+        #{phone},
+        #{email},
+        #{idea},
+        #{bbs_id},
+        #{status}
+        )
+
+
+    </insert>
+
+    <select id="select" parameterType="int" resultType="BbsJoin">
+        <include refid="selectCommon"/>
+        from viewol.bss_join   where id = #{id}
+    </select>
+
+    <select id="selectByPhone" parameterType="map" resultType="BbsJoin">
+        <include refid="selectCommon"/>
+        from viewol.bss_join a where phone = #{phone}
+    </select>
+
+
+    <update id="updateStatus" parameterType="map">
+
+			UPDATE viewol.b_user
+						SET
+						status = #{status}
+
+						WHERE
+						id = #{id}
+
+	</update>
+
+</mapper>
