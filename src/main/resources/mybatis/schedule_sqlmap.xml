@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Schedule">
-	<sql id="selectCommon">
+    <sql id="selectCommon">
 		select  a.id,
 				a.company_id,
 				a.TYPE,
@@ -13,54 +13,60 @@
 				a.e_time,
 				a.content,
 				a.place,
-				a.seq
+				a.seq,
+				a.expo_id,
+				a.bbs
 	</sql>
 
-	<select id="select"  parameterType="int" resultType="Schedule">
-		<include refid="selectCommon" />
-		 from schedule a where id = #{id}
-	</select>
+    <select id="select" parameterType="int" resultType="Schedule">
+        <include refid="selectCommon"/>
+        from schedule a where id = #{id}
+    </select>
 
-<insert id="insert" parameterType="Schedule" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-    <selectKey keyProperty="id" resultType="int" order="AFTER">
-        SELECT LAST_INSERT_ID()
-    </selectKey>
-INSERT INTO schedule
-	(
-	company_id,
-	type,
-	company_name,
-	title,
-	c_time,
-	status,
-	s_time,
-	e_time,
-	content,
-	place,
-	seq
-	)
-	VALUES
-	(
-	#{companyId},
-	#{type},
-	#{companyName},
-	#{title},
-	#{cTime},
-	#{status},
-	#{sTime},
-	#{eTime},
-	#{content},
-	#{place},
-	#{seq}
-	)
+    <insert id="insert" parameterType="Schedule" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO schedule
+        (
+        company_id,
+        type,
+        company_name,
+        title,
+        c_time,
+        status,
+        s_time,
+        e_time,
+        content,
+        place,
+        seq,
+        expo_id,
+        bbs
+        )
+        VALUES
+        (
+        #{companyId},
+        #{type},
+        #{companyName},
+        #{title},
+        #{cTime},
+        #{status},
+        #{sTime},
+        #{eTime},
+        #{content},
+        #{place},
+        #{seq},
+        #{expoId},
+        #{bbs}
+        )
 
 
-</insert>
-	<delete id="delete" parameterType="int">
+    </insert>
+    <delete id="delete" parameterType="int">
 		delete from schedule where id = #{id}
 	</delete>
 
-	<update id="update" parameterType="Schedule">
+    <update id="update" parameterType="Schedule">
 		UPDATE schedule
 			SET
 			company_id = #{companyId} ,
@@ -72,166 +78,176 @@ INSERT INTO schedule
 			e_time = #{eTime} ,
 			content = #{content} ,
 			place = #{place},
-			seq=#{seq}
+			seq=#{seq},
+			bbs=#{bbs}
 
 			WHERE
 			id = #{id}
 	</update>
 
 
-	<update id="updateStatus" parameterType="map">
+    <update id="updateStatus" parameterType="map">
 		UPDATE schedule
 		SET
 		STATUS = #{status}
 		WHERE
 		id = #{id}
 	</update>
-	<select id="appLimit" parameterType="java.util.HashMap" resultType="int">
+    <select id="appLimit" parameterType="java.util.HashMap" resultType="int">
 		<![CDATA[
-			select count(*) from schedule WHERE DATE_FORMAT( c_time,'%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') and company_id=#{companyId};
-		]]>
+            select count(*) from schedule WHERE DATE_FORMAT( c_time,'%Y-%m-%d') = DATE_FORMAT(NOW(), '%Y-%m-%d') and company_id=#{companyId};
+        ]]>
 	</select>
 
 
-
-	<!--管理平台查询全部活动的接口-->
-	<sql id="sql_count">
+    <!--管理平台查询全部活动的接口-->
+    <sql id="sql_count">
 		select count(*)
 	</sql>
 
-	<sql id="sql_where">
-		FROM schedule a
-		<where>
-			<if test="companyId != null and companyId !=0">
-				AND company_id=#{companyId}
-			</if>
-			<if test="time != null and time != ''"> <!--查询当前正在进行的-->
-				<![CDATA[
+    <sql id="sql_where">
+        FROM schedule a
+        <where>
+            expo_id = #{expoId}
+            <if test="companyId != null and companyId !=0">
+                AND company_id=#{companyId}
+            </if>
+            <if test="time != null and time != ''"> <!--查询当前正在进行的-->
+                <![CDATA[
 					AND s_time >= #{time}
 					]]>
-			</if>
+            </if>
 
-			<if test="endTime != null and endTime != ''"> <!--查询当前正在进行的-->
-				<![CDATA[
+            <if test="endTime != null and endTime != ''"> <!--查询当前正在进行的-->
+                <![CDATA[
 					AND s_time <=#{endTime}
 					]]>
-			</if>
+            </if>
 
 
-			<if test="date != null and date != ''"><!--查询某一天的-->
-				<![CDATA[
+            <if test="date != null and date != ''"><!--查询某一天的-->
+                <![CDATA[
 					AND s_time >= #{date} and s_time <= #{date_end}
 					]]>
-			</if>
-			<if test="type != null and type != -1 ">
-				AND type=#{type}
-			</if>
-			<if test="status != null">
-				AND status=#{status}
-			</if>
-			<if test="keyword != null and keyword != ''">
-				AND (company_name LIKE concat(concat('%',#{keyword}),'%') or title  LIKE concat(concat('%',#{keyword}),'%') )
-			</if>
+            </if>
+            <if test="type != null and type != -1 ">
+                AND type=#{type}
+            </if>
+            <if test="status != null">
+                AND status=#{status}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (company_name LIKE concat(concat('%',#{keyword}),'%') or title LIKE
+                concat(concat('%',#{keyword}),'%') )
+            </if>
 
-			<if test="place != null and place != ''">
-				AND  place  LIKE concat(concat('%',#{place}),'%')
-			</if>
+            <if test="bbs != null and bbs != -1 ">
+                AND bbs = #{bbs}
+            </if>
 
-			<if test="seq != null">
-				<![CDATA[
+            <if test="place != null and place != ''">
+                AND place LIKE concat(concat('%',#{place}),'%')
+            </if>
+
+            <if test="seq != null">
+                <![CDATA[
 						AND seq > #{seq}
 				]]>
-			</if>
-		</where>
-	</sql>
-	<sql id="sql_order">
+            </if>
+        </where>
+    </sql>
+    <sql id="sql_order">
 		order by s_time
 	</sql>
 
-	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
-		<include refid="sql_count" />
-		<include refid="sql_where" />
-	</select>
-	<select id="findByParams" parameterType="java.util.HashMap" resultType="Schedule">
-		<include refid="selectCommon" />
-		<include refid="sql_where" />
-		<include refid="sql_order" />
-	</select>
+    <select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+        <include refid="sql_count"/>
+        <include refid="sql_where"/>
+    </select>
+    <select id="findByParams" parameterType="java.util.HashMap" resultType="Schedule">
+        <include refid="selectCommon"/>
+        <include refid="sql_where"/>
+        <include refid="sql_order"/>
+    </select>
 
 
-
-	<!--管理平台查询全部推荐和置顶的活动-->
-	<sql id="sql_field">
+    <!--管理平台查询全部推荐和置顶的活动-->
+    <sql id="sql_field">
 		, b.type as vType , b.id as recommend_schedule_id , b.s_time as recommend_s_time , b.e_time as recommend_e_time
 	</sql>
-	<sql id="sql_recommen_where">
-		 FROM schedule a ,recommend_schedule b
-		<where>
-			a.id = b.schedule_id
-			<if test="type != null">
-				AND b.type=#{type}
-			</if>
-			<if test="time != null">
-				<![CDATA[
+    <sql id="sql_recommen_where">
+        FROM schedule a ,recommend_schedule b
+        <where>
+            a.id = b.schedule_id
+
+            and a.expo_id = #{expoId}
+
+            <if test="type != null">
+                AND b.type=#{type}
+            </if>
+            <if test="time != null">
+                <![CDATA[
 						AND b.s_time <= #{time} and b.e_time >=#{time}
 				]]>
-			</if>
-		</where>
-	</sql>
+            </if>
+        </where>
+    </sql>
 
-	<sql id="sql_recommen_order">
+    <sql id="sql_recommen_order">
 		order by b.s_time
 	</sql>
 
 
-	<select id="findRecommen_count" parameterType="java.util.HashMap" resultType="int">
-		<include refid="sql_count" />
-		<include refid="sql_recommen_where" />
-	</select>
+    <select id="findRecommen_count" parameterType="java.util.HashMap" resultType="int">
+        <include refid="sql_count"/>
+        <include refid="sql_recommen_where"/>
+    </select>
 
-	<select id="findRecommen" parameterType="java.util.HashMap" resultType="ScheduleVO">
-		<include refid="selectCommon" />
-		<include refid="sql_field"/>
-		<include refid="sql_recommen_where" />
-		<include refid="sql_recommen_order" />
-	</select>
+    <select id="findRecommen" parameterType="java.util.HashMap" resultType="ScheduleVO">
+        <include refid="selectCommon"/>
+        <include refid="sql_field"/>
+        <include refid="sql_recommen_where"/>
+        <include refid="sql_recommen_order"/>
+    </select>
 
-	<!--客户端首页查询主办方的活动-->
-	<select id="queryNowHostSchedule" resultType="Schedule">
-		<include refid="selectCommon" />
-		FROM schedule a
-		where
-			company_id=-1
-			<![CDATA[
+    <!--客户端首页查询主办方的活动-->
+    <select id="queryNowHostSchedule" resultType="Schedule">
+        <include refid="selectCommon"/>
+        FROM schedule a
+        where
+        expo_id = #{expoId}
+        and company_id=-1
+        <![CDATA[
 					AND ((s_time <= now() and e_time >=now()) or s_time > now())
 			]]>
-		order by s_time limit 0 , 10
-	</select>
+        order by s_time limit 0 , 10
+    </select>
 
-	<!--客户端首页查询展商的活动-->
-	<select id="queryNowRecommendSchedule" parameterType="java.util.HashMap" resultType="ScheduleVO">
-		<include refid="selectCommon" />
-		<include refid="sql_field"/>
+    <!--客户端首页查询展商的活动-->
+    <select id="queryNowRecommendSchedule" parameterType="java.util.HashMap" resultType="ScheduleVO">
+        <include refid="selectCommon"/>
+        <include refid="sql_field"/>
 
-		FROM schedule a ,recommend_schedule b
-		<where>
-			a.id = b.schedule_id
-			<if test="type != null">
-				AND b.type=#{type}
-			</if>
-			<![CDATA[
-						AND b.s_time <= now() and b.e_time >=now()
+        FROM schedule a ,recommend_schedule b
+        <where>
+            a.expo_id = #{expoId}
+            and a.id = b.schedule_id
+            <if test="type != null">
+                AND b.type=#{type}
+            </if>
+            <![CDATA[
+				AND b.s_time <= now() and b.e_time >=now()
 			]]>
-		</where>
-		order by b.s_time
-	</select>
+        </where>
+        order by b.s_time
+    </select>
 
 
-	<select id="listSchedule" parameterType="java.util.HashMap" resultType="Schedule">
-		<include refid="selectCommon" />
-		<include refid="sql_where" />
-		order by seq limit 0 , #{num}
+    <select id="listSchedule" parameterType="java.util.HashMap" resultType="Schedule">
+        <include refid="selectCommon"/>
+        <include refid="sql_where"/>
+        order by seq limit 0 , #{num}
 
-	</select>
+    </select>
 
 </mapper>

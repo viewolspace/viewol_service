@@ -49,6 +49,27 @@
 		where user_id=#{userId} and schedule_id=#{scheduleId}
 	</select>
 
+	<select id="queryUserSchedule" parameterType="map" resultType="Schedule">
+		SELECT 	a.id,
+				a.company_id,
+				a.type,
+				a.company_name,
+				a.title,
+				a.c_time,
+				a.STATUS,
+				a.s_time,
+				a.e_time,
+				a.content,
+				a.place,
+				a.seq
+
+				from viewol.schedule  a , viewol.schedule_user b
+
+				where a.id = b.schedule_id and b.user_id = #{userId}
+
+				order by a.s_time desc limit #{startNum} , #{pageSize}
+	</select>
+
 	<!--管理平台查询参赛活动用户-->
 	<sql id="selectUser">
 		select  b.user_id

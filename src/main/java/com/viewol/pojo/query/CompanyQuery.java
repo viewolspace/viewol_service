@@ -8,11 +8,15 @@ public class CompanyQuery {
 
     private String categoryId;
 
+    private int expoId = 1;
+
     private long lastSeq; //客户端查询使用
 
     private int pageIndex = 1;
 
     private int pageSize = 20;
+
+    private int award = 0;
 
     public long getLastSeq() {
         return lastSeq;
@@ -52,5 +56,21 @@ public class CompanyQuery {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public int getExpoId() {
+        return expoId;
+    }
+
+    public void setExpoId(int expoId) {
+        this.expoId = expoId;
+    }
+
+    public int getAward() {
+        return award;
+    }
+
+    public void setAward(int award) {
+        this.award = award;
     }
 }

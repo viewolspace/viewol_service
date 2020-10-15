@@ -9,6 +9,8 @@ public class RecommendScheduleQuery {
 
     private Integer type;
 
+    private int expoId = 1;
+
     private int pageIndex = 1;
 
     private int pageSize = 20;
@@ -44,5 +46,13 @@ public class RecommendScheduleQuery {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public int getExpoId() {
+        return expoId;
+    }
+
+    public void setExpoId(int expoId) {
+        this.expoId = expoId;
     }
 }

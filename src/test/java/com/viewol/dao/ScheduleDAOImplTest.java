@@ -35,7 +35,7 @@ public class ScheduleDAOImplTest extends BaseTestClass{
 
     @Test
     public void addSchedule(){
-        dao.addSchedule(getSchedule());
+        dao.addSchedule(2,getSchedule());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ScheduleDAOImplTest extends BaseTestClass{
         query.setKeyword("一个");
 //        query.setPageIndex(2);
 //        query.setPageSize(1);
-        System.out.println(dao.querySchedule(query));
+        System.out.println(dao.querySchedule(2,query));
     }
 
 
@@ -63,7 +63,7 @@ public class ScheduleDAOImplTest extends BaseTestClass{
     public void queryRecommendSchedule(){
         RecommendScheduleQuery query = new RecommendScheduleQuery();
         query.setType(1);
-        PageHolder<ScheduleVO> pageHolder = dao.queryRecommendSchedule(query);
+        PageHolder<ScheduleVO> pageHolder = dao.queryRecommendSchedule(2,query);
         for(ScheduleVO vo:pageHolder.getList()){
             System.out.println(vo);
         }
@@ -75,18 +75,18 @@ public class ScheduleDAOImplTest extends BaseTestClass{
     public void listSchedule(){
         ScheduleQuery query = new ScheduleQuery();
         query.setType(1);
-        System.out.println(dao.listSchedule(query));
+        System.out.println(dao.listSchedule(2,query));
     }
 
 
     @Test
     public void queryNowHostSchedule(){
-        System.out.println(dao.queryNowHostSchedule());
+        System.out.println(dao.queryNowHostSchedule(2));
     }
 
 
     @Test
     public void queryNowRecommendSchedule(){
-        System.out.println(dao.queryNowRecommendSchedule(1));
+        System.out.println(dao.queryNowRecommendSchedule(2,1));
     }
 }

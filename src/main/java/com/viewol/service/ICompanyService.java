@@ -14,7 +14,7 @@ import java.util.List;
 public interface ICompanyService {
 
     //添加一个展商
-    int addCompany(Company company,List<String> categoryIds);
+    int addCompany(int expoId,Company company,List<String> categoryIds);
 
     //修改展商 categoryIds为空表示不做分类的修改
     int updateCompany(Company company,List<String> categoryIds);
@@ -28,7 +28,7 @@ public interface ICompanyService {
     List<Category> getCompanyCategory(int id);
 
     //查询推荐的展商
-    List<Company> queryRecommentCompany();
+    List<Company> queryRecommentCompany(int expoId);
 
 
     List<CompanyCategory> queryCompanyCategory(int companyId);
@@ -37,7 +37,10 @@ public interface ICompanyService {
     PageHolder<Company> queryCompany(CompanyQuery query);
 
     //前端使用的展商搜索
-    List<Company> listCompany(String keyWord,String categoryId,long lastSeq,int num);
+    List<Company> listCompany(int expoId,String keyWord,String categoryId,int award,long lastSeq,int num);
+
+    //前端使用的展商搜索
+    List<Company> listAwardCompany(int expoId,long lastSeq,int num);
 
     //删除推荐
     int delRecomment(int id);
@@ -51,5 +54,7 @@ public interface ICompanyService {
     int addTop(int id , int num);
 
     //查询推荐的展商
-    List<Company> queryTopCompany();
+    List<Company> queryTopCompany(int expoId);
+
+    int updateShow(int id, String show);
 }

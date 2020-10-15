@@ -35,7 +35,7 @@ public class ProductServiceImplTest extends BaseTestClass{
 
     @Test
     public void addProduct(){
-        System.out.println(service.addProduct(beanProduct()));
+        System.out.println(service.addProduct(2,beanProduct()));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ProductServiceImplTest extends BaseTestClass{
 
     @Test
     public void queryRecommentProduct(){
-        System.out.println(service.queryRecommentProduct());
+        System.out.println(service.queryRecommentProduct(2));
     }
 
 

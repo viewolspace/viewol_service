@@ -7,6 +7,7 @@ import com.viewol.pojo.query.CompanyQuery;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,9 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     private long getSeq(Company company){
 
+        Date date= new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmss");
+
         int id = company.getId();
 
         int num = company.getTopNum();
@@ -28,7 +32,7 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
             num = 100 - num;
         }
 
-        long seq = num * 1000000 + id;
+        long seq = num * 10000000000L + Long.parseLong(dateFormat.format(date));
 
         return seq;
     }
@@ -78,12 +82,15 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         Map<String,Object> map = new HashMap<>();
         map.put("categoryId",query.getCategoryId());
         map.put("name",query.getName());
+        map.put("expoId",query.getExpoId());
         return super.pagedQuery("findByParams",map,query.getPageIndex(),query.getPageSize());
     }
 
     @Override
-    public List<Company> queryRecommentCompany() {
-        return super.findBy("queryRecommentCompany",null);
+    public List<Company> queryRecommentCompany(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryRecommentCompany",map);
     }
 
     @Override
@@ -117,6 +124,8 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("categoryId",query.getCategoryId());
         map.put("lastSeq",query.getLastSeq());
         map.put("num",query.getPageSize());
+        map.put("expoId",query.getExpoId());
+        map.put("award",query.getAward());
         return super.findBy("listCompany",map);
     }
 
@@ -143,7 +152,46 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
     }
 
     @Override
-    public List<Company> queryTopCompany() {
-        return super.findBy("queryTopCompany",null);
+    public List<Company> queryTopCompany(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryTopCompany",map);
+    }
+
+    @Override
+    public int incSeeNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("seeNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
+
+    @Override
+    public int incPraiseNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("praiseNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
+
+    @Override
+    public int incCommentNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("commentNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
+
+    @Override
+    public int updateShow(int id, String showInfo) {
+        Date date = new Date();
+        Map<String,Object> map = new HashMap<>();
+        map.put("showInfo",showInfo);
+        map.put("id",id);
+        map.put("mTime",date);
+        int  result = super.updateBy("updateShow", map);
+        Company company = this.getCompany(id);
+        this.updateSeq(company);
+        return result;
     }
 }

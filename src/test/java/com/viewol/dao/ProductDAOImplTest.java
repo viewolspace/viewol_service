@@ -78,7 +78,7 @@ public class ProductDAOImplTest extends BaseTestClass{
 
     @Test
     public void queryRecommentProduct(){
-        System.out.println(dao.queryRecommentProduct());
+        System.out.println(dao.queryRecommentProduct(2));
     }
 
 
@@ -107,7 +107,7 @@ public class ProductDAOImplTest extends BaseTestClass{
 
     @Test
     public void queryTopProduct(){
-        System.out.println(dao.queryTopProduct());
+        System.out.println(dao.queryTopProduct(2));
     }
 
     @Test

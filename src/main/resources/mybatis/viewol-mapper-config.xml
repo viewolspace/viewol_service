@@ -37,6 +37,11 @@
         <typeAlias alias="WxToken" type="com.viewol.pojo.WxToken"/>
         <typeAlias alias="UserSession" type="com.viewol.pojo.UserSession"/>
         <typeAlias alias="Info" type="com.viewol.pojo.Info"/>
+        <typeAlias alias="ExpoCompany" type="com.viewol.pojo.ExpoCompany"/>
+        <typeAlias alias="ExpoProduct" type="com.viewol.pojo.ExpoProduct"/>
+        <typeAlias alias="UserInteract" type="com.viewol.pojo.UserInteract"/>
+        <typeAlias alias="ProductIdea" type="com.viewol.pojo.ProductIdea"/>
+        <typeAlias alias="BbsJoin" type="com.viewol.pojo.BbsJoin"/>
     </typeAliases>
 
     <plugins>
@@ -66,6 +71,11 @@
         <mapper resource="mybatis/wx_token_sqlmap.xml"/>
         <mapper resource="mybatis/user_session_sqlmap.xml"/>
         <mapper resource="mybatis/info_sqlmap.xml"/>
+        <mapper resource="mybatis/expo_company_sqlmap.xml"/>
+        <mapper resource="mybatis/expo_product_sqlmap.xml"/>
+        <mapper resource="mybatis/user_interact_sqlmap.xml"/>
+        <mapper resource="mybatis/product_idea_sqlmap.xml"/>
+        <mapper resource="mybatis/bbs_join_sqlmap.xml"/>
     </mappers>
 
 </configuration>

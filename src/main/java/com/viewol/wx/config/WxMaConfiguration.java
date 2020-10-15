@@ -6,9 +6,9 @@ import cn.binarywang.wx.miniapp.config.WxMaInMemoryConfig;
 import com.viewol.dao.IWxTokenDAO;
 import com.viewol.pojo.WxToken;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.annotation.Resource;
 
@@ -41,7 +41,7 @@ public class WxMaConfiguration {
 		return wxMaInMysqlConfig;
 	}
 
-	@Bean
+	@Bean("wxMaService")
 	public WxMaService wxMaService() {
 		WxMaService wxMaService = new WxMaServiceImpl();
 		wxMaService.setWxMaConfig(wxMaConfigStorage());

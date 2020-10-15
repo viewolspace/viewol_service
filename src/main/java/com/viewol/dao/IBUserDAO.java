@@ -20,6 +20,8 @@ public interface IBUserDAO {
 
     BUser getBUser(String openId);
 
+    BUser getBUserByUuid(String uuid);
+
     int addBUser(BUser user);
 
     int upDateBUser(BUser user);

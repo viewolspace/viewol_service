@@ -3,6 +3,7 @@ package com.viewol.service.impl;
 import com.viewol.dao.ICategoryDAO;
 import com.viewol.dao.ICompanyCategoryDAO;
 import com.viewol.dao.ICompanyDAO;
+import com.viewol.dao.IExpoCompanyDAO;
 import com.viewol.pojo.Category;
 import com.viewol.pojo.Company;
 import com.viewol.pojo.CompanyCategory;
@@ -26,6 +27,9 @@ public class CompanyServiceImpl implements ICompanyService {
     private ICompanyCategoryDAO companyCategoryDAO;
 
     @Resource
+    private IExpoCompanyDAO expoCompanyDAO;
+
+    @Resource
     private ICompanyDAO companyDAO;
 
     @Resource
@@ -33,7 +37,7 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Transactional("viewolTX")
     @Override
-    public int addCompany(Company company, List<String> categoryIds) {
+    public int addCompany(int expoId,Company company, List<String> categoryIds) {
         int id = companyDAO.addCompany(company);
         List<CompanyCategory> companyCategorys  = new ArrayList<>();
         for(String categoryId:categoryIds){
@@ -42,6 +46,7 @@ public class CompanyServiceImpl implements ICompanyService {
             cc.setCompanyId(id);
             companyCategorys.add(cc);
         }
+        expoCompanyDAO.saveExpoCompany(expoId,id);
         companyCategoryDAO.addCompanyCategoryList(companyCategorys);
         return id;
     }
@@ -66,9 +71,13 @@ public class CompanyServiceImpl implements ICompanyService {
         return result;
     }
 
+    @Transactional("viewolTX")
     @Override
     public int delCompany(int id) {
-        return companyDAO.delCompany(id);
+        int result = 0;
+        result = companyDAO.delCompany(id);
+        result = expoCompanyDAO.delExpoCompany(id);
+        return result;
     }
 
     @Override
@@ -95,8 +104,8 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public List<Company> queryRecommentCompany() {
-        return companyDAO.queryRecommentCompany();
+    public List<Company> queryRecommentCompany(int expoId) {
+        return companyDAO.queryRecommentCompany(expoId);
     }
 
     @Override
@@ -110,7 +119,7 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public List<Company> listCompany(String keyWord, String categoryId, long lastSeq, int num) {
+    public List<Company> listCompany(int expoId,String keyWord, String categoryId,int award, long lastSeq, int num) {
         if(lastSeq==0){
             lastSeq = Long.MAX_VALUE;
         }
@@ -119,7 +128,27 @@ public class CompanyServiceImpl implements ICompanyService {
         query.setName(keyWord);
         query.setCategoryId(categoryId);
         query.setPageSize(num);
+        query.setAward(award);
+        query.setExpoId(expoId);
         return companyDAO.listCompany(query);
+    }
+
+    @Override
+    public List<Company> listAwardCompany(int expoId, long lastSeq, int num) {
+        if(lastSeq==0){
+            lastSeq = Long.MAX_VALUE;
+        }
+        CompanyQuery query = new CompanyQuery();
+        query.setLastSeq(lastSeq);
+        query.setAward(1);
+        query.setPageSize(num);
+        query.setExpoId(expoId);
+        return companyDAO.listCompany(query);
+    }
+
+    @Override
+    public int updateShow(int id, String showInfo) {
+        return companyDAO.updateShow(id, showInfo);
     }
 
     @Override
@@ -138,7 +167,7 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public List<Company> queryTopCompany() {
-        return companyDAO.queryTopCompany();
+    public List<Company> queryTopCompany(int expoId) {
+        return companyDAO.queryTopCompany(expoId);
     }
 }

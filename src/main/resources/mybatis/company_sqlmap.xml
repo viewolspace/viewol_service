@@ -18,7 +18,11 @@
 				a.m_time,
 				a.seq,
 				a.award,
-				a.top_num
+				a.top_num,
+				a.see_num,
+				a.praise_num,
+				a.comment_num,
+				a.show_info
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
@@ -47,7 +51,8 @@
 						m_time,
 						seq,
 						award,
-						top_num
+						top_num,
+						show_info
 						)
 						VALUES
 						(
@@ -67,11 +72,29 @@
 						#{mTime},
 						#{seq},
 						#{award},
-						#{topNum}
+						#{topNum},
+						#{showInfo}
 						)
 
 	</insert>
 
+	<update id="updateInteractNum" parameterType="map">
+		UPDATE  viewol.company
+		<set>
+			<if test="seeNum != null  and seeNum != 0">
+				see_num = see_num+1,
+			</if>
+
+			<if test="praiseNum != null  and praiseNum != 0">
+				praise_num = praise_num+1,
+			</if>
+
+			<if test="commentNum != null  and commentNum != 0">
+				comment_num = comment_num+1,
+			</if>
+		</set>
+		where id = #{id}
+	</update>
 
 	<update id="update" parameterType="Company">
 		UPDATE viewol.company
@@ -91,11 +114,22 @@
 				m_time = #{mTime},
 				seq = #{seq},
 				award = #{award},
-				top_num=#{topNum}
+				top_num=#{topNum},
+				show_info=#{showInfo}
 
 				WHERE
 				id = #{id}
 	</update>
+
+	<update id="updateShow" parameterType="Company">
+		UPDATE viewol.company
+		SET
+		show_info=#{showInfo},
+		m_time = #{mTime}
+		WHERE
+		id = #{id}
+	</update>
+
 	<update id="updateRecommend" parameterType="map">
 		UPDATE  company set  is_recommend = #{isRecommend} , recommend_num = #{recommendNum} where id = #{id}
 	</update>
@@ -114,12 +148,12 @@
 
 	<select id="queryRecommentCompany" resultType="Company">
 		<include refid="selectCommon"></include>
-		from company a where is_recommend=1 order by recommend_num
+		from company a , expo_company b where a.id = b.company_id and b.expo_id=#{expoId} and a.is_recommend=1 order by recommend_num
 	</select>
 
 	<select id="queryTopCompany" resultType="Company">
 		<include refid="selectCommon"></include>
-		from company a where top_num>0 order by top_num
+		from company a , expo_company b where a.id = b.company_id and b.expo_id=#{expoId} and top_num>0 order by top_num
 	</select>
 
 	<!--管理平台使用查询展商-->
@@ -132,15 +166,26 @@
 		( SELECT  distinct company_id as company_id FROM company_category
 		<where>
 			<if test="categoryId != null and categoryId != '' ">
-				AND category_id = #{categoryId}
+				AND category_id LIKE concat(concat('%',#{categoryId}),'%')
 			</if>
 		</where>
-		) b
+		) b , expo_company c
 		<where>
+
 			a.id=b.company_id
+
+			and a.id = c.company_id
+
+			and c.expo_id = #{expoId}
+
 			<if test="name != null and name != '' ">
 				AND a.name LIKE concat(concat('%',#{name}),'%')
 			</if>
+
+			<if test="award != null and award != 0 ">
+				AND a.award = 1
+			</if>
+
 			<if test="lastSeq != null and lastSeq != 0 ">
 				<![CDATA[
 					AND a.seq < #{lastSeq}

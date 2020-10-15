@@ -8,6 +8,7 @@ import com.viewol.pojo.query.ProductQuery;
 import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +67,7 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         map.put("companyId",query.getCompanyId());
         map.put("name",query.getName());
         map.put("status",query.getStatus());
+        map.put("expoId",query.getExpoId());
         return super.pagedQuery("findByParams", map, query.getPageIndex(), query.getPageSize());
     }
 
@@ -103,12 +105,16 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         map.put("status",Product.STATUS_ON);
         map.put("num",query.getPageSize());
         map.put("lastSeq",query.getLastSeq());
+        map.put("expoId",query.getExpoId());
+        map.put("award",query.getAward());
         return this.findBy("listProduct",map);
     }
 
     @Override
-    public List<Product> queryRecommentProduct() {
-        return super.findBy("queryRecommentProduct",null);
+    public List<Product> queryRecommentProduct(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryRecommentProduct",map);
     }
 
 
@@ -122,11 +128,16 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     private long getSeq(Product product){
         int id = product.getId();
         int num = product.getTopNum();
+
+        Date date= new Date();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmss");
+
         if(num > 0 ){
             num = 100-num;
         }
 
-        long seq = num * 1000000 + id;
+        long seq = num * 10000000000L + Long.parseLong(dateFormat.format(date));
         return seq;
     }
 
@@ -164,8 +175,10 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     }
 
     @Override
-    public List<Product> queryTopProduct() {
-        return super.findBy("queryTopProduct",null);
+    public List<Product> queryTopProduct(int expoId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expoId",expoId);
+        return super.findBy("queryTopProduct",map);
     }
 
     @Override
@@ -173,5 +186,29 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         Map<String,Object> map = new HashMap<>();
         map.put("ids",ids);
         return super.findBy("listProductByIds",map);
+    }
+
+    @Override
+    public int incSeeNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("seeNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
+
+    @Override
+    public int incPraiseNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("praiseNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
+    }
+
+    @Override
+    public int incCommentNum(int id) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("commentNum",1);
+        map.put("id",id);
+        return super.updateBy("updateInteractNum", map);
     }
 }

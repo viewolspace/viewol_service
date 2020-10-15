@@ -5,7 +5,11 @@ import com.viewol.dao.ICompanyDAO;
 import com.viewol.dao.IRecommendScheduleDAO;
 import com.viewol.dao.IScheduleDAO;
 import com.viewol.dao.IScheduleUserDAO;
-import com.viewol.pojo.*;
+import com.viewol.pojo.Company;
+import com.viewol.pojo.RecommendSchedule;
+import com.viewol.pojo.Schedule;
+import com.viewol.pojo.ScheduleUser;
+import com.viewol.pojo.ScheduleVO;
 import com.viewol.pojo.query.RecommendScheduleQuery;
 import com.viewol.pojo.query.ScheduleQuery;
 import com.viewol.service.IScheduleService;
@@ -38,34 +42,33 @@ public class ScheduleServiceImpl implements IScheduleService {
 
 
     @Override
-    public boolean hasApplySchedule(int companyId) {
+    public boolean hasApplySchedule(int expoId, int companyId) {
         ScheduleQuery query = new ScheduleQuery();
         query.setCompanyId(companyId);
         query.setStatus(Schedule.STATUS_TRIAL);
-        List<Schedule> list =  scheduleDAO.listSchedule(query);
-        if(list!=null &&list.size()>0){
+        List<Schedule> list = scheduleDAO.listSchedule(expoId, query);
+        if (list != null && list.size() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
 
-
     @Override
-    public int applySchedule(int companyId, String title, String place, String content, String startTime, String endTime) {
+    public int applySchedule(int expoId, int companyId, String title, String place, String content, String startTime, String endTime) {
         //判断公司是否有权限申请活动
         Company company = companyDAO.getCompany(companyId);
-        if(company==null){
+        if (company == null) {
             return -1;
         }
-        if(company.getCanApply()==Company.CANAPPLY_NO){
+        if (company.getCanApply() == Company.CANAPPLY_NO) {
             return -98;
         }
 
         //判断公司今天申请的数量是否已经上限
 
-        if(this.comTodayNum(companyId) >= 2){
+        if (this.comTodayNum(companyId) >= 2) {
             return -99;
         }
 
@@ -80,23 +83,28 @@ public class ScheduleServiceImpl implements IScheduleService {
         schedule.setContentView(content);
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
-
-        return scheduleDAO.addSchedule(schedule);
+        schedule.setBbs(0); //1 论坛 0 其他
+        return scheduleDAO.addSchedule(expoId, schedule);
     }
 
     @Override
-    public int addSchedule(String title, String place, String content, String startTime, String endTime) {
+    public int addSchedule(int expoId, String title, String place, String content, String startTime, String endTime, Integer bbs) {
         Schedule schedule = new Schedule();
         schedule.setType(Schedule.TYPE_HOST);
         schedule.setStatus(Schedule.STATUS_OK);
         schedule.setCompanyId(-1);
-        schedule.setCompanyName(Schedule.HOSTNAME);
+        if (expoId == 1) {
+            schedule.setCompanyName(Schedule.SECURITY_HOSTNAME);
+        } else if (expoId == 2) {
+            schedule.setCompanyName(Schedule.FIRE_HOSTNAME);
+        }
         schedule.setPlace(place);
         schedule.setTitle(title);
         schedule.setContentView(content);
         schedule.setsTime(DateUtil.parseDate(startTime, DateUtil.FORMAT_FULL));
         schedule.seteTime(DateUtil.parseDate(endTime, DateUtil.FORMAT_FULL));
-        return scheduleDAO.addSchedule(schedule);
+        schedule.setBbs(bbs);
+        return scheduleDAO.addSchedule(expoId, schedule);
     }
 
     @Override
@@ -110,9 +118,9 @@ public class ScheduleServiceImpl implements IScheduleService {
 
         Schedule s = scheduleDAO.getSchedule(scheduleId);
 
-        if(s!=null){
-            ScheduleVO svo = JSON.parseObject(JSON.toJSONString(s),ScheduleVO.class);
-            if(userId<=0){
+        if (s != null) {
+            ScheduleVO svo = JSON.parseObject(JSON.toJSONString(s), ScheduleVO.class);
+            if (userId <= 0) {
                 return svo;
             }
             //放开展商的报名
@@ -123,22 +131,20 @@ public class ScheduleServiceImpl implements IScheduleService {
             svo.setApplyStatus(ScheduleVO.APPLY_STATUS_CAN); //主办方的可以参与
 
 
-            if(svo.geteTime().before(new Date())){//活动已经结束
+            if (svo.geteTime().before(new Date())) {//活动已经结束
                 svo.setApplyStatus(ScheduleVO.APPLY_STATUS_END);
                 return svo;
             }
 
-            boolean isjoin = this.isJoinSchedule(userId,scheduleId);
+            boolean isjoin = this.isJoinSchedule(userId, scheduleId);
 
-            if(isjoin){
+            if (isjoin) {
                 svo.setApplyStatus(ScheduleVO.APPLY_STATUS_YES);
             }
 
             return svo;
 
         }
-
-
 
 
         return null;
@@ -156,17 +162,17 @@ public class ScheduleServiceImpl implements IScheduleService {
 
     @Override
     public int updateStatus(int id, int status) {
-        return scheduleDAO.updateStatus(id,status);
+        return scheduleDAO.updateStatus(id, status);
     }
 
     @Override
     public int addRecommendSchedule(int type, int scheduleId, String startTime, String endTime) {
         //判断当前活动是否是展商 并且 是否是审核通过
         Schedule schedule = scheduleDAO.getSchedule(scheduleId);
-        if(schedule==null){
+        if (schedule == null) {
             return -1;
         }
-        if(schedule.getStatus()!=Schedule.STATUS_OK){
+        if (schedule.getStatus() != Schedule.STATUS_OK) {
             return -99;
         }
 
@@ -184,13 +190,13 @@ public class ScheduleServiceImpl implements IScheduleService {
     }
 
     @Override
-    public PageHolder<Schedule> querySchedule(ScheduleQuery query) {
-        return scheduleDAO.querySchedule(query);
+    public PageHolder<Schedule> querySchedule(int expoId, ScheduleQuery query) {
+        return scheduleDAO.querySchedule(expoId, query);
     }
 
     @Override
-    public PageHolder<ScheduleVO> queryRecommendSchedule(RecommendScheduleQuery query) {
-        return scheduleDAO.queryRecommendSchedule(query);
+    public PageHolder<ScheduleVO> queryRecommendSchedule(int expoId, RecommendScheduleQuery query) {
+        return scheduleDAO.queryRecommendSchedule(expoId, query);
     }
 
 
@@ -198,34 +204,35 @@ public class ScheduleServiceImpl implements IScheduleService {
     public PageHolder<ScheduleUser> queryScheduleUser(int scheduleId, int pageIndex, int pageSize) {
         return scheduleUserDAO.queryScheduleUser(scheduleId, pageIndex, pageSize);
     }
+
     //TODO 是否关注
     @Override
     public int applyJoin(int userId, int scheduleId, boolean needReminder) {
 
         Schedule schedule = scheduleDAO.getSchedule(scheduleId);
 
-        if(schedule==null){
+        if (schedule == null) {
             return -98;
         }
 
-        if(schedule.geteTime().before(new Date())){
+        if (schedule.geteTime().before(new Date())) {
             return -97;
         }
 
-        boolean isjoin = this.isJoinSchedule(userId,scheduleId);
+        boolean isjoin = this.isJoinSchedule(userId, scheduleId);
 
-        if(isjoin){
+        if (isjoin) {
             return -99;
         }
 
         ScheduleUser scheduleUser = new ScheduleUser();
         scheduleUser.setUserId(userId);
         scheduleUser.setScheduleId(scheduleId);
-        if(needReminder){
+        if (needReminder) {
             Date d = schedule.getsTime();
             Calendar c = Calendar.getInstance();
             c.setTime(d);
-            c.add(Calendar.MINUTE,-10);
+            c.add(Calendar.MINUTE, -10);
             scheduleUser.setReminderTime(c.getTime());
         }
 
@@ -235,29 +242,30 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public boolean isJoinSchedule(int userId, int scheduleId) {
         int result = scheduleUserDAO.isJoinSchedule(userId, scheduleId);
-        if(result>0){
+        if (result > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public List<Schedule> queryNowHostSchedule() {
-        return scheduleDAO.queryNowHostSchedule();
+    public List<Schedule> queryNowHostSchedule(int expoId) {
+        return scheduleDAO.queryNowHostSchedule(expoId);
     }
 
     @Override
-    public List<ScheduleVO> queryNowRecommendSchedule(int type) {
-        return scheduleDAO.queryNowRecommendSchedule(type);
+    public List<ScheduleVO> queryNowRecommendSchedule(int expoId, int type) {
+        return scheduleDAO.queryNowRecommendSchedule(expoId, type);
     }
 
 
     @Override
-    public List<Schedule> listSchedule(String time, String date, int type, String keyword,long seq, int num,
-                                       int companyId, int status,String endTime,String place) {
+    public List<Schedule> listSchedule(int expoId, int bbs, String time, String date, int type, String keyword, long seq, int num,
+                                       int companyId, int status, String endTime, String place) {
         ScheduleQuery query = new ScheduleQuery();
         query.setType(type);
+        query.setBbs(bbs);
         query.setSeq(seq);
         query.setTime(time);
         query.setEndTtime(endTime);
@@ -266,14 +274,14 @@ public class ScheduleServiceImpl implements IScheduleService {
         query.setPlace(place);
 
         //如果不是这三个状态，则查询全部
-        if(Schedule.STATUS_OK == status || Schedule.STATUS_TRIAL == status || Schedule.STATUS_BACK == status){
+        if (Schedule.STATUS_OK == status || Schedule.STATUS_TRIAL == status || Schedule.STATUS_BACK == status) {
             query.setStatus(status);
         }
 
         query.setCompanyId(companyId);
         query.setPageSize(num);
 
-        return scheduleDAO.listSchedule(query);
+        return scheduleDAO.listSchedule(expoId, query);
     }
 
     @Override
@@ -289,5 +297,10 @@ public class ScheduleServiceImpl implements IScheduleService {
     @Override
     public List<ScheduleUser> queryNeedReminder() {
         return scheduleUserDAO.queryNeedReminder();
+    }
+
+    @Override
+    public List<Schedule> queryUserSchedule(int userId, int startNum, int pageSize) {
+        return scheduleUserDAO.queryUserSchedule(userId, startNum, pageSize);
     }
 }

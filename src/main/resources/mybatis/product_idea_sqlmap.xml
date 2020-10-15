@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductIdea">
+	<sql id="selectCommon">
+		SELECT 	product_id,
+				product_name,
+				company_id,
+				company_name,
+				company_place,
+				liaison_man,
+				phone,
+				land_line,
+				website,
+				email,
+				category_id,
+				other_category,
+				logo,
+				des,
+				quota,
+				idea_point,
+				extend,
+				product_pic,
+				com_logo,
+				ext,
+				c_time,
+				m_time,
+				model,
+				status,
+				promise_pic
+	</sql>
+
+	<sql id="selectPage">
+		SELECT 	a.product_id,
+				a.product_name,
+				a.company_id,
+				a.company_name,
+				a.company_place,
+				a.liaison_man,
+				a.phone,
+				a.land_line,
+				a.website,
+				a.email,
+				a.category_id,
+				a.other_category,
+				a.logo,
+				a.des,
+				a.quota,
+				a.idea_point,
+				a.extend,
+				a.product_pic,
+				a.com_logo,
+				a.ext,
+				a.c_time,
+				a.m_time,
+				a.model,
+				a.status,
+				a.promise_pic,
+				b.praise_num,
+				b.see_num,
+				b.comment_num
+	</sql>
+
+	<select id="select" parameterType="int" resultType="ProductIdea">
+		<include refid="selectCommon"/>
+
+		from viewol.product_idea a where product_id = #{productId}
+	</select>
+
+
+	<insert id="insert" parameterType="ProductIdea"  >
+
+			INSERT INTO viewol.product_idea
+								(product_id,
+								product_name,
+								company_id,
+								company_name,
+								company_place,
+								liaison_man,
+								phone,
+								land_line,
+								website,
+								email,
+								category_id,
+								other_category,
+								logo,
+								des,
+								quota,
+								idea_point,
+								extend,
+								product_pic,
+								com_logo,
+								ext,
+								c_time,
+								m_time,
+								model,
+								status,
+								promise_pic
+								)
+								VALUES
+								(
+								#{productId},
+								#{productName},
+								#{companyId},
+								#{companyName},
+								#{companyPlace},
+								#{liaisonMan},
+								#{phone},
+								#{landLine},
+								#{website},
+								#{email},
+								#{categoryId},
+								#{otherCategory},
+								#{logo},
+								#{des},
+								#{quota},
+								#{ideaPoint},
+								#{extend},
+								#{productPic},
+								#{comLogo},
+								#{ext},
+								#{cTime},
+								#{mTime},
+								#{model},
+								#{status},
+								#{promisePic}
+								)
+
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from viewol.product_idea where product_id = #{productId}
+	</delete>
+	<update id="update" parameterType="ProductIdea">
+
+		UPDATE viewol.product_idea
+			SET
+			product_id = #{productId} ,
+			product_name = #{productName} ,
+			company_id = #{companyId} ,
+			company_name = #{companyName} ,
+			company_place = #{companyPlace} ,
+			liaison_man = #{liaisonMan} ,
+			phone = #{phone} ,
+			land_line = #{landLine} ,
+			website = #{website} ,
+			email = #{email} ,
+			category_id = #{categoryId} ,
+			other_category = #{otherCategory} ,
+			logo = #{logo} ,
+			des = #{des} ,
+			quota = #{quota} ,
+			idea_point = #{ideaPoint} ,
+			extend = #{extend} ,
+			product_pic = #{productPic} ,
+			com_logo = #{comLogo} ,
+			ext = #{ext} ,
+			c_time = #{cTime} ,
+			m_time = #{mTime} ,
+			model = #{model} ,
+			status = #{status},
+			promise_pic = #{promisePic}
+
+			WHERE
+			product_id = #{productId}
+
+
+	</update>
+
+
+
+	<update id="updateStatus" parameterType="map">
+		UPDATE  product_idea set  status = #{status}  where product_id = #{productId}
+	</update>
+
+
+
+	<!--管理平台使用查询展商-->
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM product_idea a, product b
+		<where>
+			a.product_id=b.id
+			<if test="status != null">
+				and a.status = #{status}
+			</if>
+
+			<if test="productName != null and productName != ''">
+				AND a.product_name LIKE concat(concat('%',#{productName}),'%')
+			</if>
+		</where>
+
+	</sql>
+
+	<sql id="sql_order">
+		order by b.praise_num desc
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="ProductIdea">
+		<include refid="selectPage" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+	<select id="countByCompanyId" parameterType="int" resultType="int">
+		select count(*) from product_idea where company_id=#{companyId}
+	</select>
+</mapper>

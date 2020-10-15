@@ -16,7 +16,11 @@
 				a.m_time,
 				a.seq,
 				a.re_img,
-				a.top_num
+				a.top_num,
+				a.see_num,
+				a.praise_num,
+				a.comment_num,
+				a.award
 	</sql>
 	<select id="select" parameterType="int" resultType="Product">
 		<include refid="selectCommon"/>
@@ -112,18 +116,40 @@
 		UPDATE  product set  seq = #{seq} where id = #{id}
 	</update>
 
+
+	<update id="updateInteractNum" parameterType="map">
+		UPDATE  viewol.product
+		<set>
+			<if test="seeNum != null  and seeNum != 0">
+				see_num = see_num+1,
+			</if>
+
+			<if test="praiseNum != null  and praiseNum != 0">
+				praise_num = praise_num+1,
+			</if>
+
+			<if test="commentNum != null  and commentNum != 0">
+				comment_num = comment_num+1,
+			</if>
+		</set>
+		 where id = #{id}
+	</update>
+
+
 	<update id="updateStatus" parameterType="map">
 		UPDATE  product set  status = #{status}   where id = #{id}
 	</update>
 
-	<select id="queryRecommentProduct" resultType="Product">
+	<select id="queryRecommentProduct" resultType="Product" parameterType="map">
 		<include refid="selectCommon"></include>
-		from product a where is_recommend=1 order by recommend_num
+		from product a , expo_product b where a.id = b.product_id
+		and b.expo_id = #{expoId} and is_recommend=1 order by recommend_num
 	</select>
 
-	<select id="queryTopProduct" resultType="Product">
+	<select id="queryTopProduct" resultType="Product" parameterType="map">
 		<include refid="selectCommon"></include>
-		from product a where top_num > 0  order by top_num
+		from product a , expo_product b where a.id = b.product_id
+		and b.expo_id = #{expoId} and top_num > 0  order by top_num
 	</select>
 
 	<delete id="delete" parameterType="int">
@@ -136,8 +162,11 @@
 	</sql>
 
 	<sql id="sql_where">
-		FROM product a
+		FROM product a , expo_product b
 		<where>
+			a.id = b.product_id
+			and b.expo_id = #{expoId}
+
 			<if test="status != null">
 				and status = #{status}
 			</if>
@@ -153,7 +182,11 @@
 			</if>
 
 			<if test="categoryId != null and categoryId != ''">
-				and category_id = #{categoryId}
+				and category_id  LIKE concat(concat('%',#{categoryId}),'%')
+			</if>
+
+			<if test="award != null and award != 0">
+				and award =1
 			</if>
 
 			<if test="name != null and name != ''">

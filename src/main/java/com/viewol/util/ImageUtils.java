@@ -74,7 +74,7 @@ public class ImageUtils {
                 e.printStackTrace();
             }
             String imageUrl = properties.getProperty("imageUrl");
-            if(!"".equals(imageUrl)){
+            if(!"".equals(imageUrl) && !url.startsWith("http")){
                 result = imageUrl + url;
             } else {
                 result = url;

@@ -25,12 +25,15 @@ public class ScheduleQuery {
 
     private String keyword;
 
+    private Integer bbs;
+
     private long seq;
+
+    private int expoId = 1;
 
     private int pageIndex = 1;
 
     private int pageSize = 20;
-
 
     public String getTime() {
         return time;
@@ -118,5 +121,21 @@ public class ScheduleQuery {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public int getExpoId() {
+        return expoId;
+    }
+
+    public void setExpoId(int expoId) {
+        this.expoId = expoId;
+    }
+
+    public Integer getBbs() {
+        return bbs;
+    }
+
+    public void setBbs(Integer bbs) {
+        this.bbs = bbs;
     }
 }

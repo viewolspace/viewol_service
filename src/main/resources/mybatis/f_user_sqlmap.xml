@@ -15,7 +15,8 @@
 					a.m_time,
 					a.UUID,
 					a.company_id,
-					a.head_img_url
+					a.head_img_url,
+					a.user_join
 
 	</sql>
 
@@ -35,7 +36,8 @@
         m_time,
         UUID,
         company_id,
-        head_img_url
+        head_img_url,
+        user_join
         )
         VALUES
         (
@@ -49,7 +51,8 @@
         #{mTime},
         #{uuid},
         #{companyId},
-        #{headImgUrl}
+        #{headImgUrl},
+        #{userJoin}
         )
 
     </insert>
@@ -78,7 +81,8 @@
 				m_time = #{mTime} ,
 				UUID = #{uuid} ,
 				company_id = #{companyId},
-				head_img_url = #{headImgUrl}
+				head_img_url = #{headImgUrl},
+				user_join=#{userJoin}
 				WHERE
 				user_id = #{userId} ;
 

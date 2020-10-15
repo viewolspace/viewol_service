@@ -13,6 +13,17 @@ public class Info implements Comparable<Info> {
     private Date createTime;
     private String md5Str;
 
+    private int status;
+
+    private Date mTime;
+
+    private String content;
+
+    private int classify;
+
+    private int companyId;
+    private int site;
+
     public int getId() {
         return id;
     }
@@ -84,5 +95,53 @@ public class Info implements Comparable<Info> {
             return 1;
         }
         return -1;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Date getmTime() {
+        return mTime;
+    }
+
+    public void setmTime(Date mTime) {
+        this.mTime = mTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getClassify() {
+        return classify;
+    }
+
+    public void setClassify(int classify) {
+        this.classify = classify;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public int getSite() {
+        return site;
+    }
+
+    public void setSite(int site) {
+        this.site = site;
     }
 }

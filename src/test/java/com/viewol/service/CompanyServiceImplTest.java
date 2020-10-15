@@ -40,7 +40,7 @@ public class CompanyServiceImplTest extends BaseTestClass{
         categoryIds.add("00010003");
 
 
-        System.out.println(service.addCompany(beanCompany(),categoryIds));
+        System.out.println(service.addCompany(2,beanCompany(),categoryIds));
 
     }
 
@@ -64,12 +64,13 @@ public class CompanyServiceImplTest extends BaseTestClass{
     @Test
     public void queryCompany(){
         CompanyQuery query = new CompanyQuery();
+        query.setExpoId(2);
         System.out.println(service.queryCompany(query));
     }
 
     @Test
     public void queryRecommentCompany(){
-        System.out.println(service.queryRecommentCompany());
+        System.out.println(service.queryRecommentCompany(1));
     }
 
     @Test
@@ -85,7 +86,7 @@ public class CompanyServiceImplTest extends BaseTestClass{
 
     @Test
     public void listCompany(){
-        System.out.println(service.listCompany(null,null,0,10));
+//        System.out.println(service.listCompany(2,null,null,0,10));
     }
 
 
@@ -113,7 +114,7 @@ public class CompanyServiceImplTest extends BaseTestClass{
                 categoryIds.add("00010001");
 
 
-                service.addCompany(company,categoryIds);
+                service.addCompany(2,company,categoryIds);
             }
         } catch (IOException e) {
             e.printStackTrace();
