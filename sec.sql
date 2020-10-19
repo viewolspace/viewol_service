@@ -156,3 +156,33 @@ alter table `viewol`.`schedule`
 
 
 ---------2019-10-09-----------------
+
+
+
+-----------20201015----------------------
+
+CREATE TABLE `product_idea_new` (
+  `product_id` INT(11) NOT NULL,
+  `company_id` INT(11) NOT NULL,
+  `company_name` VARCHAR(200) NOT NULL,
+  `product_name` VARCHAR(200) NOT NULL,
+  `address` VARCHAR(200) NOT NULL COMMENT '通信地址和邮编',
+  `phone` VARCHAR(200) NOT NULL  COMMENT '联系人及移动电话',
+  `category_id` VARCHAR(200) NOT NULL COMMENT '产品类别',
+  `other_category` varchar(255) NULL COMMENT '自定义产品类别' ,
+  `des` VARCHAR(200) NOT NULL COMMENT '申报消防技术产品的具体名称和规格、型号（每张申报表填写1项）',
+  `quota` VARCHAR(200) NOT NULL COMMENT '采用了哪些新技术、新材料、新工艺，实现了哪些新功能或者开辟了哪些新的应用领域',
+  `idea_point` VARCHAR(200) NOT NULL COMMENT '与同类技术产品比较，主要包括：性价比，适用性，安全性、可靠性，市场和应用前景如何',
+  `achievement` VARCHAR(200) NOT NULL COMMENT '2019年1月1日至今，获得的发明专利或实用新型专利授权、软件著作权等',
+  `achievement_zip` VARCHAR(200) NOT NULL COMMENT '专利，软著相关图片，多个请合并到一个图片上传',
+  `standard` VARCHAR(200) NOT NULL COMMENT '针对申报的消防技术产品，是否已经编制发布了企业标准，标准名称、发布时间及编号',
+  `core` VARCHAR(200) NOT NULL COMMENT '何时通过何种评价机构和评定方式，证明核心、关键技术指标达到国内领先或国际先进水平',
+  `core_pic` VARCHAR(200) NOT NULL COMMENT '相关证明，多个图片合并',
+  `promise_pic` varchar(255) NULL COMMENT '申报单位承诺，加盖图片地址',
+  `product_pic` VARCHAR(200) NOT NULL COMMENT '展品图片',
+  `com_logo` VARCHAR(200) NOT NULL COMMENT '公司logo',
+  `status` INT(11) NOT NULL,
+  `c_time` DATETIME NULL DEFAULT NULL,
+  `m_time` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`product_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
