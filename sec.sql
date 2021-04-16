@@ -186,3 +186,10 @@ CREATE TABLE `product_idea_new` (
   `m_time` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`product_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_bin CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
+
+
+-----------20210412----------------------
+alter table `viewol`.`company`
+   add column `user_num` varchar(100) NULL COMMENT '企业信用代码' after `show_info`;
+
+CREATE INDEX idx_user_num ON company(user_num);

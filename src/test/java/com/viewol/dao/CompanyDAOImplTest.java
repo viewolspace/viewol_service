@@ -22,6 +22,7 @@ public class CompanyDAOImplTest extends BaseTestClass{
         company.setIsRecommend(0);
         company.setProductNum(5);
         company.setContent("233123123123123");
+        company.setUserNum("12345678");
         return company;
     }
 
@@ -90,7 +91,10 @@ public class CompanyDAOImplTest extends BaseTestClass{
         System.out.println(dao.queryTopCompany(2));
     }
 
-
+    @Test
+    public void getCompanyByUserNum(){
+        System.out.println(dao.getCompanyByUserNum("12345678"));
+    }
 
 
 }

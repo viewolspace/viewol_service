@@ -194,4 +194,12 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         this.updateSeq(company);
         return result;
     }
+
+
+    @Override
+    public Company getCompanyByUserNum(String userNum) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userNum",userNum);
+        return super.findUniqueBy("getCompanyByUserName",map);
+    }
 }

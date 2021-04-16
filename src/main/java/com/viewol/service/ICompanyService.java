@@ -57,4 +57,6 @@ public interface ICompanyService {
     List<Company> queryTopCompany(int expoId);
 
     int updateShow(int id, String show);
+
+    Company getCompanyByUserNum(String userNum);
 }

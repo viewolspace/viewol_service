@@ -39,6 +39,7 @@ public class Company {
     private String bannerView;
     private String imageView;
     private String contentView;
+    private String userNum;
 
     public Integer getId() {
         return id;
@@ -222,6 +223,14 @@ public class Company {
 
     public void setTopNum(int topNum) {
         this.topNum = topNum;
+    }
+
+    public String getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(String userNum) {
+        this.userNum = userNum;
     }
 
     @Override

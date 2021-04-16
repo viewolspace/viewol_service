@@ -22,13 +22,22 @@
 				a.see_num,
 				a.praise_num,
 				a.comment_num,
-				a.show_info
+				a.show_info,
+				a.user_num
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
 		,a.content
 		from viewol.company a where id = #{id}
 	</select>
+
+
+	<select id="getCompanyByUserName" parameterType="String" resultType="Company">
+		<include refid="selectCommon"/>
+		,a.content
+		from viewol.company a where user_num = #{userNum}
+	</select>
+
 	<insert id="insert" parameterType="Company"  useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		<selectKey keyProperty="id" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -52,7 +61,8 @@
 						seq,
 						award,
 						top_num,
-						show_info
+						show_info,
+						user_num
 						)
 						VALUES
 						(
@@ -73,7 +83,8 @@
 						#{seq},
 						#{award},
 						#{topNum},
-						#{showInfo}
+						#{showInfo},
+						#{userNum}
 						)
 
 	</insert>
@@ -115,7 +126,8 @@
 				seq = #{seq},
 				award = #{award},
 				top_num=#{topNum},
-				show_info=#{showInfo}
+				show_info=#{showInfo},
+				user_num=#{userNum}
 
 				WHERE
 				id = #{id}

@@ -57,4 +57,7 @@ public interface ICompanyDAO {
     int incCommentNum(int id);
 
     int updateShow(int id ,String showInfo);
+
+
+    Company getCompanyByUserNum(String userNum);
 }

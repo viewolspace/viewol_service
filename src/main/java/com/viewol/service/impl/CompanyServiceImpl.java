@@ -170,4 +170,9 @@ public class CompanyServiceImpl implements ICompanyService {
     public List<Company> queryTopCompany(int expoId) {
         return companyDAO.queryTopCompany(expoId);
     }
+
+    @Override
+    public Company getCompanyByUserNum(String userNum) {
+        return companyDAO.getCompanyByUserNum(userNum);
+    }
 }
