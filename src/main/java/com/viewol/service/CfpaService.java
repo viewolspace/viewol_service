@@ -38,4 +38,10 @@ public interface CfpaService {
      */
     List<CfpaCompany> queryAllCfpaProduct();
 
+    /**
+     * 下载图片地址
+     * @param path 相对路径
+     * @return
+     */
+    void downloadImg(String path);
 }

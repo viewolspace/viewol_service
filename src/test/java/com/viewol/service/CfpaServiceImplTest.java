@@ -37,4 +37,9 @@ public class CfpaServiceImplTest extends BaseTestClass {
         List<CfpaCompany> list = service.queryAllCfpaProduct();
         System.out.println(JSONObject.toJSONString(list));
     }
+
+    @Test
+    public void downloadImg(){
+        service.downloadImg("/80EED08DC4A230D2E055000000000001/yyzz20190203025615.jpg");
+    }
 }
