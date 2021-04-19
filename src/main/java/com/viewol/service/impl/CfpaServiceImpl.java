@@ -139,7 +139,7 @@ public class CfpaServiceImpl implements CfpaService {
             }
             sf = new File(savePath);
 
-            OutputStream os = new FileOutputStream(sf.getPath()+path);
+            OutputStream os = new FileOutputStream(sf.getPath() + "/" + path);
             // 开始读取
             while ((len = is.read(bs)) != -1) {
                 os.write(bs, 0, len);

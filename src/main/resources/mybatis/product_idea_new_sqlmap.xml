@@ -154,7 +154,7 @@
 
 
 	<update id="updateStatus" parameterType="map">
-		UPDATE  product_idea_new set  status = #{status}  where product_id = #{productId}
+		UPDATE  viewol.product_idea_new set  status = #{status}  where product_id = #{productId}
 	</update>
 
 
@@ -165,7 +165,7 @@
 	</sql>
 
 	<sql id="sql_where">
-		FROM product_idea_new a, product b
+		FROM viewol.product_idea_new a, viewol.product b
 		<where>
 			a.product_id=b.id
 			<if test="status != null">
@@ -194,6 +194,6 @@
 	</select>
 
 	<select id="countByCompanyId" parameterType="int" resultType="int">
-		select count(*) from product_idea_new where company_id=#{companyId}
+		select count(*) from viewol.product_idea_new where company_id=#{companyId}
 	</select>
 </mapper>
