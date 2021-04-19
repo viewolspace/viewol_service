@@ -57,6 +57,6 @@ public class ProductIdeaNewDAOImpl extends BaseDAO<ProductIdeaNew> implements IP
 
     @Override
     public int countByCompanyId(int companyId) {
-        return super.count("countByCompanyId", companyId);
+        return super.count("countByCompanyId11", companyId);
     }
 }
