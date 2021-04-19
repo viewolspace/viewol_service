@@ -15,6 +15,13 @@ public interface ICompanyDAO {
 
     int updateCompany(Company company);
 
+    /**
+     * 根据统一信用代码更新
+     * @param company
+     * @return
+     */
+    int updateByUserNum(Company company);
+
     int delCompany(int id);
 
     Company getCompany(int id);

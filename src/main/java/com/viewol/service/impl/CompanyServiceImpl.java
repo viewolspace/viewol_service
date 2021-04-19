@@ -37,16 +37,16 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Transactional("viewolTX")
     @Override
-    public int addCompany(int expoId,Company company, List<String> categoryIds) {
+    public int addCompany(int expoId, Company company, List<String> categoryIds) {
         int id = companyDAO.addCompany(company);
-        List<CompanyCategory> companyCategorys  = new ArrayList<>();
-        for(String categoryId:categoryIds){
+        List<CompanyCategory> companyCategorys = new ArrayList<>();
+        for (String categoryId : categoryIds) {
             CompanyCategory cc = new CompanyCategory();
             cc.setCategoryId(categoryId);
             cc.setCompanyId(id);
             companyCategorys.add(cc);
         }
-        expoCompanyDAO.saveExpoCompany(expoId,id);
+        expoCompanyDAO.saveExpoCompany(expoId, id);
         companyCategoryDAO.addCompanyCategoryList(companyCategorys);
         return id;
     }
@@ -55,11 +55,11 @@ public class CompanyServiceImpl implements ICompanyService {
     @Override
     public int updateCompany(Company company, List<String> categoryIds) {
         int result = companyDAO.updateCompany(company);
-        if(result>0){
-            if(categoryIds!=null && categoryIds.size()>0){
+        if (result > 0) {
+            if (categoryIds != null && categoryIds.size() > 0) {
                 companyCategoryDAO.delAllCompanyCategory(company.getId());
-                List<CompanyCategory> companyCategorys  = new ArrayList<>();
-                for(String categoryId:categoryIds){
+                List<CompanyCategory> companyCategorys = new ArrayList<>();
+                for (String categoryId : categoryIds) {
                     CompanyCategory cc = new CompanyCategory();
                     cc.setCategoryId(categoryId);
                     cc.setCompanyId(company.getId());
@@ -69,6 +69,11 @@ public class CompanyServiceImpl implements ICompanyService {
             }
         }
         return result;
+    }
+
+    @Override
+    public int updateByUserNum(Company company) {
+        return companyDAO.updateByUserNum(company);
     }
 
     @Transactional("viewolTX")
@@ -89,8 +94,8 @@ public class CompanyServiceImpl implements ICompanyService {
     public List<Category> getCompanyCategory(int id) {
         List<CompanyCategory> list = companyCategoryDAO.queryCategory(id);
         List<String> ids = new ArrayList<>();
-        if(list!=null && list.size()>0){
-            for(CompanyCategory companyCategory:list){
+        if (list != null && list.size() > 0) {
+            for (CompanyCategory companyCategory : list) {
                 ids.add(companyCategory.getCategoryId());
             }
             return categoryDAO.listCategorys(ids);
@@ -114,13 +119,13 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public int addRecomment(int id,int num) {
-        return companyDAO.addRecomment(id,num);
+    public int addRecomment(int id, int num) {
+        return companyDAO.addRecomment(id, num);
     }
 
     @Override
-    public List<Company> listCompany(int expoId,String keyWord, String categoryId,int award, long lastSeq, int num) {
-        if(lastSeq==0){
+    public List<Company> listCompany(int expoId, String keyWord, String categoryId, int award, long lastSeq, int num) {
+        if (lastSeq == 0) {
             lastSeq = Long.MAX_VALUE;
         }
         CompanyQuery query = new CompanyQuery();
@@ -135,7 +140,7 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public List<Company> listAwardCompany(int expoId, long lastSeq, int num) {
-        if(lastSeq==0){
+        if (lastSeq == 0) {
             lastSeq = Long.MAX_VALUE;
         }
         CompanyQuery query = new CompanyQuery();

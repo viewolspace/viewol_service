@@ -19,16 +19,16 @@ import java.util.Map;
 @Repository("companyDAO")
 public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
-    private long getSeq(Company company){
+    private long getSeq(Company company) {
 
-        Date date= new Date();
+        Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmss");
 
         int id = company.getId();
 
         int num = company.getTopNum();
 
-        if(num > 0 ){
+        if (num > 0) {
             num = 100 - num;
         }
 
@@ -36,13 +36,14 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
         return seq;
     }
-    private int  updateSeq(Company company ){
+
+    private int updateSeq(Company company) {
 
         long seq = this.getSeq(company);
-        Map<String,Object> map = new HashMap<>();
-        map.put("seq",seq);
-        map.put("id",company.getId());
-        return super.updateBy("updateSeq",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("seq", seq);
+        map.put("id", company.getId());
+        return super.updateBy("updateSeq", map);
 
     }
 
@@ -52,10 +53,10 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         company.setcTime(d);
         company.setmTime(d);
         int result = super.insert(company);
-        if(result>0){
+        if (result > 0) {
             this.updateSeq(company);
             return company.getId();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -65,6 +66,13 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         company.setmTime(new Date());
         company.setSeq(this.getSeq(company));
         return super.update(company);
+    }
+
+    @Override
+    public int updateByUserNum(Company company) {
+        company.setmTime(new Date());
+        company.setSeq(this.getSeq(company));
+        return super.updateBy("updateByUserNum", company);
     }
 
     @Override
@@ -79,39 +87,39 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     @Override
     public PageHolder<Company> queryCompany(CompanyQuery query) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("categoryId",query.getCategoryId());
-        map.put("name",query.getName());
-        map.put("expoId",query.getExpoId());
-        return super.pagedQuery("findByParams",map,query.getPageIndex(),query.getPageSize());
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryId", query.getCategoryId());
+        map.put("name", query.getName());
+        map.put("expoId", query.getExpoId());
+        return super.pagedQuery("findByParams", map, query.getPageIndex(), query.getPageSize());
     }
 
     @Override
     public List<Company> queryRecommentCompany(int expoId) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("expoId",expoId);
-        return super.findBy("queryRecommentCompany",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("expoId", expoId);
+        return super.findBy("queryRecommentCompany", map);
     }
 
     @Override
     public int delRecomment(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("isRecommend",Company.ISRECOMMEND_NO);
-        map.put("recommendNum",0);
-        int result = super.updateBy("updateRecommend",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("isRecommend", Company.ISRECOMMEND_NO);
+        map.put("recommendNum", 0);
+        int result = super.updateBy("updateRecommend", map);
         Company company = this.getCompany(id);
         this.updateSeq(company);
         return result;
     }
 
     @Override
-    public int addRecomment(int id,int num) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("isRecommend",Company.ISRECOMMEND_YES);
-        map.put("recommendNum",num);
-        int result = super.updateBy("updateRecommend",map);
+    public int addRecomment(int id, int num) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("isRecommend", Company.ISRECOMMEND_YES);
+        map.put("recommendNum", num);
+        int result = super.updateBy("updateRecommend", map);
         Company company = this.getCompany(id);
         this.updateSeq(company);
         return result;
@@ -119,22 +127,22 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     @Override
     public List<Company> listCompany(CompanyQuery query) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("name",query.getName());
-        map.put("categoryId",query.getCategoryId());
-        map.put("lastSeq",query.getLastSeq());
-        map.put("num",query.getPageSize());
-        map.put("expoId",query.getExpoId());
-        map.put("award",query.getAward());
-        return super.findBy("listCompany",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", query.getName());
+        map.put("categoryId", query.getCategoryId());
+        map.put("lastSeq", query.getLastSeq());
+        map.put("num", query.getPageSize());
+        map.put("expoId", query.getExpoId());
+        map.put("award", query.getAward());
+        return super.findBy("listCompany", map);
     }
 
     @Override
     public int delTop(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("topNum",0);
-        int result = super.updateBy("updateTopNum",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("topNum", 0);
+        int result = super.updateBy("updateTopNum", map);
         Company company = this.getCompany(id);
         this.updateSeq(company);
         return result;
@@ -142,10 +150,10 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     @Override
     public int addTop(int id, int num) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("topNum",num);
-        int result = super.updateBy("updateTopNum",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("topNum", num);
+        int result = super.updateBy("updateTopNum", map);
         Company company = this.getCompany(id);
         this.updateSeq(company);
         return result;
@@ -153,43 +161,43 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     @Override
     public List<Company> queryTopCompany(int expoId) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("expoId",expoId);
-        return super.findBy("queryTopCompany",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("expoId", expoId);
+        return super.findBy("queryTopCompany", map);
     }
 
     @Override
     public int incSeeNum(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("seeNum",1);
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("seeNum", 1);
+        map.put("id", id);
         return super.updateBy("updateInteractNum", map);
     }
 
     @Override
     public int incPraiseNum(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("praiseNum",1);
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("praiseNum", 1);
+        map.put("id", id);
         return super.updateBy("updateInteractNum", map);
     }
 
     @Override
     public int incCommentNum(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("commentNum",1);
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("commentNum", 1);
+        map.put("id", id);
         return super.updateBy("updateInteractNum", map);
     }
 
     @Override
     public int updateShow(int id, String showInfo) {
         Date date = new Date();
-        Map<String,Object> map = new HashMap<>();
-        map.put("showInfo",showInfo);
-        map.put("id",id);
-        map.put("mTime",date);
-        int  result = super.updateBy("updateShow", map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("showInfo", showInfo);
+        map.put("id", id);
+        map.put("mTime", date);
+        int result = super.updateBy("updateShow", map);
         Company company = this.getCompany(id);
         this.updateSeq(company);
         return result;
@@ -198,8 +206,8 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
 
     @Override
     public Company getCompanyByUserNum(String userNum) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("userNum",userNum);
-        return super.findUniqueBy("getCompanyByUserName",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("userNum", userNum);
+        return super.findUniqueBy("getCompanyByUserName", map);
     }
 }

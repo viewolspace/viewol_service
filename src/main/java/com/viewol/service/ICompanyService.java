@@ -19,6 +19,13 @@ public interface ICompanyService {
     //修改展商 categoryIds为空表示不做分类的修改
     int updateCompany(Company company,List<String> categoryIds);
 
+    /**
+     * 根据统一信用代码更新
+     * @param company
+     * @return
+     */
+    int updateByUserNum(Company company);
+
     int delCompany(int id);
 
     //获取展商
