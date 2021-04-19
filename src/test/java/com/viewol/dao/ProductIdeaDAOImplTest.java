@@ -59,6 +59,11 @@ public class ProductIdeaDAOImplTest extends BaseTestClass{
         System.out.println(dao.updateStatus(1, 1));
     }
 
+    @Test
+    public void count(){
+        System.out.println(dao.countByCompanyId(1));
+    }
+
 
     @Test
     public void get(){

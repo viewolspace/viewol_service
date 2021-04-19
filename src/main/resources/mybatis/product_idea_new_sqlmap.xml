@@ -193,7 +193,7 @@
 		<include refid="sql_order" />
 	</select>
 
-	<select id="countByCompanyId" parameterType="int" resultType="int">
-		select count(*) from viewol.product_idea_new where company_id=#{companyId}
+	<select id="countByCompanyId11" parameterType="int" resultType="int">
+		select count(*) from product_idea_new where company_id=#{companyId}
 	</select>
 </mapper>
