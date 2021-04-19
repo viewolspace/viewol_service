@@ -13,6 +13,8 @@ public interface IProductService {
 
     Product getProduct(int id);
 
+    Product selectByUuid(String uuid);
+
     /**
      * -98 展商不存在
      * -99 超过允许添加产品的上限

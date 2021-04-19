@@ -1,5 +1,7 @@
 package com.viewol.pojo;
 
+import java.util.List;
+
 public class CfpaCompany {
     private String tyshxydm;//	统一信用代码（唯一标识）
     private String zwgsmc;//	公司中文名称
@@ -12,6 +14,8 @@ public class CfpaCompany {
     private String lxr;//	联系人
     private String lxrsj;//	联系人手机
     private String sjzt;//	状态: 0 停用，1 有效。
+
+    private List<CfpaProduct> qycpjsVOs;
 
     public String getTyshxydm() {
         return tyshxydm;
@@ -99,5 +103,13 @@ public class CfpaCompany {
 
     public void setSjzt(String sjzt) {
         this.sjzt = sjzt;
+    }
+
+    public List<CfpaProduct> getQycpjsVOs() {
+        return qycpjsVOs;
+    }
+
+    public void setQycpjsVOs(List<CfpaProduct> qycpjsVOs) {
+        this.qycpjsVOs = qycpjsVOs;
     }
 }

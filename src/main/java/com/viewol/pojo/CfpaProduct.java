@@ -1,11 +1,20 @@
 package com.viewol.pojo;
 
 public class CfpaProduct {
+    private String uuid;
     private String tyshxydm;//	展商公司统一信用代码（唯一标识）
     private String src;//	产品图片（二进制流或线下处理）
     private String cpjj;//	产品介绍
     private String cplx;//	产品类型
     private String cplxmc;//	产品类型名称
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getTyshxydm() {
         return tyshxydm;

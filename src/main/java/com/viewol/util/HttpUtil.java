@@ -84,7 +84,7 @@ public class HttpUtil {
         // 为httpPost实例设置配置
         httpPost.setConfig(requestConfig);
         // 设置请求头
-        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+        httpPost.addHeader("Content-Type", "application/json");
         // 封装post请求参数
         if (null != paramMap && paramMap.size() > 0) {
             List<NameValuePair> nvps = new ArrayList<NameValuePair>();

@@ -39,6 +39,11 @@ public class ProductServiceImpl implements IProductService {
         return productDAO.getProduct(id);
     }
 
+    @Override
+    public Product selectByUuid(String uuid) {
+        return productDAO.selectByUuid(uuid);
+    }
+
     @Transactional("viewolTX")
     @Override
     public int addProduct(int expoId,Product product) {

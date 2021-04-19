@@ -13,6 +13,8 @@ public interface IProductDAO {
 
     Product getProduct(int id);
 
+    Product selectByUuid(String uuid);
+
     int addProduct(Product product);
 
     int delProduct(int  id);

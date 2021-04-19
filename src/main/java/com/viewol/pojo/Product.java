@@ -29,7 +29,7 @@ public class Product {
     private String reImg; //首页推荐位置图片
     private int topNum;
     private int award;
-
+    private String uuid;//上游产品ID
 
     private int seeNum;
     private int praiseNum;
@@ -240,6 +240,14 @@ public class Product {
 
     public void setAward(int award) {
         this.award = award;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override

@@ -193,3 +193,8 @@ alter table `viewol`.`company`
    add column `user_num` varchar(100) NULL COMMENT '企业信用代码' after `show_info`;
 
 CREATE INDEX idx_user_num ON company(user_num);
+
+alter table product
+    add uuid varchar(64) not null comment '上游产品ID';
+
+CREATE INDEX idx_uuid ON product(uuid);

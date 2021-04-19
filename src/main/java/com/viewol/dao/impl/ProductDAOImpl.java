@@ -26,10 +26,10 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         product.setmTime(d);
 
         int result = super.insert(product);
-        if (result>0) {
+        if (result > 0) {
             this.updateSeq(product);
             return product.getId();
-        }else{
+        } else {
             return 0;
         }
 
@@ -38,6 +38,13 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     @Override
     public Product getProduct(int id) {
         return super.get(id);
+    }
+
+    @Override
+    public Product selectByUuid(String uuid) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("uuid", uuid);
+        return super.findUniqueBy("selectByUuid", map);
     }
 
     @Override
@@ -53,31 +60,31 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     }
 
     @Override
-    public int updateStatus(int id,int status) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
+    public int updateStatus(int id, int status) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         map.put("status", status);
-        return super.updateBy("updateStatus",map);
+        return super.updateBy("updateStatus", map);
     }
 
     @Override
     public PageHolder<Product> queryProduct(ProductQuery query) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("categoryId",query.getCategoryId());
-        map.put("companyId",query.getCompanyId());
-        map.put("name",query.getName());
-        map.put("status",query.getStatus());
-        map.put("expoId",query.getExpoId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryId", query.getCategoryId());
+        map.put("companyId", query.getCompanyId());
+        map.put("name", query.getName());
+        map.put("status", query.getStatus());
+        map.put("expoId", query.getExpoId());
         return super.pagedQuery("findByParams", map, query.getPageIndex(), query.getPageSize());
     }
 
     @Override
     public int delRecomment(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("isRecommend",Company.ISRECOMMEND_NO);
-        map.put("recommendNum",0);
-        int result = super.updateBy("updateRecommend",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("isRecommend", Company.ISRECOMMEND_NO);
+        map.put("recommendNum", 0);
+        int result = super.updateBy("updateRecommend", map);
         Product product = this.getProduct(id);
         this.updateSeq(product);
         return result;
@@ -85,11 +92,11 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
     @Override
     public int addRecomment(int id, int num) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
         map.put("isRecommend", Company.ISRECOMMEND_YES);
-        map.put("recommendNum",num);
-        int result = super.updateBy("updateRecommend",map);
+        map.put("recommendNum", num);
+        int result = super.updateBy("updateRecommend", map);
         Product product = this.getProduct(id);
         this.updateSeq(product);
         return result;
@@ -98,43 +105,43 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
     @Override
     public List<Product> listProduct(ProductQuery query) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("categoryId",query.getCategoryId());
-        map.put("companyId",query.getCompanyId());
-        map.put("name",query.getName());
-        map.put("status",Product.STATUS_ON);
-        map.put("num",query.getPageSize());
-        map.put("lastSeq",query.getLastSeq());
-        map.put("expoId",query.getExpoId());
-        map.put("award",query.getAward());
-        return this.findBy("listProduct",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryId", query.getCategoryId());
+        map.put("companyId", query.getCompanyId());
+        map.put("name", query.getName());
+        map.put("status", Product.STATUS_ON);
+        map.put("num", query.getPageSize());
+        map.put("lastSeq", query.getLastSeq());
+        map.put("expoId", query.getExpoId());
+        map.put("award", query.getAward());
+        return this.findBy("listProduct", map);
     }
 
     @Override
     public List<Product> queryRecommentProduct(int expoId) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("expoId",expoId);
-        return super.findBy("queryRecommentProduct",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("expoId", expoId);
+        return super.findBy("queryRecommentProduct", map);
     }
 
 
     @Override
     public int comProductCount(int companyId) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("companyId",companyId);
-        return super.count("comProductCount",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("companyId", companyId);
+        return super.count("comProductCount", map);
     }
 
-    private long getSeq(Product product){
+    private long getSeq(Product product) {
         int id = product.getId();
         int num = product.getTopNum();
 
-        Date date= new Date();
+        Date date = new Date();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmss");
 
-        if(num > 0 ){
-            num = 100-num;
+        if (num > 0) {
+            num = 100 - num;
         }
 
         long seq = num * 10000000000L + Long.parseLong(dateFormat.format(date));
@@ -142,22 +149,22 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
     }
 
 
-    private int  updateSeq(Product product){
+    private int updateSeq(Product product) {
 
         long seq = this.getSeq(product);
-        Map<String,Object> map = new HashMap<>();
-        map.put("seq",seq);
-        map.put("id",product.getId());
-        return super.updateBy("updateSeq",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("seq", seq);
+        map.put("id", product.getId());
+        return super.updateBy("updateSeq", map);
 
     }
 
     @Override
     public int delTop(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("topNum",0);
-        int result = super.updateBy("updateTopNum",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("topNum", 0);
+        int result = super.updateBy("updateTopNum", map);
         Product product = this.getProduct(id);
         this.updateSeq(product);
         return result;
@@ -165,10 +172,10 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
     @Override
     public int addTop(int id, int num) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("topNum",num);
-        int result = super.updateBy("updateTopNum",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("topNum", num);
+        int result = super.updateBy("updateTopNum", map);
         Product product = this.getProduct(id);
         this.updateSeq(product);
         return result;
@@ -176,39 +183,39 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
 
     @Override
     public List<Product> queryTopProduct(int expoId) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("expoId",expoId);
-        return super.findBy("queryTopProduct",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("expoId", expoId);
+        return super.findBy("queryTopProduct", map);
     }
 
     @Override
     public List<Product> listProductByIds(List<Integer> ids) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("ids",ids);
-        return super.findBy("listProductByIds",map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("ids", ids);
+        return super.findBy("listProductByIds", map);
     }
 
     @Override
     public int incSeeNum(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("seeNum",1);
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("seeNum", 1);
+        map.put("id", id);
         return super.updateBy("updateInteractNum", map);
     }
 
     @Override
     public int incPraiseNum(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("praiseNum",1);
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("praiseNum", 1);
+        map.put("id", id);
         return super.updateBy("updateInteractNum", map);
     }
 
     @Override
     public int incCommentNum(int id) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("commentNum",1);
-        map.put("id",id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("commentNum", 1);
+        map.put("id", id);
         return super.updateBy("updateInteractNum", map);
     }
 }

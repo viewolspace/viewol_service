@@ -36,6 +36,6 @@ public interface CfpaService {
      *
      * @return
      */
-    List<CfpaProduct> queryAllCfpaProduct();
+    List<CfpaCompany> queryAllCfpaProduct();
 
 }
