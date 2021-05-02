@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdMedia">
+	<sql id="selectCommon">
+		SELECT 	id,
+		company_id,
+		company_name,
+		show_room,
+		item_name,
+		num,
+		size,
+		price,
+		phone,
+		user_name,
+		c_time
+	</sql>
+
+
+	<select id="selectByCompanyId" parameterType="int" resultType="AdMedia">
+		<include refid="selectCommon"/>
+
+		from viewol.ad_media a where company_id = #{companyId}
+	</select>
+
+
+	<insert id="batchInsert" parameterType="list"  >
+
+			INSERT INTO viewol.ad_media
+								(company_id,
+		company_name,
+		show_room,
+		item_name,
+		num,
+		size,
+		price,
+		phone,
+		user_name,
+		c_time
+								)
+								VALUES
+
+		<foreach collection="list" item="AdMedia" separator=","  close=";">
+								(
+		#{AdMedia.companyId},
+		#{AdMedia.companyName},
+		#{AdMedia.showRoom},
+		#{AdMedia.itemName},
+		#{AdMedia.num},
+		#{AdMedia.size},
+		#{AdMedia.price},
+		#{AdMedia.phone},
+		#{AdMedia.userName},
+		#{AdMedia.cTime}
+
+
+
+								)
+		</foreach>
+
+	</insert>
+
+	<delete id="deleteByCompanyId" parameterType="int">
+		delete from viewol.ad_media where company_id = #{companyId}
+	</delete>
+
+	<!--管理平台使用查询展商-->
+	<sql id="sql_count">
+		select count(*)
+	</sql>
+
+	<sql id="sql_where">
+		FROM ad_media
+
+
+	</sql>
+
+	<sql id="sql_order">
+		order by c_time desc
+	</sql>
+
+	<select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+		<include refid="sql_count" />
+		<include refid="sql_where" />
+	</select>
+	<select id="findByParams" parameterType="java.util.HashMap" resultType="AdMedia">
+		<include refid="selectCommon" />
+		<include refid="sql_where" />
+		<include refid="sql_order" />
+	</select>
+
+</mapper>

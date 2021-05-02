@@ -28,6 +28,15 @@ public class ProductIdeaNew {
     private Date mTime;
     private int status;
     private String comLogo;
+
+
+    private int ask;
+
+    private int proView;
+
+    private int proEvent;
+
+    private String video;
     /**
      * 申报单位承诺,加盖单位印章的图片
      */
@@ -216,5 +225,38 @@ public class ProductIdeaNew {
 
     public void setProductPic(String productPic) {
         this.productPic = productPic;
+    }
+
+
+    public int getAsk() {
+        return ask;
+    }
+
+    public void setAsk(int ask) {
+        this.ask = ask;
+    }
+
+    public int getProView() {
+        return proView;
+    }
+
+    public void setProView(int proView) {
+        this.proView = proView;
+    }
+
+    public int getProEvent() {
+        return proEvent;
+    }
+
+    public void setProEvent(int proEvent) {
+        this.proEvent = proEvent;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
     }
 }
