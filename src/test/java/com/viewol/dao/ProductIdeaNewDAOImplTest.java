@@ -15,7 +15,7 @@ public class ProductIdeaNewDAOImplTest extends BaseTestClass{
 
     private ProductIdeaNew beanProductIdea(){
         ProductIdeaNew p = new ProductIdeaNew();
-        p.setProductId(1);
+        p.setProductId(2);
         p.setCategoryId("00021");
         p.setComLogo("comlog11");
         p.setCompanyId(12);
@@ -34,6 +34,10 @@ public class ProductIdeaNewDAOImplTest extends BaseTestClass{
         p.setPromisePic("setPromisePic1");
         p.setProductPic("setProduct_pic1");
         p.setStandard("setStandard1");
+        p.setAsk(2);
+        p.setProEvent(1);
+        p.setProView(1);
+        p.setVideo("video1");
         return p;
     }
 

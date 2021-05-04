@@ -23,7 +23,9 @@
 				com_logo,
 				STATUS,
 				c_time,
-				m_time
+				m_time,
+				ask,
+		pro_view,pro_event,video
 	</sql>
 
 	<sql id="selectPage">
@@ -48,7 +50,9 @@
 				a.com_logo,
 				a.STATUS,
 				a.c_time,
-				a.m_time
+				a.m_time,
+		a.ask,
+		a.pro_view,a.pro_event,a.video
 	</sql>
 
 	<select id="select" parameterType="int" resultType="ProductIdeaNew">
@@ -82,7 +86,7 @@
 								com_logo,
 								status,
 								c_time,
-								m_time
+								m_time,ask,pro_view,pro_event,video
 								)
 								VALUES
 								(
@@ -107,7 +111,7 @@
 								#{comLogo},
 								#{status},
 								#{cTime},
-								#{mTime}
+								#{mTime},#{ask},#{proView},#{proEvent},#{video}
 
 
 
@@ -143,7 +147,11 @@
 			com_logo = #{comLogo} ,
 			STATUS = #{status} ,
 			c_time = #{cTime} ,
-			m_time = #{mTime}
+			m_time = #{mTime},
+			ask=#{ask},
+			pro_view = #{proView},
+			pro_event = #{proEvent},
+			video = #{video}
 
 			WHERE
 			product_id = #{productId}

@@ -198,3 +198,29 @@ alter table product
     add uuid varchar(64) not null comment '上游产品ID';
 
 CREATE INDEX idx_uuid ON product(uuid);
+
+
+
+
+------------20210502--------------------
+alter table `viewol`.`product_idea_new`
+   add column `ask` int(4) DEFAULT '0' NULL COMMENT '是否提供现场答疑 0 未选  1 不提供  2 提供' after `m_time`,
+   add column `pro_view` int(4) DEFAULT '0' NULL COMMENT '是否提供产品展示 0 未选 1 不提供  2 提供' after `ask`,
+   add column `pro_event` int(4) DEFAULT '0' NULL COMMENT '是否参与推荐活动 0 未选 1 不提供  2 提供' after `pro_view`,
+   add column `video` varchar(200) NULL COMMENT '视频地址' after `pro_event`;
+
+
+create table `viewol`.`ad_media`(
+   `id` int(11) NOT NULL AUTO_INCREMENT ,
+   `company_id` int(11) ,
+   `company_name` varchar(300) ,
+   `show_room` varchar(200) COMMENT '展厅',
+   `item_name` varchar(200) COMMENT '项目名称',
+   `num` varchar(200) COMMENT '序号',
+   `size` varchar(200) COMMENT '尺寸',
+   `price` varchar(200) COMMENT '价格',
+   `phone` varchar(15) COMMENT '联系电话',
+   `user_name` varchar(200) COMMENT '联系人',
+   `c_time` datetime COMMENT '申请时间',
+   PRIMARY KEY (`id`)
+ )

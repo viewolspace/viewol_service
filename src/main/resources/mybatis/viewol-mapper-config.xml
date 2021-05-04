@@ -43,6 +43,7 @@
         <typeAlias alias="ProductIdea" type="com.viewol.pojo.ProductIdea"/>
         <typeAlias alias="ProductIdeaNew" type="com.viewol.pojo.ProductIdeaNew"/>
         <typeAlias alias="BbsJoin" type="com.viewol.pojo.BbsJoin"/>
+        <typeAlias alias="AdMedia" type="com.viewol.pojo.AdMedia"/>
     </typeAliases>
 
     <plugins>
@@ -78,6 +79,7 @@
         <mapper resource="mybatis/product_idea_sqlmap.xml"/>
         <mapper resource="mybatis/product_idea_new_sqlmap.xml"/>
         <mapper resource="mybatis/bbs_join_sqlmap.xml"/>
+        <mapper resource="mybatis/ad_medio_sqlmap.xml"/>
     </mappers>
 
 </configuration>
