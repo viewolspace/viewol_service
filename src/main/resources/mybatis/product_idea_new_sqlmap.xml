@@ -24,7 +24,7 @@
 				STATUS,
 				c_time,
 				m_time,
-				ask,
+				pro_ask,
 		pro_view,pro_event,video
 	</sql>
 
@@ -51,7 +51,7 @@
 				a.STATUS,
 				a.c_time,
 				a.m_time,
-		a.ask,
+		a.pro_ask,
 		a.pro_view,a.pro_event,a.video
 	</sql>
 
@@ -86,7 +86,7 @@
 								com_logo,
 								status,
 								c_time,
-								m_time,ask,pro_view,pro_event,video
+								m_time,pro_ask,pro_view,pro_event,video
 								)
 								VALUES
 								(
@@ -111,7 +111,7 @@
 								#{comLogo},
 								#{status},
 								#{cTime},
-								#{mTime},#{ask},#{proView},#{proEvent},#{video}
+								#{mTime},#{proAsk},#{proView},#{proEvent},#{video}
 
 
 
@@ -148,7 +148,7 @@
 			STATUS = #{status} ,
 			c_time = #{cTime} ,
 			m_time = #{mTime},
-			ask=#{ask},
+			pro_ask=#{proAsk},
 			pro_view = #{proView},
 			pro_event = #{proEvent},
 			video = #{video}

@@ -224,3 +224,10 @@ create table `viewol`.`ad_media`(
    `c_time` datetime COMMENT '申请时间',
    PRIMARY KEY (`id`)
  )
+
+
+ALTER TABLE `product_idea_new`
+    MODIFY COLUMN `ask` varchar(4) NULL COMMENT '是否提供现场答疑 0 未选  1 不提供  2 提供' AFTER `m_time`,
+    MODIFY COLUMN `pro_view` varchar(4) NULL COMMENT '是否提供产品展示 0 未选 1 不提供  2 提供' AFTER `ask`,
+    MODIFY COLUMN `pro_event` varchar(4) NULL COMMENT '是否参与推荐活动 0 未选 1 不提供  2 提供' AFTER `pro_view`
+;

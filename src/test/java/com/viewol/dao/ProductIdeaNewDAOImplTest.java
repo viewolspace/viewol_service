@@ -34,9 +34,9 @@ public class ProductIdeaNewDAOImplTest extends BaseTestClass{
         p.setPromisePic("setPromisePic1");
         p.setProductPic("setProduct_pic1");
         p.setStandard("setStandard1");
-        p.setAsk(2);
-        p.setProEvent(1);
-        p.setProView(1);
+        p.setProAsk("2");
+        p.setProEvent("1");
+        p.setProView("1");
         p.setVideo("video1");
         return p;
     }

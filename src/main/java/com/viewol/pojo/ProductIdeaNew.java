@@ -30,13 +30,16 @@ public class ProductIdeaNew {
     private String comLogo;
 
 
-    private int ask;
+    private String proAsk;
 
-    private int proView;
+    private String proView;
 
-    private int proEvent;
+    private String proEvent;
 
     private String video;
+
+    private String proVideo;
+
     /**
      * 申报单位承诺,加盖单位印章的图片
      */
@@ -227,29 +230,36 @@ public class ProductIdeaNew {
         this.productPic = productPic;
     }
 
-
-    public int getAsk() {
-        return ask;
+    public String getProAsk() {
+        return proAsk;
     }
 
-    public void setAsk(int ask) {
-        this.ask = ask;
+    public void setProAsk(String proAsk) {
+        this.proAsk = proAsk;
     }
 
-    public int getProView() {
+    public String getProView() {
         return proView;
     }
 
-    public void setProView(int proView) {
+    public void setProView(String proView) {
         this.proView = proView;
     }
 
-    public int getProEvent() {
+    public String getProEvent() {
         return proEvent;
     }
 
-    public void setProEvent(int proEvent) {
+    public void setProEvent(String proEvent) {
         this.proEvent = proEvent;
+    }
+
+    public String getProVideo() {
+        return proVideo;
+    }
+
+    public void setProVideo(String proVideo) {
+        this.proVideo = proVideo;
     }
 
     public String getVideo() {
@@ -259,4 +269,5 @@ public class ProductIdeaNew {
     public void setVideo(String video) {
         this.video = video;
     }
+
 }
