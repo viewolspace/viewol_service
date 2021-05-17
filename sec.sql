@@ -231,3 +231,46 @@ ALTER TABLE `product_idea_new`
     MODIFY COLUMN `pro_view` varchar(4) NULL COMMENT '是否提供产品展示 0 未选 1 不提供  2 提供' AFTER `ask`,
     MODIFY COLUMN `pro_event` varchar(4) NULL COMMENT '是否参与推荐活动 0 未选 1 不提供  2 提供' AFTER `pro_view`
 ;
+
+------------20210502--------------------
+-- 技术报告会申请
+create table tech_report
+(
+    id          int auto_increment comment '自增主键'
+        primary key,
+    phone       varchar(32)  not null comment '手机号',
+    email       varchar(64)  null comment '邮箱',
+    open_id     varchar(64)  null comment '微信',
+    title       varchar(128) null comment '技术报告题目',
+    name        varchar(64)  null comment '报告人姓名',
+    postion     varchar(64)  null comment '报告人职务',
+    summary     varchar(500) null comment '技术报告大纲（约200字）',
+    forum_title varchar(200) null comment '论坛名称',
+    forum_room  varchar(64)  null comment '论坛位置',
+    forum_time  varchar(64)  null comment '论坛时间',
+    forum_num   int          null comment '论坛参加人数',
+    update_time timestamp    null comment '修改时间',
+    create_time timestamp    null comment '创建时间'
+);
+
+-- 展演区展演申请
+create table performance
+(
+    id                   int auto_increment comment '自增主键'
+        primary key,
+    phone                varchar(32)   null comment '手机号',
+    email                varchar(64)   null comment '邮箱',
+    open_id              varchar(64)   null comment '微信',
+    performance_category varchar(128)  null comment '展演类别',
+    performance_product  varchar(128)  null comment '展演产品',
+    feature              varchar(4000) null comment '产品优势及特性',
+    area                 double        null comment '所需面积（平米）',
+    need_help            varchar(4000) null comment '需辅助服务及功能需求',
+    performance_time     varchar(64)   null comment '展演时段',
+    ad_positon           varchar(64)   null comment '广告位置',
+    ad_method            varchar(64)   null comment '广告方式',
+    update_time          timestamp     null comment '修改时间',
+    create_time          timestamp     null comment '创建时间'
+);
+
+

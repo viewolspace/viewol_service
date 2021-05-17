@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Performance">
+    <sql id="selectCommon">
+        SELECT id,
+               phone,
+               email,
+               open_id,
+               performance_category,
+               performance_product,
+               feature,
+               area,
+               need_help,
+               performance_time,
+               ad_positon,
+               ad_method,
+               update_time,
+               create_time,
+               company_id,
+               company_name
+    </sql>
+
+    <sql id="selectPage">
+        SELECT id,
+               phone,
+               email,
+               open_id,
+               performance_category,
+               performance_product,
+               feature,
+               area,
+               need_help,
+               performance_time,
+               ad_positon,
+               ad_method,
+               update_time,
+               create_time,
+               company_id,
+               company_name
+    </sql>
+
+    <select id="select" parameterType="int" resultType="Performance">
+        <include refid="selectCommon"/>
+        from viewol.performance a where id = #{id}
+    </select>
+
+
+    <insert id="insert" parameterType="Performance">
+        INSERT INTO viewol.performance
+        (phone,
+         email,
+         open_id,
+         performance_category,
+         performance_product,
+         feature,
+         area,
+         need_help,
+         performance_time,
+         ad_positon,
+         ad_method,
+         create_time,
+         company_id,
+         company_name)
+        VALUES (#{phone},
+                #{email},
+                #{openId},
+                #{performanceCategory},
+                #{performanceProduct},
+                #{feature},
+                #{area},
+                #{needHelp},
+                #{performanceTime},
+                #{adPositon},
+                #{adMethod},
+                #{createTime},
+                #{companyId},
+                #{companyName})
+
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete
+        from viewol.performance
+        where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="Performance">
+
+        UPDATE viewol.performance
+        SET phone= #{phone},
+            email= #{email},
+            open_id= #{openId},
+            performance_category= #{performanceCategory},
+            performance_product= #{performanceProduct},
+            feature= #{feature},
+            area= #{area},
+            need_help= #{needHelp},
+            performance_time= #{performanceTime},
+            ad_positon= #{adPositon},
+            ad_method= #{adMethod},
+            update_time= #{updateTime},
+            company_id = #{companyId},
+            company_name = #{companyName}
+        WHERE id = #{id}
+    </update>
+
+
+    <!--管理平台使用查询展商-->
+    <sql id="sql_count">
+        select count(*)
+    </sql>
+
+    <sql id="sql_where">
+        FROM viewol.performance
+        <where>
+            <if test="phone != null">
+                and phone = #{phone}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
+            <if test="openId != null">
+                and openId = #{openId}
+            </if>
+            <if test="companyId > 0">
+                and company_id = #{companyId}
+            </if>
+            <if test="companyName != null">
+                and company_name = #{companyName}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="sql_order">
+        order by create_time desc
+    </sql>
+
+    <select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+        <include refid="sql_count"/>
+        <include refid="sql_where"/>
+    </select>
+    <select id="findByParams" parameterType="java.util.HashMap" resultType="Performance">
+        <include refid="selectPage"/>
+        <include refid="sql_where"/>
+        <include refid="sql_order"/>
+    </select>
+</mapper>
