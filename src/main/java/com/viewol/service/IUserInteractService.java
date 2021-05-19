@@ -13,7 +13,7 @@ public interface IUserInteractService {
 
     int userInteract(int userId , int thirdId , int classify , int type);
 
-    int userComment(int userId, int classify,int thirdId, String comment);
+    int userComment(int companyId,int userId, int classify,int thirdId, String comment);
 
 
     List<UserInteract> queryList(int thirdId,int classify,int type,int num);

@@ -85,12 +85,13 @@ public class UserInteractServiceImpl implements IUserInteractService {
 
 
     @Override
-    public int userComment(int userId, int classify,int thirdId, String comment) {
+    public int userComment(int companyId,int userId, int classify,int thirdId, String comment) {
 
         FUser user = ifUserService.getFuser(userId);
 
         if(user!=null){
             UserInteract userInteract = new UserInteract();
+            userInteract.setCompanyId(companyId);
             userInteract.setUserId(userId);
             userInteract.setThirdId(thirdId);
             userInteract.setClassify(classify);
