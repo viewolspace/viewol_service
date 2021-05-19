@@ -126,4 +126,9 @@ public class UserInteractServiceImpl implements IUserInteractService {
     public List<UserInteract> queryUserInteract(int userId, int thirdId, int classify) {
         return userInteractDAO.queryUserInteract(userId, thirdId, classify);
     }
+
+    @Override
+    public int reply(int id, String reply) {
+        return userInteractDAO.reply(id, reply);
+    }
 }

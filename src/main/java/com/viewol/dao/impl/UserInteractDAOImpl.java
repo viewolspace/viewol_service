@@ -52,4 +52,13 @@ public class UserInteractDAOImpl extends BaseDAO<UserInteract> implements IUserI
         map.put("num",1);
         return super.findUniqueBy("listUserInteract",map);
     }
+
+    @Override
+    public int reply(int id, String reply) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("reply",reply);
+
+        return super.updateBy("updateReplay",map);
+    }
 }

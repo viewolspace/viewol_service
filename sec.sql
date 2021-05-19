@@ -283,5 +283,8 @@ alter table `viewol`.`product`
 alter table `viewol`.`product_idea_new`
    add column `hall` varchar(100) NULL after `video`;
 
+alter table `viewol`.`user_interact`
+   add column `reply` varchar(200) NULL COMMENT '回复' after `c_time`;
+
 
 

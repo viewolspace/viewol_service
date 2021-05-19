@@ -11,7 +11,8 @@
 				user_name,
 				head_img_url,
 				comment,
-				c_time
+				c_time,
+		reply
 	</sql>
 
 	<insert id="insert" parameterType="UserInteract" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -44,6 +45,17 @@
 
 
 	</insert>
+
+	<update id="updateReplay" parameterType="map">
+
+		UPDATE viewol.user_interact
+		SET
+		reply = #{reply} ,
+
+		WHERE
+		id = #{id}
+
+	</update>
 
 
 	<select id="listUserInteract" parameterType="map" resultType="UserInteract">

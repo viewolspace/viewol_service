@@ -30,6 +30,8 @@ public class UserInteract {
     private String comment;
     private Date cTime;
 
+    private String reply;
+
     public int getId() {
         return id;
     }
@@ -100,5 +102,13 @@ public class UserInteract {
 
     public void setcTime(Date cTime) {
         this.cTime = cTime;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 }

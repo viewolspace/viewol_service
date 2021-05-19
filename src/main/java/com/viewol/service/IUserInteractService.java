@@ -27,4 +27,6 @@ public interface IUserInteractService {
      */
     List<UserInteract> queryUserInteract(int userId,int thirdId,int classify);
 
+    int reply(int id,String reply);
+
 }

@@ -11,10 +11,11 @@ public interface IUserInteractDAO {
 
     int addUserInteract(UserInteract userInteract);
 
+    int reply(int id,String reply);
+
     List<UserInteract> queryList(int thirdId,int classify,int type,int num);
 
     List<UserInteract> queryUserInteract(int userId,int thirdId,int classify);
-
 
     UserInteract getUserInteract(int userId,int thirdId,int classify,int type);
 }
