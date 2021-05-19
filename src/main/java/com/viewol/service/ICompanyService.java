@@ -44,7 +44,7 @@ public interface ICompanyService {
     PageHolder<Company> queryCompany(CompanyQuery query);
 
     //前端使用的展商搜索
-    List<Company> listCompany(int expoId,String keyWord,String categoryId,int award,long lastSeq,int num);
+    List<Company> listCompany(String hall,int expoId,String keyWord,String categoryId,int award,long lastSeq,int num);
 
     //前端使用的展商搜索
     List<Company> listAwardCompany(int expoId,long lastSeq,int num);

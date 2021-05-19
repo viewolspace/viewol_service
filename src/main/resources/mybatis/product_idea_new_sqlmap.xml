@@ -183,6 +183,10 @@
 			<if test="productName != null and productName != ''">
 				AND a.product_name LIKE concat(concat('%',#{productName}),'%')
 			</if>
+
+			<if test="hall != null and hall != '' ">
+				AND a.hall = #{hall}
+			</if>
 		</where>
 
 	</sql>

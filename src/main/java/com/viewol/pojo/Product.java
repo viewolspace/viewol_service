@@ -39,6 +39,7 @@ public class Product {
     private String contentView;
     private String pdfUrlView;
     private String reImgView;
+    private String hall;
 
 
 
@@ -248,6 +249,14 @@ public class Product {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getHall() {
+        return hall;
+    }
+
+    public void setHall(String hall) {
+        this.hall = hall;
     }
 
     @Override

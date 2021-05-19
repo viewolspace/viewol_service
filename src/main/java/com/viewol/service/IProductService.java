@@ -43,7 +43,7 @@ public interface IProductService {
     List<Product> queryRecommentProduct(int expoId);
 
     //客户端查询
-    List<Product> listProduct(int expoId,int companyId,String name,String categoryId,int award,long lastSeq,int num);
+    List<Product> listProduct(String hall,int expoId,int companyId,String name,String categoryId,int award,long lastSeq,int num);
 
     //删除置顶
     int delTop(int id);

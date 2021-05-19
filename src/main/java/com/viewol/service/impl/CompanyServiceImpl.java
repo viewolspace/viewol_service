@@ -124,12 +124,13 @@ public class CompanyServiceImpl implements ICompanyService {
     }
 
     @Override
-    public List<Company> listCompany(int expoId, String keyWord, String categoryId, int award, long lastSeq, int num) {
+    public List<Company> listCompany(String hall,int expoId, String keyWord, String categoryId, int award, long lastSeq, int num) {
         if (lastSeq == 0) {
             lastSeq = Long.MAX_VALUE;
         }
         CompanyQuery query = new CompanyQuery();
         query.setLastSeq(lastSeq);
+        query.setHall(hall);
         query.setName(keyWord);
         query.setCategoryId(categoryId);
         query.setPageSize(num);

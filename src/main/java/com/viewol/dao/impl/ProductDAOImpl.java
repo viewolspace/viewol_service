@@ -75,6 +75,9 @@ public class ProductDAOImpl extends BaseDAO<Product> implements IProductDAO {
         map.put("name", query.getName());
         map.put("status", query.getStatus());
         map.put("expoId", query.getExpoId());
+        if(query.getHall()!=null || !"".equals(query.getHall())){
+            map.put("hall",query.getHall());
+        }
         return super.pagedQuery("findByParams", map, query.getPageIndex(), query.getPageSize());
     }
 

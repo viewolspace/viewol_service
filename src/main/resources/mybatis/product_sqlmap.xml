@@ -209,6 +209,10 @@
             <if test="name != null and name != ''">
                 AND name LIKE concat(concat('%',#{name}),'%')
             </if>
+
+            <if test="hall != null and hall != '' ">
+                AND a.hall = #{hall}
+            </if>
         </where>
 
     </sql>

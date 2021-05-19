@@ -45,6 +45,8 @@ public class ProductIdeaNew {
      */
     private String promisePic;
 
+    private String hall;
+
 
     public int getProductId() {
         return productId;
@@ -270,4 +272,11 @@ public class ProductIdeaNew {
         this.video = video;
     }
 
+    public String getHall() {
+        return hall;
+    }
+
+    public void setHall(String hall) {
+        this.hall = hall;
+    }
 }

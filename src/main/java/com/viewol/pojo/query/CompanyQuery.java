@@ -18,6 +18,8 @@ public class CompanyQuery {
 
     private int award = 0;
 
+    private String hall;
+
     public long getLastSeq() {
         return lastSeq;
     }
@@ -72,5 +74,13 @@ public class CompanyQuery {
 
     public void setAward(int award) {
         this.award = award;
+    }
+
+    public String getHall() {
+        return hall;
+    }
+
+    public void setHall(String hall) {
+        this.hall = hall;
     }
 }

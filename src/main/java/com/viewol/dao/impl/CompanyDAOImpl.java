@@ -134,6 +134,9 @@ public class CompanyDAOImpl extends BaseDAO<Company> implements ICompanyDAO {
         map.put("num", query.getPageSize());
         map.put("expoId", query.getExpoId());
         map.put("award", query.getAward());
+        if(query.getHall()!=null || !"".equals(query.getHall())){
+            map.put("hall",query.getHall());
+        }
         return super.findBy("listCompany", map);
     }
 

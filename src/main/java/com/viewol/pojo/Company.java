@@ -40,6 +40,7 @@ public class Company {
     private String imageView;
     private String contentView;
     private String userNum;
+    private String hall;
 
     public Integer getId() {
         return id;
@@ -231,6 +232,14 @@ public class Company {
 
     public void setUserNum(String userNum) {
         this.userNum = userNum;
+    }
+
+    public String getHall() {
+        return hall;
+    }
+
+    public void setHall(String hall) {
+        this.hall = hall;
     }
 
     @Override

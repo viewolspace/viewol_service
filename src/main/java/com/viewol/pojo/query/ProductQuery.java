@@ -23,6 +23,8 @@ public class ProductQuery {
 
     private int pageSize = 20;
 
+    private String hall;
+
     public String getCategoryId() {
         return categoryId;
     }
@@ -93,5 +95,13 @@ public class ProductQuery {
 
     public void setAward(int award) {
         this.award = award;
+    }
+
+    public String getHall() {
+        return hall;
+    }
+
+    public void setHall(String hall) {
+        this.hall = hall;
     }
 }

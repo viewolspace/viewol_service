@@ -273,4 +273,15 @@ create table performance
     create_time          timestamp     null comment '创建时间'
 );
 
+-- 添加展商的大厅
+alter table `viewol`.`company`
+   add column `hall` varchar(100) NULL COMMENT '哪个大厅' after `user_num`;
+
+alter table `viewol`.`product`
+   add column `hall` varchar(100) NULL after `award`;
+
+alter table `viewol`.`product_idea_new`
+   add column `hall` varchar(100) NULL after `video`;
+
+
 

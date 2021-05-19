@@ -12,6 +12,8 @@ public class ProductIdeaNewQuery {
 
     private String productName;
 
+    private String hall;
+
     private int pageIndex = 1;
 
     private int pageSize = 20;
@@ -48,6 +50,14 @@ public class ProductIdeaNewQuery {
         this.pageSize = pageSize;
     }
 
+    public String getHall() {
+        return hall;
+    }
+
+    public void setHall(String hall) {
+        this.hall = hall;
+    }
+
     public Map<String,Object> map(){
 
         Map<String,Object> map = new HashMap<>();
@@ -59,6 +69,11 @@ public class ProductIdeaNewQuery {
         if(productName!=null){
             map.put("productName",productName);
         }
+
+        if(hall!=null){
+            map.put("hall",hall);
+        }
+
 
         return map;
     }

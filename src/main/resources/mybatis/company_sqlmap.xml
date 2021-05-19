@@ -23,7 +23,8 @@
 				a.praise_num,
 				a.comment_num,
 				a.show_info,
-				a.user_num
+				a.user_num,
+				a.hall
 	</sql>
 	<select id="select" parameterType="int" resultType="Company">
 		<include refid="selectCommon"/>
@@ -217,6 +218,9 @@
 				<![CDATA[
 					AND a.seq < #{lastSeq}
 				]]>
+			</if>
+			<if test="hall != null and hall != '' ">
+				AND a.hall = #{hall}
 			</if>
 		</where>
 
