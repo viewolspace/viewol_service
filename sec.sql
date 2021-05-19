@@ -286,5 +286,8 @@ alter table `viewol`.`product_idea_new`
 alter table `viewol`.`user_interact`
    add column `reply` varchar(200) NULL COMMENT '回复' after `c_time`;
 
+alter table `viewol`.`user_interact`
+   add column `company_id` int(11) NULL after `reply`
+
 
 

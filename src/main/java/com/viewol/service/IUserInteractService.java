@@ -29,4 +29,7 @@ public interface IUserInteractService {
 
     int reply(int id,String reply);
 
+    //查询公司所有的评论
+    List<UserInteract> queryComList(int companyId, int thirdId,int classify,int type,int maxId,int num);
+
 }

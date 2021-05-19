@@ -31,6 +31,7 @@ public class UserInteract {
     private Date cTime;
 
     private String reply;
+    private int companyId;
 
     public int getId() {
         return id;
@@ -110,5 +111,13 @@ public class UserInteract {
 
     public void setReply(String reply) {
         this.reply = reply;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 }

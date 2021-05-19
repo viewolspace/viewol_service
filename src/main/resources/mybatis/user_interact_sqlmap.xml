@@ -12,7 +12,8 @@
 				head_img_url,
 				comment,
 				c_time,
-		reply
+		reply,
+		company_id
 	</sql>
 
 	<insert id="insert" parameterType="UserInteract" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -29,7 +30,8 @@
 							user_name,
 							head_img_url,
 		                    comment,
-							c_time
+							c_time,
+		company_id
 							)
 							VALUES
 							(
@@ -40,7 +42,8 @@
 							#{userName},
 							#{headImgUrl},
 							#{comment},
-							#{cTime}
+							#{cTime},
+		#{companyId}
 							)
 
 
@@ -84,6 +87,18 @@
 			<if test="userId != null and userId > 0">
 				<![CDATA[
 					AND user_id = #{userId}
+				]]>
+			</if>
+
+			<if test="companyId != null and companyId > 0">
+				<![CDATA[
+					AND company_id = #{companyId}
+				]]>
+			</if>
+
+			<if test="maxId != null and maxId > 0">
+				<![CDATA[
+					AND id < #{maxId}
 				]]>
 			</if>
 

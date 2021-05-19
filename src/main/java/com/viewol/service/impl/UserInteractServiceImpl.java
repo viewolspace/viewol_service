@@ -131,4 +131,10 @@ public class UserInteractServiceImpl implements IUserInteractService {
     public int reply(int id, String reply) {
         return userInteractDAO.reply(id, reply);
     }
+
+
+    @Override
+    public List<UserInteract> queryComList(int companyId, int thirdId, int classify, int type, int maxId, int num) {
+        return userInteractDAO.queryComList(companyId, thirdId, classify, type, maxId, num);
+    }
 }

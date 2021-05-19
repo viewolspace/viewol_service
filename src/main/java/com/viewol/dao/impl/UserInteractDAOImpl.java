@@ -61,4 +61,16 @@ public class UserInteractDAOImpl extends BaseDAO<UserInteract> implements IUserI
 
         return super.updateBy("updateReplay",map);
     }
+
+    @Override
+    public List<UserInteract> queryComList(int companyId, int thirdId, int classify, int type, int maxId, int num) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("thirdId",thirdId);
+        map.put("classify",classify);
+        map.put("companyId",companyId);
+        map.put("type",type);
+        map.put("num",num);
+        map.put("maxId",maxId);
+        return super.findBy("listUserInteract",map);
+    }
 }
