@@ -5,8 +5,10 @@ import com.viewol.dao.IProductDAO;
 import com.viewol.dao.IUserInteractDAO;
 import com.viewol.pojo.FUser;
 import com.viewol.pojo.UserInteract;
+import com.viewol.pojo.query.UserInteractQuery;
 import com.viewol.service.IFUserService;
 import com.viewol.service.IUserInteractService;
+import com.youguu.core.util.PageHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,7 +46,7 @@ public class UserInteractServiceImpl implements IUserInteractService {
 
         FUser user = ifUserService.getFuser(userId);
 
-        if(userInteract==null && user!=null){
+        if (userInteract == null && user != null) {
 
             userInteract = new UserInteract();
             userInteract.setUserId(userId);
@@ -54,9 +56,9 @@ public class UserInteractServiceImpl implements IUserInteractService {
             userInteract.setUserName(user.getUserName());
             userInteract.setHeadImgUrl(user.getHeadImgUrl());
 
-            switch (classify){
+            switch (classify) {
                 case UserInteract.CLASSIFY_PRODUCT:
-                    switch (type){
+                    switch (type) {
                         case UserInteract.TYPE_PRAISE:
                             productDAO.incPraiseNum(thirdId);
                             break;
@@ -66,7 +68,7 @@ public class UserInteractServiceImpl implements IUserInteractService {
                     }
                     break;
                 case UserInteract.CLASSIFY_COMPANY:
-                    switch (type){
+                    switch (type) {
                         case UserInteract.TYPE_PRAISE:
                             companyDAO.incPraiseNum(thirdId);
                             break;
@@ -85,11 +87,11 @@ public class UserInteractServiceImpl implements IUserInteractService {
 
 
     @Override
-    public int userComment(int companyId,int userId, int classify,int thirdId, String comment) {
+    public int userComment(int companyId, int userId, int classify, int thirdId, String comment) {
 
         FUser user = ifUserService.getFuser(userId);
 
-        if(user!=null){
+        if (user != null) {
             UserInteract userInteract = new UserInteract();
             userInteract.setCompanyId(companyId);
             userInteract.setUserId(userId);
@@ -100,7 +102,7 @@ public class UserInteractServiceImpl implements IUserInteractService {
             userInteract.setHeadImgUrl(user.getHeadImgUrl());
             userInteract.setComment(comment);
 
-            switch (classify){
+            switch (classify) {
                 case UserInteract.CLASSIFY_PRODUCT:
                     productDAO.incCommentNum(thirdId);
                     break;
@@ -115,7 +117,6 @@ public class UserInteractServiceImpl implements IUserInteractService {
 
         return 0;
     }
-
 
 
     @Override
@@ -137,5 +138,10 @@ public class UserInteractServiceImpl implements IUserInteractService {
     @Override
     public List<UserInteract> queryComList(int companyId, int thirdId, int classify, int type, int maxId, int num) {
         return userInteractDAO.queryComList(companyId, thirdId, classify, type, maxId, num);
+    }
+
+    @Override
+    public PageHolder<UserInteract> queryUserInteract(UserInteractQuery query) {
+        return userInteractDAO.queryUserInteract(query);
     }
 }

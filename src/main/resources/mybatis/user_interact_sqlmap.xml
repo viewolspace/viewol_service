@@ -2,111 +2,163 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UserInteract">
 
-	<sql id="selectCommon">
-		SELECT 	id,
-				classify,
-				type,
-				third_id,
-				user_id,
-				user_name,
-				head_img_url,
-				comment,
-				c_time,
-		reply,
-		company_id
-	</sql>
+    <sql id="selectCommon">
+        SELECT id,
+               classify,
+               type,
+               third_id,
+               user_id,
+               user_name,
+               head_img_url,
+               comment,
+               c_time,
+               reply,
+               company_id
+    </sql>
 
-	<insert id="insert" parameterType="UserInteract" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		<selectKey keyProperty="id" resultType="int" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+    <sql id="selectPage">
+        SELECT id,
+               classify,
+               type,
+               third_id,
+               user_id,
+               user_name,
+               head_img_url,
+               comment,
+               c_time,
+               reply,
+               company_id
+    </sql>
 
-		INSERT INTO viewol.user_interact
-							(
-							classify,
-							type,
-							third_id,
-							user_id,
-							user_name,
-							head_img_url,
-		                    comment,
-							c_time,
-		company_id
-							)
-							VALUES
-							(
-							#{classify},
-							#{type},
-							#{thirdId},
-							#{userId},
-							#{userName},
-							#{headImgUrl},
-							#{comment},
-							#{cTime},
-		#{companyId}
-							)
+    <insert id="insert" parameterType="UserInteract" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        INSERT INTO viewol.user_interact
+        (
+        classify,
+        type,
+        third_id,
+        user_id,
+        user_name,
+        head_img_url,
+        comment,
+        c_time,
+        company_id
+        )
+        VALUES
+        (
+        #{classify},
+        #{type},
+        #{thirdId},
+        #{userId},
+        #{userName},
+        #{headImgUrl},
+        #{comment},
+        #{cTime},
+        #{companyId}
+        )
 
 
-	</insert>
+    </insert>
 
-	<update id="updateReplay" parameterType="map">
+    <update id="updateReplay" parameterType="map">
 
-		UPDATE viewol.user_interact
-		SET
-		reply = #{reply} ,
+        UPDATE viewol.user_interact
+        SET reply = #{reply}
+        WHERE id = #{id}
 
-		WHERE
-		id = #{id}
-
-	</update>
+    </update>
 
 
-	<select id="listUserInteract" parameterType="map" resultType="UserInteract">
-		<include refid="selectCommon"/>
-		from viewol.user_interact
-		<where>
+    <select id="listUserInteract" parameterType="map" resultType="UserInteract">
+        <include refid="selectCommon"/>
+        from viewol.user_interact
+        <where>
 
-			<if test="thirdId != null and thirdId > 0">
-				<![CDATA[
+            <if test="thirdId != null and thirdId > 0">
+                <![CDATA[
 					AND third_id = #{thirdId}
 				]]>
-			</if>
+            </if>
 
-			<if test="classify != null and classify > 0">
-				<![CDATA[
+            <if test="classify != null and classify > 0">
+                <![CDATA[
 					AND classify = #{classify}
 				]]>
-			</if>
+            </if>
 
-			<if test="type != null and type > 0">
-				<![CDATA[
+            <if test="type != null and type > 0">
+                <![CDATA[
 					AND type = #{type}
 				]]>
-			</if>
+            </if>
 
-			<if test="userId != null and userId > 0">
-				<![CDATA[
+            <if test="userId != null and userId > 0">
+                <![CDATA[
 					AND user_id = #{userId}
 				]]>
-			</if>
+            </if>
 
-			<if test="companyId != null and companyId > 0">
-				<![CDATA[
+            <if test="companyId != null and companyId > 0">
+                <![CDATA[
 					AND company_id = #{companyId}
 				]]>
-			</if>
+            </if>
 
-			<if test="maxId != null and maxId > 0">
-				<![CDATA[
+            <if test="maxId != null and maxId > 0">
+                <![CDATA[
 					AND id < #{maxId}
 				]]>
-			</if>
+            </if>
 
-		</where>
+        </where>
 
-		order by id desc limit 0,#{num}
-	</select>
+        order by id desc limit 0,#{num}
+    </select>
 
+    <sql id="sql_count">
+        select count(*)
+    </sql>
 
+    <sql id="sql_where">
+        FROM viewol.user_interact
+        <where>
+            <if test="thirdId != null and thirdId > 0">
+                <![CDATA[
+					AND third_id = #{thirdId}
+				]]>
+            </if>
+
+            <if test="classify != null and classify > 0">
+                <![CDATA[
+					AND classify = #{classify}
+				]]>
+            </if>
+
+            <if test="type != null and type > 0">
+                <![CDATA[
+					AND type = #{type}
+				]]>
+            </if>
+
+            AND company_id = #{companyId}
+        </where>
+    </sql>
+
+    <sql id="sql_order">
+        order by c_time desc
+    </sql>
+
+    <select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+        <include refid="sql_count"/>
+        <include refid="sql_where"/>
+    </select>
+    <select id="findByParams" parameterType="java.util.HashMap" resultType="UserInteract">
+        <include refid="selectPage"/>
+        <include refid="sql_where"/>
+        <include refid="sql_order"/>
+    </select>
 
 </mapper>
