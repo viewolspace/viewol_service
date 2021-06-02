@@ -6,7 +6,7 @@ public class CfpaCompany {
     private String tyshxydm;//	统一信用代码（唯一标识）
     private String zwgsmc;//	公司中文名称
     private String ywgsmc;//	公司英文名称
-    private String src;//	公司LOGO（二进制流或线下处理）
+    private String qyjsSrc;//	公司LOGO（二进制流或线下处理）
     private String qyjj;//	公司介绍
     private String zwh;//	公司展位号
     private String frdb;//	法人代表
@@ -41,12 +41,12 @@ public class CfpaCompany {
         this.ywgsmc = ywgsmc;
     }
 
-    public String getSrc() {
-        return src;
+    public String getQyjsSrc() {
+        return qyjsSrc;
     }
 
-    public void setSrc(String src) {
-        this.src = src;
+    public void setQyjsSrc(String qyjsSrc) {
+        this.qyjsSrc = qyjsSrc;
     }
 
     public String getQyjj() {
