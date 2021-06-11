@@ -1,5 +1,7 @@
 package com.viewol.pojo.query;
 
+import org.springframework.util.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,15 +73,15 @@ public class PerformanceQuery {
     public Map<String, Object> map() {
         Map<String, Object> map = new HashMap<>();
 
-        if (phone != null) {
+        if (!StringUtils.isEmpty(phone)) {
             map.put("phone", phone);
         }
 
-        if (email != null) {
+        if (!StringUtils.isEmpty(email)) {
             map.put("email", email);
         }
 
-        if (openId != null) {
+        if (!StringUtils.isEmpty(openId)) {
             map.put("openId", openId);
         }
 
@@ -87,7 +89,7 @@ public class PerformanceQuery {
             map.put("companyId", companyId);
         }
 
-        if (companyName != null) {
+        if (!StringUtils.isEmpty(companyName)) {
             map.put("companyName", companyName);
         }
 

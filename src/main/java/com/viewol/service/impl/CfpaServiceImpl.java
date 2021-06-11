@@ -60,11 +60,12 @@ public class CfpaServiceImpl implements CfpaService {
 
     @Override
     public CfpaCompany getCfpaCompany(String userNum) {
-        String url = prodUrl + "qyjbxx/list";
+        String url = prodUrl + "qyjbxx/listAllCpjs";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("tyshxydm", userNum);
         String resJson = APIHttpClient.post(url, JSON.toJSONString(paramMap));
-        log.info("获取展商数据：", resJson);
+
+        log.info("获取产品数据：", resJson);
         JSONObject obj = JSONObject.parseObject(resJson);
         String code = obj.getString("code");
         if ("00000000".equals(code)) {

@@ -1,6 +1,8 @@
 package com.viewol.service;
 
 import com.viewol.pojo.UserInteract;
+import com.viewol.pojo.query.UserInteractQuery;
+import com.youguu.core.util.PageHolder;
 
 import java.util.List;
 
@@ -31,5 +33,7 @@ public interface IUserInteractService {
 
     //查询公司所有的评论
     List<UserInteract> queryComList(int companyId, int thirdId,int classify,int type,int maxId,int num);
+
+    PageHolder<UserInteract> queryUserInteract(UserInteractQuery query);
 
 }
