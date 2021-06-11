@@ -289,5 +289,21 @@ alter table `viewol`.`user_interact`
 alter table `viewol`.`user_interact`
    add column `company_id` int(11) NULL after `reply`
 
+-- 2021-06-11
+
+alter table `viewol`.`product_idea_new`
+   add column `v_logo` varchar(200) NULL COMMENT '投票使用的小图' after `hall`,
+   add column `v_pic` varchar(500) NULL COMMENT '产品图片数组4个图片' after `v_logo`,
+   add column `v_des` varchar(1000) NULL COMMENT '产品介绍' after `v_pic`,
+   add column `v_num` int(8) NULL COMMENT '得票数量' after `v_des`
+
+
+
+
+
+
+
+
+
 
 

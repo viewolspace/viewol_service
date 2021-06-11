@@ -1,5 +1,7 @@
 package com.viewol.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.viewol.base.BaseTestClass;
 import com.viewol.pojo.RecommendSchedule;
 import com.viewol.pojo.Schedule;
@@ -47,7 +49,13 @@ public class ScheduleServiceImplTest extends BaseTestClass {
 
     @Test
     public void getSchedule() {
-        System.out.println(service.getSchedule(1));
+
+        JSONObject jsonObject = new JSONObject();
+        Schedule schedule = service.getSchedule(1);
+        JSONObject o = JSON.parseObject(schedule.getContentView());
+//        jsonObject.put("vo",service.getSchedule(1));
+        jsonObject.put("tt",o.toJSONString());
+        System.out.println(jsonObject.toJSONString());
     }
 
 
