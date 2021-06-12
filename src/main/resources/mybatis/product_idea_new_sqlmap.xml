@@ -25,7 +25,7 @@
 				c_time,
 				m_time,
 				pro_ask,
-		pro_view,pro_event,video
+		pro_view,pro_event,video,v_logo,v_pic,v_des,v_num
 	</sql>
 
 	<sql id="selectPage">
@@ -52,7 +52,7 @@
 				a.c_time,
 				a.m_time,
 		a.pro_ask,
-		a.pro_view,a.pro_event,a.video
+		a.pro_view,a.pro_event,a.video,a.v_logo,a.v_pic,a.v_des,a.v_num
 	</sql>
 
 	<select id="select" parameterType="int" resultType="ProductIdeaNew">
@@ -60,6 +60,30 @@
 
 		from viewol.product_idea_new a where product_id = #{productId}
 	</select>
+
+	<select id="list" parameterType="map" resultType="ProductIdeaNew">
+		<include refid="selectPage"/>
+
+		from viewol.product_idea_new a , product b
+		<where>
+			a.product_id = b.id
+
+			<if test="productId != null and productId>0 ">
+				AND a.product_id = #{productId}
+			</if>
+
+			<if test="categoryId != null and categoryId != ''">
+				and b.category_id LIKE concat(concat('%',#{categoryId}),'%')
+			</if>
+
+			<if test="productName != null and productName != ''">
+				AND a.product_name LIKE concat(concat('%',#{productName}),'%')
+			</if>
+
+		</where>
+		order by a.v_num desc , id  limit #{start} , #{end}
+	</select>
+
 
 
 	<insert id="insert" parameterType="ProductIdea"  >
@@ -86,7 +110,7 @@
 								com_logo,
 								status,
 								c_time,
-								m_time,pro_ask,pro_view,pro_event,video
+								m_time,pro_ask,pro_view,pro_event,video,v_logo,v_pic,v_des
 								)
 								VALUES
 								(
@@ -111,7 +135,8 @@
 								#{comLogo},
 								#{status},
 								#{cTime},
-								#{mTime},#{proAsk},#{proView},#{proEvent},#{video}
+								#{mTime},#{proAsk},#{proView},#{proEvent},#{video},
+								#{vLogo},#{vPic},#{vDes}
 
 
 
@@ -122,6 +147,17 @@
 	<delete id="delete" parameterType="int">
 		delete from viewol.product_idea_new where product_id = #{productId}
 	</delete>
+
+	<update id="updateNum" parameterType="int">
+
+		UPDATE viewol.product_idea_new
+		SET
+		v_num = v_num + 1
+		WHERE
+		product_id = #{productId}
+
+	</update>
+
 	<update id="update" parameterType="ProductIdeaNew">
 
 		UPDATE viewol.product_idea_new
@@ -207,5 +243,12 @@
 
 	<select id="countByCompanyId11" parameterType="int" resultType="int">
 		select count(*) from product_idea_new where company_id=#{companyId}
+	</select>
+
+
+
+
+	<select id="allcount" parameterType="int" resultType="int">
+		select count(*) from product_idea_new
 	</select>
 </mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductVote">
+	<sql id="selectCommon">
+		SELECT
+				id,
+				open_id,
+				product_id,
+				c_time
+	</sql>
+
+	<insert id="insert" parameterType="ProductVote"  >
+
+			INSERT INTO viewol.product_vote
+								(open_id,
+								product_id,
+								c_time)
+								VALUES
+								(
+								#{openId},
+								#{productId},
+								#{cTime}
+								)
+
+	</insert>
+
+
+	<select id="voteNum" parameterType="string" resultType="int">
+		select count(1) from product_vote where open_id=#{openId}
+	</select>
+
+	<select id="todayHasVote" parameterType="map" resultType="int">
+		select count(1) from product_vote where open_id=#{openId} and c_time>=#{today}
+	</select>
+
+
+	<select id="hasVote" parameterType="map" resultType="int">
+		select count(1) from product_vote where open_id=#{openId} and product_id = #{productId}
+	</select>
+
+	<select id="allNum" parameterType="string" resultType="int">
+		select count(1) from product_vote
+	</select>
+</mapper>

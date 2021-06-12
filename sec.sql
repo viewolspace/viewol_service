@@ -295,10 +295,16 @@ alter table `viewol`.`product_idea_new`
    add column `v_logo` varchar(200) NULL COMMENT '投票使用的小图' after `hall`,
    add column `v_pic` varchar(500) NULL COMMENT '产品图片数组4个图片' after `v_logo`,
    add column `v_des` varchar(1000) NULL COMMENT '产品介绍' after `v_pic`,
-   add column `v_num` int(8) NULL COMMENT '得票数量' after `v_des`
+   add column `v_num` int(8) NULL DEFAULT '0'  COMMENT '得票数量' after `v_des`
 
 
-
+CREATE TABLE product_vote
+(
+    id                   INT AUTO_INCREMENT COMMENT '自增主键' PRIMARY KEY,
+    open_id                VARCHAR(32)   NULL COMMENT '微信open_id',
+    product_id                INT  NULL COMMENT '产品id',
+    c_time          TIMESTAMP     NULL COMMENT '创建时间'
+);
 
 
 

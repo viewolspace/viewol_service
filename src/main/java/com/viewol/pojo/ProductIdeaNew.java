@@ -47,6 +47,14 @@ public class ProductIdeaNew {
 
     private String hall;
 
+    private String vLogo;
+
+    private String vPic;
+
+    private String vDes;
+
+    private int  vNum;
+
 
     public int getProductId() {
         return productId;
@@ -278,5 +286,37 @@ public class ProductIdeaNew {
 
     public void setHall(String hall) {
         this.hall = hall;
+    }
+
+    public String getvLogo() {
+        return vLogo;
+    }
+
+    public void setvLogo(String vLogo) {
+        this.vLogo = vLogo;
+    }
+
+    public String getvPic() {
+        return vPic;
+    }
+
+    public void setvPic(String vPic) {
+        this.vPic = vPic;
+    }
+
+    public String getvDes() {
+        return vDes;
+    }
+
+    public void setvDes(String vDes) {
+        this.vDes = vDes;
+    }
+
+    public int getvNum() {
+        return vNum;
+    }
+
+    public void setvNum(int vNum) {
+        this.vNum = vNum;
     }
 }

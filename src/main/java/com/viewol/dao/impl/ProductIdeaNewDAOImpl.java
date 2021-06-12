@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,6 +52,13 @@ public class ProductIdeaNewDAOImpl extends BaseDAO<ProductIdeaNew> implements IP
     }
 
     @Override
+    public int updateNum(int productId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("productId",productId);
+        return super.updateBy("updateNum",map);
+    }
+
+    @Override
     public PageHolder<ProductIdeaNew> queryProductIdea(ProductIdeaNewQuery query) {
         return super.pagedQuery("findByParams",query.map(),query.getPageIndex(),query.getPageSize());
     }
@@ -58,5 +66,29 @@ public class ProductIdeaNewDAOImpl extends BaseDAO<ProductIdeaNew> implements IP
     @Override
     public int countByCompanyId(int companyId) {
         return super.count("countByCompanyId11", companyId);
+    }
+
+
+    @Override
+    public List<ProductIdeaNew> list(String cid, String productName,int productId, int pageIndex, int pageSize) {
+        Map<String,Object> map = new HashMap<>();
+        if(cid!=null && !"".equals(cid)){
+            map.put("categoryId",cid);
+        }
+        if(productName!=null && !"".equals(productName)){
+            map.put("productName",productName);
+        }
+        if(productId > 0 ){
+            map.put("productId",productId);
+        }
+        map.put("start",(pageIndex-1)*pageSize);
+        map.put("end",pageSize);
+        return super.findBy("list",map);
+    }
+
+
+    @Override
+    public int allcount() {
+        return super.count("allcount",null);
     }
 }

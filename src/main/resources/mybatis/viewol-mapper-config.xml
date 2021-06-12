@@ -46,6 +46,7 @@
         <typeAlias alias="AdMedia" type="com.viewol.pojo.AdMedia"/>
         <typeAlias alias="TechReport" type="com.viewol.pojo.TechReport"/>
         <typeAlias alias="Performance" type="com.viewol.pojo.Performance"/>
+        <typeAlias alias="ProductVote" type="com.viewol.pojo.ProductVote"/>
     </typeAliases>
 
     <plugins>
@@ -84,6 +85,7 @@
         <mapper resource="mybatis/ad_medio_sqlmap.xml"/>
         <mapper resource="mybatis/tech_report_sqlmap.xml"/>
         <mapper resource="mybatis/performance_sqlmap.xml"/>
+        <mapper resource="mybatis/product_vote_sqlmap.xml"/>
     </mappers>
 
 </configuration>
