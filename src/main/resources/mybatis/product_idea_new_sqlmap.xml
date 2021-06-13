@@ -187,8 +187,10 @@
 			pro_ask=#{proAsk},
 			pro_view = #{proView},
 			pro_event = #{proEvent},
-			video = #{video}
-
+			video = #{video},
+			v_logo = #{vLogo},
+			v_pic = #{vPic},
+			v_des = #{vDes}
 			WHERE
 			product_id = #{productId}
 
