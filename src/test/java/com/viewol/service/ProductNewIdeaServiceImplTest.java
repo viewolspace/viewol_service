@@ -38,7 +38,7 @@ public class ProductNewIdeaServiceImplTest extends BaseTestClass{
 
     @Test
     public void list(){
-        System.out.println(service.list("","",1,1,10));
+        System.out.println(service.list("2","",1,1,10));
 
 //        System.out.println(service.vote("1123",1));
 //        System.out.println(service.vote("123",4));

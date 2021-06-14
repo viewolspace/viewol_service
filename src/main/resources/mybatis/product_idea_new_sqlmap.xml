@@ -73,7 +73,7 @@
 			</if>
 
 			<if test="categoryId != null and categoryId != ''">
-				and b.category_id LIKE concat(concat('%',#{categoryId}),'%')
+				and a.category_id in  (${categoryId})
 			</if>
 
 			<if test="productName != null and productName != ''">
