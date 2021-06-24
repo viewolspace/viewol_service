@@ -307,6 +307,10 @@ CREATE TABLE product_vote
 );
 
 
+ALTER TABLE `viewol`.`f_user`
+   ADD COLUMN `invitee` INT(11) NULL COMMENT '邀请者的id' AFTER `user_join`;
+
+
 
 
 

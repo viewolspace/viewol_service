@@ -7,6 +7,12 @@ import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
 import com.viewol.base.BaseTestClass;
 import org.junit.Test;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+
 public class WxServiceImplTest extends BaseTestClass {
 
     private IWxService wxService = (IWxService) getInstance("wxService");
@@ -53,7 +59,21 @@ public class WxServiceImplTest extends BaseTestClass {
     }
 
     @Test
-    public void getAccessToken() {
+    public void getAccessToken() throws Exception{
+        BufferedImage hb  = ImageIO.read(new FileInputStream("D:\\bj.png")); //原图
+
+        Graphics2D g2 = hb.createGraphics();
+
+
+        IWxService service = (IWxService)getInstance("wxService");
+
+        File file = service.createPNGPublicxaCode(3,"pages/index/page","14:123",740);
+
+        g2.drawImage(ImageIO.read(file),386,1369,null);
+
+        ImageHandler.drawString(g2,"王大锤  邀请您一起参加",389,195);
+
+        ImageIO.write(hb, "PNG", new File( "d:\\tt.png"));
     }
 
     @Test
@@ -66,4 +86,6 @@ public class WxServiceImplTest extends BaseTestClass {
 
 
     }
+
+
 }

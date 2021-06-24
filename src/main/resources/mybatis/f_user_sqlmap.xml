@@ -37,7 +37,8 @@
         UUID,
         company_id,
         head_img_url,
-        user_join
+        user_join,
+        invitee
         )
         VALUES
         (
@@ -52,7 +53,8 @@
         #{uuid},
         #{companyId},
         #{headImgUrl},
-        #{userJoin}
+        #{userJoin},
+        #{invitee}
         )
 
     </insert>
@@ -88,6 +90,10 @@
 
 	</update>
 
+
+    <select id="inviteeNum" parameterType="map" resultType="int">
+        select count(1) from product_vote where invitee=#{userId}
+    </select>
 
     <!--管理平台使用查询展商-->
     <sql id="sql_count">

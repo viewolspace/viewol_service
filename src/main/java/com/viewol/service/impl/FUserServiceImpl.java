@@ -153,4 +153,9 @@ public class FUserServiceImpl implements IFUserService {
         }
         return null;
     }
+
+    @Override
+    public int inviteeNum(int userId) {
+        return ifUserDAO.inviteeNum(userId);
+    }
 }

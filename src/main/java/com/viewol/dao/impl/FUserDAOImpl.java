@@ -56,4 +56,12 @@ public class FUserDAOImpl extends BaseDAO<FUser> implements IFUserDAO {
 
         return super.pagedQuery("findByParams",map,query.getPageIndex(),query.getPageSize());
     }
+
+    @Override
+    public int inviteeNum(int userId) {
+        Map<String,Object> map =new HashMap<>();
+        map.put("userId",userId);
+
+        return super.count("inviteeNum",map);
+    }
 }

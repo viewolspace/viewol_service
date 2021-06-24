@@ -43,4 +43,6 @@ public interface IFUserService {
     //根据openid查询
     FUser getUserByOpenId(String openId,int type);
 
+    int inviteeNum(int userId);
+
 }

@@ -18,4 +18,6 @@ public interface IFUserDAO {
     FUser getUserByUuid(String uuid);
 
     PageHolder<FUser> querFUser(FUserQuery query);
+
+    int inviteeNum(int userId);
 }

@@ -21,6 +21,8 @@ public class FUser {
 
     private int userJoin;
 
+    private int invitee;
+
     public int getUserId() {
         return userId;
     }
@@ -123,6 +125,14 @@ public class FUser {
 
     public void setUserJoin(int userJoin) {
         this.userJoin = userJoin;
+    }
+
+    public int getInvitee() {
+        return invitee;
+    }
+
+    public void setInvitee(int invitee) {
+        this.invitee = invitee;
     }
 
     @Override

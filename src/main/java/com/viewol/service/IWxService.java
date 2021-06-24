@@ -130,6 +130,24 @@ public interface IWxService {
      */
     File createProgramWxaCode(int maNum,int width, String page);
 
+
+    /**
+     * 生成小程序的二维码 透明底色
+     * @param width
+     * @param page
+     * @return
+     */
+    File createPNGProgramWxaCode(int maNum,int width, String page);
+
+
+    /**
+     * 生成小程序的二维码 透明底色
+     * @param width
+     * @param page
+     * @return
+     */
+    File createPNGPublicxaCode(int maNum,String page , String scene , int width);
+
     /**
      * <pre>
      * 创建调用jsapi时所需要的签名
@@ -138,4 +156,15 @@ public interface IWxService {
      * </pre>
      */
     WxJsapiSignature createJsapiSignature(String url);
+
+    /**
+     * 生成海报
+     * @param maNum
+     * @param page
+     * @param scene
+     * @param width
+     * @param str
+     * @return
+     */
+    String genPlaybill(int maNum,String page , String scene , int width,String str);
 }
