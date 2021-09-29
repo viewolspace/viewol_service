@@ -136,17 +136,40 @@
 
 	<update id="updateByUserNum" parameterType="Company">
 		UPDATE viewol.company
-		SET
-			name = #{name},
-			short_name = #{shortName},
-			logo = #{logo},
-			place = #{place},
-			place_svg = #{placeSvg},
-			content = #{content},
-			m_time = #{mTime},
-			seq = #{seq}
-		WHERE
-			user_num = #{userNum}
+		<set>
+			<if test="name != null  and name != ''">
+				name = #{name},
+			</if>
+
+			<if test="shortName != null  and shortName != ''">
+				short_name = #{shortName},
+			</if>
+
+			<if test="logo != null  and logo != ''">
+				logo = #{logo},
+			</if>
+
+			<if test="place != null  and place != ''">
+				place = #{place},
+			</if>
+
+			<if test="placeSvg != null  and placeSvg != ''">
+				place_svg = #{placeSvg},
+			</if>
+
+			<if test="content != null  and content != ''">
+				content = #{content},
+			</if>
+
+			<if test="mTime != null  and mTime != ''">
+				m_time = #{mTime},
+			</if>
+
+			<if test="seq != null">
+				seq = #{seq},
+			</if>
+		</set>
+		WHERE user_num = #{userNum}
 	</update>
 
 	<update id="updateShow" parameterType="Company">
