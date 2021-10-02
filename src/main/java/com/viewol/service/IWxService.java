@@ -15,6 +15,8 @@ import java.io.File;
  */
 public interface IWxService {
 
+    String getAccessToken();
+
     /**
      * 小程序获取登录后的session信息
      * @paran maNum 1 观展通  2 观展讯
@@ -159,12 +161,7 @@ public interface IWxService {
 
     /**
      * 生成海报
-     * @param maNum
-     * @param page
-     * @param scene
-     * @param width
-     * @param str
-     * @return
+
      */
-    String genPlaybill(int maNum,String page , String scene , int width,String str);
+    String genPlaybill(int userId,String userNickName,String headPic)  throws Exception;
 }

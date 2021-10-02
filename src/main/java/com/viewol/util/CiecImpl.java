@@ -24,12 +24,12 @@ public class CiecImpl {
         try {
             String jsoncommond ="{"
                     +"\"request\":{"
-                    +" \"aPPID\":\"xiaof\","
-                    +" \"aPPKEY\":\"xiaof1w2E#R$\","
+                    +" \"aPPID\":\"FIRE\","
+                    +" \"aPPKEY\":\"FIREq1w2E#R$\","
                     +" \"command\":\"rslistvinfozz\","
                     +" \"openID\":\""+mobile+"\","
                     + "\"source\":\"WEB\","
-                    +" \"projno\":\"91819\""
+                    +" \"projno\":\"92072\""
                     +" }," +"\"data\":{"
                     +" \"SPECT_MOBILE\":\""+mobile+"\""
                     +" } }";

@@ -4,7 +4,9 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import cn.binarywang.wx.miniapp.util.crypt.WxMaCryptUtils;
 import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
+import com.alibaba.fastjson.JSONObject;
 import com.viewol.base.BaseTestClass;
+import com.viewol.util.CiecImpl;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
@@ -60,6 +62,15 @@ public class WxServiceImplTest extends BaseTestClass {
 
     @Test
     public void getAccessToken() throws Exception{
+
+//        System.out.println(wxService.getAccessToken());
+//        WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxService.getAccessToken("HoagFKDcsGMVCIY2vOjf9hd0sNNUMLBR2gaHuMN-fL8ficJUIm9Q5bYjuoKiDqjDcdeA84CpEMzIo4FG9fKsRA");
+//
+//
+//
+//        System.out.println(wxService.getUserInfo(wxMpOAuth2AccessToken.getAccessToken(),"odb5R1kUmeQtRyDFvNxSxvlpHamM"));
+
+
         BufferedImage hb  = ImageIO.read(new FileInputStream("D:\\bj.png")); //原图
 
         Graphics2D g2 = hb.createGraphics();
@@ -67,20 +78,33 @@ public class WxServiceImplTest extends BaseTestClass {
 
         IWxService service = (IWxService)getInstance("wxService");
 
-        File file = service.createPNGPublicxaCode(3,"pages/index/page","14:123",740);
+        File file = service.createPNGPublicxaCode(3,"pages/index/page","14:123",485);
 
-        g2.drawImage(ImageIO.read(file),386,1369,null);
+        g2.drawImage(ImageIO.read(file),492,1723,null);
 
-        ImageHandler.drawString(g2,"王大锤  邀请您一起参加",389,195);
+        //画头像
+        BufferedImage bi  = ImageHandler.headImage("https://www.view-ol.com/11.png",134,134);
+
+        g2.drawImage(bi,183,250,null);
+
+        ImageHandler.drawString(g2,"王大锤  邀请您一起参加",462,335);
+
+
 
         ImageIO.write(hb, "PNG", new File( "d:\\tt.png"));
     }
 
     @Test
     public void createCompanyWxaCode() throws Exception{
+        CiecImpl zi = new CiecImpl();
+        JSONObject jsonObject = zi.getUserFromNobile("13810436365");
+        System.out.println(jsonObject.toJSONString());
+//        File file = wxService.createPNGPublicxaCode(3,"pages/index/page","13:123",485);
+//        System.out.println(file.getPath());
+
 //        wxService.createCompanyWxaCode(3,11, 2515, 4, "pages/index/page", 100);
 //        for (int i=112;i<=126;i++){
-            wxService.createPublicxaCode(3,"pages/index/page","13:",100);
+//            wxService.createPublicxaCode(3,"pages/index/page","13:",100);
 //        }
 
 

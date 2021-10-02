@@ -12,6 +12,7 @@ import com.viewol.pojo.WxToken;
 import com.viewol.service.IFUserService;
 import com.viewol.service.IScheduleService;
 import com.viewol.service.IWxService;
+import com.viewol.service.ImageHandler;
 import com.youguu.core.logging.Log;
 import com.youguu.core.logging.LogFactory;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
@@ -26,6 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.SimpleDateFormat;
 
@@ -64,6 +68,17 @@ public class WxServiceImpl implements IWxService, InitializingBean {
         return wxMaService;
     }
 
+
+    @Override
+    public String getAccessToken() {
+        try{
+            return wxMpService.getAccessToken(false);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
+    }
 
     @Override
     public WxMaJscode2SessionResult getSessionInfo(int maNum,String jscode) {
@@ -256,7 +271,7 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             if(width<=0){
                 width = 430;
             }
-            return getWxMpService(maNum).getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, false);
+            return getWxMpService(maNum).getQrcodeService().createWxaCodeUnlimit(scene.toString(), page, width, true, null, true);
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
@@ -322,6 +337,37 @@ public class WxServiceImpl implements IWxService, InitializingBean {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public String genPlaybill(int userId,String userNickName,String headPic) throws Exception{
+
+        BufferedImage hb  = ImageIO.read(Thread.currentThread().getContextClassLoader().getResourceAsStream("properties/bj.png")); //原图
+
+        Graphics2D g2 = hb.createGraphics();
+
+
+        File file = this.createPNGPublicxaCode(3,"pages/index/page","14:"+userId,485);
+
+        g2.drawImage(ImageIO.read(file),492,1723,null);
+
+        if(headPic!=null && !"".equals(headPic)){
+            //画头像
+            BufferedImage bi  = ImageHandler.headImage(headPic,134,134);
+
+            g2.drawImage(bi,183,250,null);
+        }
+
+
+
+        ImageHandler.drawString(g2,userNickName + "  邀请您一起参加",462,335);
+
+        ImageIO.write(hb, "PNG", new File( "/opt/nginx/html/pic/" + userId + ".png"));
+
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        ImageIO.write(hb, "png", stream);
+
+        return "https://www.view-ol.com/pic/" + userId + ".png";
     }
 
     @Override

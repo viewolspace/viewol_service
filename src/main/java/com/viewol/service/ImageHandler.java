@@ -50,7 +50,7 @@ public class ImageHandler {
     //377 561
     public static void drawString(Graphics2D gs,String name,int x,int y){
 
-        Font f = new Font("思源黑",Font.BOLD,36);
+        Font f = new Font("思源黑",Font.BOLD,70);
         Color mycolor = new Color(254, 226, 192);//new Color(0, 0, 255);
         gs.setColor(Color.WHITE);
         gs.setFont(f);
@@ -104,7 +104,7 @@ public class ImageHandler {
     }
 
     public static BufferedImage getBufferedImage(String filePath) throws Exception{
-        if(filePath!=null && filePath.startsWith("http")){
+        if(filePath!=null && (filePath.startsWith("http")|| filePath.startsWith("https"))){
             return getRemoteBufferedImage(filePath);
         }else{
             return ImageIO.read(new File(filePath));
