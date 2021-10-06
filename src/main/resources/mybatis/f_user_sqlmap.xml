@@ -92,7 +92,7 @@
 
 
     <select id="inviteeNum" parameterType="map" resultType="int">
-        select count(1) from product_vote where invitee=#{userId}
+        select count(1) from f_user where invitee=#{userId}
     </select>
 
     <!--管理平台使用查询展商-->

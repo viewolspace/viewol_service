@@ -5,7 +5,134 @@
  * @author lenovo, @date 18-6-27 下午1:35
  */
 public class Library {
-    public boolean someLibraryMethod() {
-        return true;
+    //int[][] a= {{1,-1,3,2},{2,-1,4,-1},{-2,2,-3,-1}};
+    int[][] a = {{-1,-1,-3,-2,-7},{-2,-1,-4,-1,-2}};
+    //向下 1  向上 2 向右 3
+    int[][] b = new int[2][5];
+
+    int[][] c = new int[2][5];
+
+    private int max = -9999999;
+
+    private void pointMax(int x,int y){
+
+
+        int maxTop = -9999999;
+        for(int i=0;i<=x;i++){
+            int top = 0;
+            for(int j=i;j<=x;j++){
+                top = top + a[j][y];
+            }
+            top = b[i][y-1] + top;
+            if(maxTop<top){
+                maxTop = top;
+            }
+        }
+
+        int maxBelow = -9999999;
+
+
+        for(int i=a.length-1;i>=x;i--){
+            int below = 0;
+            for(int j=i;j>=x;j--){
+                below = below + a[j][y];
+            }
+            below = b[i][y-1] + below;
+            if(maxBelow<below){
+                maxBelow = below;
+            }
+        }
+
+        b[x][y] = maxBelow>maxTop?maxBelow:maxTop;
+
+
+
     }
+
+
+    private void next(){
+        //计算第一列
+
+        b[0][0] = a[0][0];
+
+        for(int i=1;i<a.length;i++){
+            b[i][0] = b[i-1][0] + a[i][0];
+        }
+
+
+        for(int m=1;m<a[0].length;m++){
+
+            //top
+            b[0][m] = a[0][m] + b[0][m-1];
+            for(int n=1;n<a.length;n++){
+                b[n][m] = Math.max(b[n-1][m] + a[n][m],a[n][m] + a[n-1][m]);
+            }
+
+            //button
+            c[a.length-1][m] = a[a.length-1][m] + b[a.length-1][m-1];
+            for(int n=a.length-2;n>=0;n--){
+                c[n][m] = Math.max(b[n+1][m] + a[n][m],a[n][m] + a[n+1][m]);
+            }
+
+        }
+
+//        //其他列
+//        for(int i=1;i<a[0].length;i++){
+//            for(int j=0;j<a.length;j++){
+//                System.out.println(j + " " + i);
+//                pointMax(j,i);
+//            }
+//        }
+
+    }
+
+
+//    private void next(int now,int x ,int y,int from){
+//
+//        now = now + a[x][y];
+//
+////        if(now >=  b[x][y] && from==3){
+////            b[x][y] = now;
+////            System.out.println("x：" + x + "  y:"+y + "  b[x,y]:" + b[x][y]);
+////        }else{
+////            return;
+////        }
+//
+//
+//
+//
+//        if(x==a.length-1 && y==a[0].length-1){
+//            if(now > max){
+//                max = now;
+//            }
+//            return;
+//        }
+//        //可以下一步
+//        if(from != 2 && x < a.length-1){//可以有向下的分支
+//            next(now,x+1,y,1);
+//        }
+//
+//        if(from != 1 && x > 0){ //可以有向上
+//            next(now,x-1,y,2);
+//        }
+//
+//        //判断是否可以向右
+//        if(y<a[0].length-1){//可以向右
+//            next(now,x,y+1,3);
+//        }
+//
+//    }
+
+    public static void main(String[] args) {
+        Library library = new Library();
+        library.next();
+        for(int i=0;i<library.b.length;i++){
+            for (int j=0;j<library.b[i].length;j++){
+                System.out.print(library.b[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+
+
 }
