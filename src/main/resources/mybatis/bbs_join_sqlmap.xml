@@ -64,6 +64,11 @@
         from viewol.bss_join a where phone = #{phone} and bbs_id = #{bbsId}
     </select>
 
+    <select id="listBbsJoin" parameterType="map" resultType="BbsJoin">
+        <include refid="selectCommon"/>
+        from viewol.bss_join a where  bbs_id = #{bbsId}
+    </select>
+
 
     <update id="updateStatus" parameterType="map">
 

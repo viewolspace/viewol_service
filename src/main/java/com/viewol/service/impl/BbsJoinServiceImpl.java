@@ -6,6 +6,7 @@ import com.viewol.service.IBbsJoinService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by lenovo on 2019/10/9.
@@ -39,5 +40,10 @@ public class BbsJoinServiceImpl implements IBbsJoinService{
         }
 
         return bbsJoinDAO.signIn(bbsJoin.getId(),1);
+    }
+
+    @Override
+    public List<BbsJoin> listBbsJoin(int bbsId) {
+        return bbsJoinDAO.listBbsJoin(bbsId);
     }
 }

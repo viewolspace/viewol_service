@@ -6,6 +6,7 @@ import com.viewol.pojo.BbsJoin;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,5 +43,12 @@ public class BbsJoinDAOImpl extends BaseDAO<BbsJoin> implements IBbsJoinDAO{
         map.put("id",id);
         map.put("status",status);
         return super.updateBy("updateStatus",map);
+    }
+
+    @Override
+    public List<BbsJoin> listBbsJoin(int bbsId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("bbsId",bbsId);
+        return super.findBy("listBbsJoin",map);
     }
 }
