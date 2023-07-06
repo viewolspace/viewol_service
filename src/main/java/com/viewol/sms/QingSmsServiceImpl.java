@@ -151,9 +151,61 @@ public class QingSmsServiceImpl implements ISmsService {
     }
 
 
+    @Override
+    public int sendPwd(String phone, String account, String pwd) {
+        String host = "https://feginesms.market.alicloudapi.com/codeNotice";
+        String path = "/codeNotice";
+        String method = "GET";
+        String appcode = "b1569a310a8c42afb4a62fc71f8341e9";
+        Map<String, String> headers = new HashMap<String, String>();
+        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+        headers.put("Authorization", "APPCODE " + appcode);
+        Map<String, String> querys = new HashMap<String, String>();
+        querys.put("param", account+ "|" + pwd);
+        querys.put("phone", phone);
+        querys.put("sign", "51806");
+        querys.put("skin", "901067");
+        //JDK 1.8示例代码请在这里下载：  http://code.fegine.com/Tools.zip
 
+        try {
+            /**
+             * 重要提示如下:
+             * HttpUtils请从
+             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/src/main/java/com/aliyun/api/gateway/demo/util/HttpUtils.java
+             * 或者直接下载：
+             * http://code.fegine.com/HttpUtils.zip
+             * 下载
+             *
+             * 相应的依赖请参照
+             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
+             * 相关jar包（非pom）直接下载：
+             * http://code.fegine.com/aliyun-jar.zip
+             *Response [code=0000, msg=ok, t={"Message":"手机号码错误！","Code":"101","RequestId":"","BizId":""}]
+             * Response [code=0000, msg=ok, t={"Message":"OK","RequestId":"20764A63-8012-4DEB-8F1C-0F9BAB58D502","BizId":"576505734212865015^0","Code":"OK"}]
+             */
 
-    public int sendsms(String phone,int bbsId) {
+            Response<String> response = sendGet(host, headers, querys, "UTF-8");
+            System.out.println(response.toString());
+
+            if("0000".equals(response.getCode())){
+                JSONObject json = JSON.parseObject(response.getT()) ;
+                String code = json.getString("Code");
+                if("OK".equals(code)){
+                    return 1;
+                }else{
+                    log.error("sms_err:" + code);
+                }
+            }
+            //获取response的body
+//            System.out.println(EntityUtils.toString(response.getEntity()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    public int sendsms(String phone, int bbsId) {
         try {
             String param = "建筑火灾防控研讨会|10月16日13:00-17:20新馆W201";
             if(bbsId==2){
@@ -267,12 +319,12 @@ public class QingSmsServiceImpl implements ISmsService {
     }
 
     public static void main(String[] args) {
-//        QingSmsServiceImpl q = new QingSmsServiceImpl();
-//        q.sendRand("13810436365","1234");
+        QingSmsServiceImpl q = new QingSmsServiceImpl();
+        q.sendPwd("13810436365","上海科技游侠什么什么公司","1234");
 //        q.sendsms("13810436365",1);
-        lt1();
-        lt2();
-        lt3();
-        lt4();
+//        lt1();
+//        lt2();
+//        lt3();
+//        lt4();
     }
 }

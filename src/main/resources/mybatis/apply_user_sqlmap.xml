@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ApplyUser">
+
+    <sql id="selectCommon">
+        SELECT id,
+                company_name,
+                company_pic,
+                phone,
+                NAME,
+                STATUS,
+                c_time
+    </sql>
+
+    <sql id="selectPage">
+        SELECT id,
+                company_name,
+                company_pic,
+                phone,
+                NAME,
+                STATUS,
+                c_time
+    </sql>
+
+    <insert id="insert" parameterType="ApplyUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+
+        INSERT INTO viewol.apply_account
+        (
+        company_name,
+        company_pic,
+        phone,
+        NAME,
+        STATUS
+        )
+        VALUES
+        (
+        #{companyName},
+        #{companyPic},
+        #{phone},
+        #{name},
+        #{status}
+        );
+
+
+
+    </insert>
+
+    <select id="select" parameterType="int" resultType="ApplyUser">
+        <include refid="selectCommon"/>
+        from viewol.apply_account a where id = #{id}
+    </select>
+
+    <update id="updateStatus" parameterType="map">
+
+        UPDATE viewol.apply_account
+        SET status = #{status}
+        WHERE id = #{id}
+
+    </update>
+
+    <select id="isApply" parameterType="map" resultType="ApplyUser">
+
+        <include refid="selectCommon"/>
+
+        from viewol.apply_account
+
+        where phone = #{phone} or company_name=#{phone}
+
+    </select>
+
+
+    <sql id="sql_count">
+        select count(*)
+    </sql>
+
+    <sql id="sql_where">
+        from viewol.apply_account
+        <where>
+
+            <if test="status != null and status >= 0">
+                <![CDATA[
+					AND status = #{status}
+				]]>
+            </if>
+
+
+
+        </where>
+    </sql>
+
+    <sql id="sql_order">
+        order by id desc
+    </sql>
+
+    <select id="findByParams_count" parameterType="java.util.HashMap" resultType="int">
+        <include refid="sql_count"/>
+        <include refid="sql_where"/>
+    </select>
+    <select id="findByParams" parameterType="java.util.HashMap" resultType="ApplyUser">
+        <include refid="selectPage"/>
+        <include refid="sql_where"/>
+        <include refid="sql_order"/>
+    </select>
+
+</mapper>

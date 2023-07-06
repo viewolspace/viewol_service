@@ -311,6 +311,20 @@ ALTER TABLE `viewol`.`f_user`
    ADD COLUMN `invitee` INT(11) NULL COMMENT '邀请者的id' AFTER `user_join`;
 
 
+ # 2023-06-30
+ CREATE TABLE `apply_account` (
+ 	`id` int(8) NOT NULL AUTO_INCREMENT,
+ 	`company_name` varchar(200) CHARACTER SET utf8 NULL DEFAULT '',
+ 	`company_pic` varchar(200) NULL,
+ 	`phone` varchar(200) NULL,
+ 	`name` varchar(200) NULL,
+ 	`status` int(8) NULL COMMENT '0 待审  1审核通过  2是拒绝',
+ 	`c_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+ 	PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB
+ DEFAULT CHARACTER SET=utf8;
+
+
 
 
 

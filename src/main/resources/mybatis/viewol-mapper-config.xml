@@ -47,6 +47,7 @@
         <typeAlias alias="TechReport" type="com.viewol.pojo.TechReport"/>
         <typeAlias alias="Performance" type="com.viewol.pojo.Performance"/>
         <typeAlias alias="ProductVote" type="com.viewol.pojo.ProductVote"/>
+        <typeAlias alias="ApplyUser" type="com.viewol.pojo.ApplyUser"/>
     </typeAliases>
 
     <plugins>
@@ -86,6 +87,7 @@
         <mapper resource="mybatis/tech_report_sqlmap.xml"/>
         <mapper resource="mybatis/performance_sqlmap.xml"/>
         <mapper resource="mybatis/product_vote_sqlmap.xml"/>
+        <mapper resource="mybatis/apply_user_sqlmap.xml"/>
     </mappers>
 
 </configuration>

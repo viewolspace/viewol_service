@@ -10,4 +10,7 @@ public interface ISmsService {
      * @return
      */
     int sendRand(String phone,String rand);
+
+
+    int sendPwd(String phone,String account,String pwd);
 }
